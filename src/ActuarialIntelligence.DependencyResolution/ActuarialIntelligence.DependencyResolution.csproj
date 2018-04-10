@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5B96E712-0AD8-4449-9357-7A49800CEBFD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ActuarialIntelligence.DependencyResolution</RootNamespace>
+    <AssemblyName>ActuarialIntelligence.DependencyResolution</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DependencyResolution.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ActuarialIntelligence.Calculators\ActuarialIntelligence.Calculators.csproj">
+      <Project>{93f742f1-f00a-48d3-a4f4-9c24b59a8b3a}</Project>
+      <Name>ActuarialIntelligence.Calculators</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActuarialIntelligence.Domain\ActuarialIntelligence.Domain.csproj">
+      <Project>{4d013a73-50b5-451a-ba5e-da003fa42249}</Project>
+      <Name>ActuarialIntelligence.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActuarialIntelligence.Graphics\ActuarialIntelligence.Graphics.csproj">
+      <Project>{1c163d2a-f89d-490c-9dc7-fb64ba1f6255}</Project>
+      <Name>ActuarialIntelligence.Graphics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActuarialIntelligence.Infrastructure.Connections\ActuarialIntelligence.Infrastructure.Connections.csproj">
+      <Project>{cf530c83-a567-4bed-9963-adc33f0deee2}</Project>
+      <Name>ActuarialIntelligence.Infrastructure.Connections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActuarialIntelligence.Infrastructure.Data\ActuarialIntelligence.Infrastructure.Data.csproj">
+      <Project>{5701e063-eb92-4ac1-8929-43c95a4815c2}</Project>
+      <Name>ActuarialIntelligence.Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActuarialIntelligence.Infrastructure.Readers\ActuarialIntelligence.Infrastructure.Readers.csproj">
+      <Project>{0012c6e6-f4e2-40ee-8504-ee001c27c44a}</Project>
+      <Name>ActuarialIntelligence.Infrastructure.Readers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActuarialIntelligence.Infrastructure.Writers\ActuarialIntelligence.Infrastructure.Writers.csproj">
+      <Project>{9c5fd537-eccd-49f8-ad1a-7d3f9b81ba53}</Project>
+      <Name>ActuarialIntelligence.Infrastructure.Writers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
