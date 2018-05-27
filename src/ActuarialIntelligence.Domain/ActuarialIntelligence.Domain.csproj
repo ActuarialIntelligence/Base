@@ -40,10 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChapmanKolmogorov.cs" />
     <Compile Include="ContainerObjects\BondDetails.cs" />
     <Compile Include="ContainerObjects\ListTermCashflowSet.cs" />
+    <Compile Include="DBHazardPDF.cs" />
     <Compile Include="Financial Instrument Objects\BondHalfYearly.cs" />
     <Compile Include="Financial Instrument Objects\HalfYearlyBondYield.cs" />
+    <Compile Include="Hazard.cs" />
+    <Compile Include="KaplanMeier.cs" />
     <Compile Include="Model Containers\ModelContainer.cs" />
     <Compile Include="ContainerObjects\Nominal.cs" />
     <Compile Include="ContainerObjects\NominalCashflowSet.cs" />
@@ -70,8 +74,10 @@
     <Compile Include="Model Containers\ModelInterfaces\IModel.cs" />
     <Compile Include="Model Containers\ModelInterfaces\IModelContainer.cs" />
     <Compile Include="Model Containers\SimpleFunctionContainer.cs" />
+    <Compile Include="ObservationObjects\PairedObservation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Financial Instrument Objects\ZSpread.cs" />
+    <Compile Include="StatAIEntities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Calculator Return Objects\" />
