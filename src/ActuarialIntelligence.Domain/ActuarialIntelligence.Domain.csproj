@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculator Return Objects\HazardPdfCdfHazardTriplet.cs" />
     <Compile Include="ChapmanKolmogorov.cs" />
     <Compile Include="ContainerObjects\BondDetails.cs" />
     <Compile Include="ContainerObjects\ListTermCashflowSet.cs" />
@@ -84,7 +85,6 @@
     <Compile Include="Time\TimeIncrement.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Calculator Return Objects\" />
     <Folder Include="Reader Domain Objects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
