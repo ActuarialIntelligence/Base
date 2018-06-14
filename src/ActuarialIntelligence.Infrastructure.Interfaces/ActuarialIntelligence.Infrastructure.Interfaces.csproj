@@ -45,10 +45,9 @@
     <Compile Include="Connections Interfaces\IQueryDataConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Readers Interfaces\IDataReader.cs" />
+    <Compile Include="Writers Interfaces\IDataWriter.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Writers Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ActuarialIntelligence.Domain\ActuarialIntelligence.Domain.csproj">
       <Project>{4D013A73-50B5-451A-BA5E-DA003FA42249}</Project>
