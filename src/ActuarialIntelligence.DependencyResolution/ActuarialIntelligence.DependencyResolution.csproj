@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AnalysisServices.AdomdClient, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unofficial.Microsoft.AnalysisServices.AdomdClient.13.0.4001\lib\net40\Microsoft.AnalysisServices.AdomdClient.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -63,6 +67,10 @@
     <ProjectReference Include="..\ActuarialIntelligence.Infrastructure.Data\ActuarialIntelligence.Infrastructure.Data.csproj">
       <Project>{5701e063-eb92-4ac1-8929-43c95a4815c2}</Project>
       <Name>ActuarialIntelligence.Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActuarialIntelligence.Infrastructure.Interfaces\ActuarialIntelligence.Infrastructure.Interfaces.csproj">
+      <Project>{06C9BD66-FB54-4093-8340-43FC1F4394E4}</Project>
+      <Name>ActuarialIntelligence.Infrastructure.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\ActuarialIntelligence.Infrastructure.Readers\ActuarialIntelligence.Infrastructure.Readers.csproj">
       <Project>{0012c6e6-f4e2-40ee-8504-ee001c27c44a}</Project>

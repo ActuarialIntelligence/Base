@@ -43,7 +43,10 @@
     <Compile Include="ChapmanKolmogorov.cs" />
     <Compile Include="ContainerObjects\BondDetails.cs" />
     <Compile Include="ContainerObjects\ListTermCashflowSet.cs" />
+    <Compile Include="Date\DateIncrement.cs" />
     <Compile Include="DBHazardPDF.cs" />
+    <Compile Include="Enums\DateIncrementTypes.cs" />
+    <Compile Include="Enums\TimeIncrementTypes.cs" />
     <Compile Include="Financial Instrument Objects\BondHalfYearly.cs" />
     <Compile Include="Financial Instrument Objects\HalfYearlyBondYield.cs" />
     <Compile Include="Hazard.cs" />
@@ -78,6 +81,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Financial Instrument Objects\ZSpread.cs" />
     <Compile Include="StatAIEntities.cs" />
+    <Compile Include="Time\TimeIncrement.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Calculator Return Objects\" />
