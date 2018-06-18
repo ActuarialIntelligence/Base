@@ -17,7 +17,13 @@
     /// order to fulfill the objective?  
     ///  
     /// Use some type of reflection; height in objective can be matched with height in object for 
-    /// comparison 
+    /// comparison. All properties can be matched in this manner.
+    /// 
+    /// 
+    /// At a future date; have a separate module that will update object properties within the class
+    /// itself (Such as object elasticity) when the module finds this property; i.e.
+    /// it should enter it into the class as a variable with property name 'elasticity'
+    /// automatically without human intervention
     /// </summary>
     public class NeuralProcessor
     {
