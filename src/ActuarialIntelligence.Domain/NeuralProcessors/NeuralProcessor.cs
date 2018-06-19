@@ -30,7 +30,8 @@
     /// for the condition: e.g. 'Sum(ObjectHeights) = Objective.MinRequiredHeightWithinErrorMargin'
     /// That is .. let it choose the least square of the sum, and/or the least square of each 
     /// objective aggregation {sum,upper,  lower, e^{property},..whatever}.
-    /// 
+    /// In essence; we are storing Sum(a) , Sum(b) etc and interpolating through this with linear 
+    /// regressiong least fit.
     /// Let these aggregation calls sit in another object layer.
     /// 
     /// </summary>
