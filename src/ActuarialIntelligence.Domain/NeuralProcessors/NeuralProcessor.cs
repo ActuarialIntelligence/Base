@@ -24,6 +24,15 @@
     /// itself (Such as object elasticity) when the module finds this property; i.e.
     /// it should enter it into the class as a variable with property name 'elasticity'
     /// automatically without human intervention
+    /// 
+    /// The processor will take for instance the least squares path toward selecting 
+    /// object numerical properties; with the inclusion in the least squares estimation
+    /// for the condition: e.g. 'Sum(ObjectHeights) = Objective.MinRequiredHeightWithinErrorMargin'
+    /// That is .. let it choose the least square of the sum, and/or the least square of each 
+    /// objective aggregation {sum,upper,  lower, e^{property},..whatever}.
+    /// 
+    /// Let these aggregation calls sit in another object layer.
+    /// 
     /// </summary>
     public class NeuralProcessor
     {
