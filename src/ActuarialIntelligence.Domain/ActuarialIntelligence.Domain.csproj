@@ -78,6 +78,8 @@
     <Compile Include="Model Containers\ModelInterfaces\IModel.cs" />
     <Compile Include="Model Containers\ModelInterfaces\IModelContainer.cs" />
     <Compile Include="Model Containers\SimpleFunctionContainer.cs" />
+    <Compile Include="NeuralLearners\NeuralLearner.cs" />
+    <Compile Include="NeuralMemmories\NeuralMemmory.cs" />
     <Compile Include="NeuralProcessors\NeuralProcessor.cs" />
     <Compile Include="NeuronParametrix\NeuralObject.cs" />
     <Compile Include="NeuronParametrix\NeuralObjectList.cs" />
