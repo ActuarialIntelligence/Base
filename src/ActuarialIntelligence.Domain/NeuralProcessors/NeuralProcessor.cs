@@ -49,6 +49,14 @@ namespace ActuarialIntelligence.Domain.NeuralProcessor
         // What we want is to have object properties dynamically assigned along with 
         // their constraints, and a means to effectively translate these constraints
         // mathematically somehow. Funcs and Delegates....
+        // All objects must encapsulate their own properties and the effects can be tested
+        // via delegates that point to implementations within Physics Engine Object.
+        // For instance Push() will point to the effect of pushing an object with mass,Gravity properties
+        // as dictated by the result of such a thing within the Physics Engine Object.
+        // For simplicity Push() can always return a distance of say 1m per push() call.
+        // Therefore Push and result can be stored and if there is no constraint on how many times any one
+        // method can be called such as Puch() in this instance... No constraint will imply => method
+        // can be called as many times as necessary.
         public static void Process()
         {
             var getAllObjectives = Objective.objective.Split('|');
