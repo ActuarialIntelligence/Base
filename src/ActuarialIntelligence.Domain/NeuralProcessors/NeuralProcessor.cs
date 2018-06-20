@@ -1,4 +1,6 @@
-﻿namespace ActuarialIntelligence.Domain.NeuralProcessor
+﻿using ActuarialIntelligence.Domain.NeuronParametrix;
+
+namespace ActuarialIntelligence.Domain.NeuralProcessor
 {
     /// <summary>
     /// Keep physical properties of objects as physically realisitc
@@ -37,6 +39,14 @@
     /// </summary>
     public static class NeuralProcessor
     {
-        //Resolve Objective
+        // Resolve Objective
+        // in this isolated case; the objective is height 
+        // 'How much' of each objects height do we choose to resolve the objective? 
+        public static void Process()
+        {
+            var getAllObjectives = Objective.objective.Split('|');
+            // Per objective ; Lagrange minimize through all neuralLearnedStorageObjectValues
+            // to obtain the solution with fixed objectives as an equation constraint.
+        }
     }
 }

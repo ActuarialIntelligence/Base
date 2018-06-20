@@ -12,36 +12,50 @@ namespace ActuarialIntelligence.Domain.NeuralLearners
     /// these are to be called via delegate and to be used by the processor.
     /// This will interact with the storage environment objects to store data 
     /// to be used for processing.
+    /// 
+    /// I donot want this object to be externally dependant 
     /// </summary>
     public static class NeuralLearner
     {
         public static double SumHeight(IList<IObject> objects)
         {
-            var height = 0d;
+            var sumHeight = 0d;
             foreach(var obj in objects)
             {
-                height += obj.Height;
+                sumHeight += obj.Height;
             }
-            return height;
+            return sumHeight;
         }
 
-        public static NeuralMemmory<int,double> StoreAggregrate(Func<IList<IObject>,double> LearnedDelegate
+
+        /// Returns Memmory object
+        public static NeuralMemmory<int, StorageType> StoreAggregrate<StorageType>
+            (Func<IList<IObject>, StorageType> LearnedDelegate
             , IList<IObject> objects)
         {
-            return new NeuralMemmory<int, double>(new Point<int, double>(1,LearnedDelegate(objects))); 
+            return new NeuralMemmory<int, StorageType>(
+                new Point<int, StorageType>(1,LearnedDelegate(objects))); 
         }
 
-        public static NeuralMemmory<int,IList<double>> StoreAll(IList<IObject> objects
+        /// Returns Memmory object
+        public static NeuralMemmory<int,IList<StoreType>> StoreAll<StoreType>(IList<IObject> objects
             , string WhatToStore)
         {
-            var list = new List<double>();
+            var list = new List<StoreType>();
             foreach (var obj in objects)
             {
-                list.Add(obj.Height);
+                var result = (StoreType)GetObjectPropertyValue(obj, WhatToStore);
+                list.Add(result);
             }
-            var point = new Point<int, IList<double>>(1, list);
-            var nm = new NeuralMemmory<int, IList<double>>(point);
+            var point = new Point<int, IList<StoreType>>(1, list);
+            var nm = new NeuralMemmory<int, IList<StoreType>>(point);
             return nm;
+        }
+
+        private static object GetObjectPropertyValue(object src, string propName)
+        {
+            var result = src.GetType().GetProperty(propName).GetValue(src, null);
+            return result;
         }
 
         private static void SetPropertyValues<U>(string propertyName,

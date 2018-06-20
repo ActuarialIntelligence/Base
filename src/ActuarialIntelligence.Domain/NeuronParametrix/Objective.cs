@@ -6,10 +6,10 @@
     /// (The above is why: If one truly knows 
     /// the question; the answer is self evident)
     /// </summary>
-    public class Objective
+    public static class Objective
     {
-        public string objective { get { return "Height"; } }
-        public double Height { get{ return 100; } }
-        public double MarginOfAllowledError { get { return 10; } }
+        public static string objective { get { return "Height"; } }
+        public static double Height { get{ return 100; } }
+        public static double MarginOfAllowledError { get { return 10; } }
     }
 }
