@@ -48,7 +48,7 @@ namespace ActuarialIntelligence.Domain.NeuralProcessor
         // and constraints and see if the objective can be met.
         // What we want is to have object properties dynamically assigned along with 
         // their constraints, and a means to effectively translate these constraints
-        // mathematically somehow.
+        // mathematically somehow. Funcs and Delegates....
         public static void Process()
         {
             var getAllObjectives = Objective.objective.Split('|');
