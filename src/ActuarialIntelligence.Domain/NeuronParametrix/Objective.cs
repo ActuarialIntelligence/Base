@@ -8,5 +8,8 @@
     /// </summary>
     public class Objective
     {
+        public string objective { get { return "Height"; } }
+        public double Height { get{ return 100; } }
+        public double MarginOfAllowledError { get { return 10; } }
     }
 }

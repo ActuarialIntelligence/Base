@@ -35,8 +35,8 @@
     /// Let these aggregation calls sit in another object layer.
     /// 
     /// </summary>
-    public class NeuralProcessor
+    public static class NeuralProcessor
     {
-
+        //Resolve Objective
     }
 }

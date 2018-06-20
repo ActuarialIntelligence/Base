@@ -81,6 +81,7 @@
     <Compile Include="NeuralLearners\NeuralLearner.cs" />
     <Compile Include="NeuralMemmories\NeuralMemmory.cs" />
     <Compile Include="NeuralProcessors\NeuralProcessor.cs" />
+    <Compile Include="NeuronParametrix\Interfaces\IObject.cs" />
     <Compile Include="NeuronParametrix\NeuralObject.cs" />
     <Compile Include="NeuronParametrix\NeuralObjectList.cs" />
     <Compile Include="NeuronParametrix\Objective.cs" />
