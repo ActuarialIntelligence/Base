@@ -1,0 +1,190 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using Lf.C.Infrastructure.Data.DataConnections.MarketData;
+using Lf.C.Infrastructure.Data.Dto;
+using Lf.C.Infrastructure.Interfaces.Data;
+using Lf.C.Utilities;
+using Lf.C.Utilities.DirectoryUtils;
+using System.Text.RegularExpressions;
+using Lf.C.Infrastructure.Data.Dto.A2Contract;
+using Lf.C.Infrastructure.Data.Dto.MaitlandEventsFile;
+using FileHelpers;
+
+namespace Lf.C.Infrastructure.Data.DataConnections.Maitland
+{
+    /// <summary>
+    /// This Connection class is used specifically for the retrieval of data of Alchemy Contract Type
+    /// All private methods are in singleton scope
+    /// </summary>
+    public class AlchemyContractBaseReaderHelper : IAlchemyContractBaseReaderHelper<TableSeparatedRawDataPerFileCollectionDto>
+    {
+        private int tableIndexAtWhichTableValuesBegin;
+        private IDictionary<string, string[]> horizontalTablesFields;
+        private RawDataPerFileCollection LinesListByName;
+        private DateTime valuationDate;
+        private IList<int> beginList = new List<int>();
+        private IList<int> endList = new List<int>();
+        private List<string> fileNames;
+        private readonly FileHelperEngine<SimpleFieldValuesDto> engine;
+
+        public IDictionary<string, string[]> HorizontalTablesFields
+        { get { return this.horizontalTablesFields; } set { this.horizontalTablesFields = value; } }
+
+        public AlchemyContractBaseReaderHelper(List<string> fileNames)
+        {        
+            this.fileNames = fileNames;
+            engine = new FileHelperEngine<SimpleFieldValuesDto>();            
+            horizontalTablesFields = new Dictionary<string, string[]>();             
+        }
+
+        public TableSeparatedRawDataPerFileCollectionDto LoadData(DateTime valuationDate)
+        {
+            TableSeparatedRawDataPerFileCollectionDto rawDataCollection = new TableSeparatedRawDataPerFileCollectionDto();
+            LinesListByName = GetRawDataAsListOfStingArrayFromCsv();                       
+            this.valuationDate = valuationDate;
+
+            foreach (string s in fileNames)
+            {
+                tableIndexAtWhichTableValuesBegin = ReturnRowAtWhichTablesBeginByCheckingIfEntriesWithDataExceed5(s);
+                ReturnHorizontalTableSpacing(s, tableIndexAtWhichTableValuesBegin);
+                IList<SimpleFieldValuesDto> VerticalTable = GetDetailsTable(s, tableIndexAtWhichTableValuesBegin);
+                IList<SimpleFieldValuesDto> AllTablesButVerticalTable = GetHorizontalTables(s, tableIndexAtWhichTableValuesBegin);
+                TableSeparatedRawDataPerFileDto tableSeparatedRawData = new TableSeparatedRawDataPerFileDto(s, VerticalTable, AllTablesButVerticalTable);
+                rawDataCollection.AddTableSeparatedRawDataPerFileToList(tableSeparatedRawData);
+            }
+            return rawDataCollection;
+        }
+
+        public IList<int> ReturnHorizontalTableDimensionsAndAddHorizontalTablesFields(string file)// (Put Dimensions and Fields into domainObject) this splitpersonality in the method is not good make this singular in its purpose.
+        {
+            SimpleFieldValuesDto HtableColumns = LinesListByName.RawDataPerFileList.Single(r => r.FileName == file).RawLines[tableIndexAtWhichTableValuesBegin];
+            string[] columns = HtableColumns.DynamicColumns;
+            string allTableColumnValuesCommaSeparated = ConcatenateAndCommaSeparateArrayValues(columns);
+            string tempColumns = Regex.Replace(allTableColumnValuesCommaSeparated, ",,", "|");
+            string[] columnValuesPerTable = tempColumns.Split('|');
+            horizontalTablesFields.Add(file, columnValuesPerTable);
+            IList<int> Dimensions = new List<int>();
+
+            foreach (string g in columnValuesPerTable)
+            {
+                Dimensions.Add(g.Split(',').Count());               
+            }
+
+            return Dimensions;
+        }
+
+        private string ConcatenateAndCommaSeparateArrayValues(string[] values)
+        {
+            string allTableColumnValues = "";
+            foreach (string r in values)
+            {
+                allTableColumnValues += r+",";
+            }
+            return allTableColumnValues;
+        }
+
+        public SpacingListsDto ReturnHorizontalTableSpacing(string file, int columnAtWhichTablesBegin)
+        {
+            SpacingListsDto spacingLists;
+            IList<int> spacingBeginList = new List<int>();
+            IList<int> spacingEndList = new List<int>();
+            int begin=0;            
+            int end=0;            
+            int total=0;
+
+            SimpleFieldValuesDto HtableColumns = LinesListByName.RawDataPerFileList.Single(r => r.FileName == file).RawLines[columnAtWhichTablesBegin];
+            string[] values = HtableColumns.DynamicColumns;
+
+            foreach (string g in values)
+            {
+                if (total != 0 && total<(values.Count()-1))
+                {
+                    if (values[total] == "" && values[total-1] != "")
+                    {
+                        begin = total;
+                        spacingBeginList.Add(begin);
+                    }
+              
+                    if (values[total] != "" && values[total+1] == "")
+                    {
+                        end = total;
+                        spacingEndList.Add(end);
+                    }
+                }
+
+            total++;
+            }
+
+            spacingLists = new SpacingListsDto(spacingBeginList, spacingEndList);
+            return spacingLists;
+        }
+
+        private IList<SimpleFieldValuesDto> GetDetailsTable(string file, int columnAtWhichTablesBegin)
+        {
+            Console.WriteLine("Getting Vertical Table for file :" + file);
+            IList<SimpleFieldValuesDto> VLines = new List<SimpleFieldValuesDto>();
+            for (int i = 0; i <= (columnAtWhichTablesBegin - 1); i++)
+            {
+                LinesListByName.RawDataPerFileList.Single(r => r.FileName == file).RawLines[i] 
+                    = LinesListByName.RawDataPerFileList.Single(r => r.FileName == file).RawLines[i];
+                VLines.Add(LinesListByName.RawDataPerFileList.Single(r => r.FileName == file).RawLines[i]);
+            }
+            return VLines;
+        }
+
+        private IList<SimpleFieldValuesDto> GetHorizontalTables(string file, int columnAtWhichTablesBegin)
+        {
+            IList<SimpleFieldValuesDto> HLines = new List<SimpleFieldValuesDto>();
+            int LineCount = LinesListByName.RawDataPerFileList.Single(r => r.FileName == file).RawLines.Count();
+            for (int i = columnAtWhichTablesBegin + 1; i < LineCount; i++)
+            {
+                LinesListByName.RawDataPerFileList.Single(r => r.FileName == file).RawLines[i] 
+                    = LinesListByName.RawDataPerFileList.Single(r => r.FileName == file).RawLines[i];
+                HLines.Add(LinesListByName.RawDataPerFileList.Single(r => r.FileName == file).RawLines[i]);
+            }
+            return HLines;
+        }
+
+        private int ReturnRowAtWhichTablesBeginByCheckingIfEntriesWithDataExceed5(string file)
+        {
+            int cnt = 0;
+            int cntAssign = 0;
+
+            foreach (SimpleFieldValuesDto Dto in LinesListByName.RawDataPerFileList.Single(r => r.FileName == file).RawLines)
+            {
+                string[] gotCells = Dto.DynamicColumns;
+                IList<string> notNulls = gotCells.Where(r => r != "").ToList();
+                int Temp = notNulls.Count();
+                if (notNulls.Count() >= 5)
+                {
+                    cntAssign = cnt;
+                    break;
+                }
+                cnt++;
+            }
+            return cntAssign;
+        }
+
+
+        private RawDataPerFileCollection GetRawDataAsListOfStingArrayFromCsv()
+        {
+            RawDataPerFileCollection rawCollection = new RawDataPerFileCollection();
+            foreach (string s in fileNames)
+            {
+               var allLinesPerFile =  engine.ReadStream(
+                   new StreamReader(new FileStream(s, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)))
+                     .ToList();
+                IList<SimpleFieldValuesDto> vertical = allLinesPerFile;
+                RawDataPerFileDto rawData = new RawDataPerFileDto(vertical, s);
+                rawCollection.AddRawDataPerFileToList(rawData);               
+            }
+            return rawCollection;
+        }
+
+    }
+}
+
+

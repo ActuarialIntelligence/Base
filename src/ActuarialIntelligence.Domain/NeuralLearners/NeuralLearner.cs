@@ -3,6 +3,7 @@ using ActuarialIntelligence.Domain.NeuralMemmories;
 using ActuarialIntelligence.Domain.NeuronParametrix.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace ActuarialIntelligence.Domain.NeuralLearners
 {
@@ -30,7 +31,8 @@ namespace ActuarialIntelligence.Domain.NeuralLearners
             return new NeuralMemmory<int, double>(new Point<int, double>(1,LearnedDelegate(objects))); 
         }
 
-        public static NeuralMemmory<int,IList<double>> StoreAll(IList<IObject> objects)
+        public static NeuralMemmory<int,IList<double>> StoreAll(IList<IObject> objects
+            , string WhatToStore)
         {
             var list = new List<double>();
             foreach (var obj in objects)
@@ -40,6 +42,19 @@ namespace ActuarialIntelligence.Domain.NeuralLearners
             var point = new Point<int, IList<double>>(1, list);
             var nm = new NeuralMemmory<int, IList<double>>(point);
             return nm;
+        }
+
+        private static void SetPropertyValues<U>(string propertyName,
+            object objectInconcern, U valueToSet)
+        {
+            var prop = objectInconcern.GetType().GetProperty(propertyName
+                , BindingFlags.Public | BindingFlags.Instance);
+
+            var types = prop != null && prop.ToString() != "" ? prop.ToString().Split(' ')[0] : "";
+            var typeToParse = types.Replace("System.", "");
+
+            if (null == prop || !prop.CanWrite || types == "") return;
+            prop.SetValue(objectInconcern, valueToSet, null);
         }
     }
 }
