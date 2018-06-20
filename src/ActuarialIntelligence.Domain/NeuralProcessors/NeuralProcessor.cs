@@ -42,11 +42,17 @@ namespace ActuarialIntelligence.Domain.NeuralProcessor
         // Resolve Objective
         // in this isolated case; the objective is height 
         // 'How much' of each objects height do we choose to resolve the objective? 
+        // Per objective ; Lagrange minimize through all neuralLearnedStorageObjectValues
+        // to obtain the solution with fixed objectives as an equation constraint.
+        // The other strategy/'way of thought' is to permute through object properties
+        // and constraints and see if the objective can be met.
+        // What we want is to have object properties dynamically assigned along with 
+        // their constraints, and a means to effectively translate these constraints
+        // mathematically somehow.
         public static void Process()
         {
             var getAllObjectives = Objective.objective.Split('|');
-            // Per objective ; Lagrange minimize through all neuralLearnedStorageObjectValues
-            // to obtain the solution with fixed objectives as an equation constraint.
+
         }
     }
 }
