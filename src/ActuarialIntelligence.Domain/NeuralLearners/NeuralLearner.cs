@@ -27,6 +27,12 @@ namespace ActuarialIntelligence.Domain.NeuralLearners
             return sumHeight;
         }
 
+        public static void ExtrapolateAllObjectMethods()
+        {
+            // Extrapolate via a simple quadratic fit all MemmoryStoredValues
+            // And store the delegate Equation Pointer.
+        }
+
 
         /// Returns Memmory object
         public static NeuralMemmory<int, StorageType> StoreAggregrate<StorageType>
