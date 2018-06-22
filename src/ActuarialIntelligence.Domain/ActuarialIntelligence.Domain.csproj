@@ -89,6 +89,8 @@
     <Compile Include="PnL\AtRisk.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Financial Instrument Objects\ZSpread.cs" />
+    <Compile Include="Regression\BasicRegresssionCalcs.cs" />
+    <Compile Include="Regression\UnivariateRegressionFitting.cs" />
     <Compile Include="StatAIEntities.cs" />
     <Compile Include="Time\TimeIncrement.cs" />
   </ItemGroup>

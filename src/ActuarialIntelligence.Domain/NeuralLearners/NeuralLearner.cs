@@ -35,7 +35,7 @@ namespace ActuarialIntelligence.Domain.NeuralLearners
 
 
         /// Returns Memmory object
-        public static NeuralMemmory<int, StorageType> StoreAggregrate<StorageType>
+        public static NeuralMemmory<int, StorageType> StoreAggregate<StorageType>
             (Func<IList<IObject>, StorageType> LearnedDelegate
             , IList<IObject> objects)
         {
