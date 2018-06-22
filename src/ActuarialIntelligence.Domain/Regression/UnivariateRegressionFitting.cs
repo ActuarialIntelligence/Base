@@ -8,37 +8,27 @@ namespace ActuarialIntelligence.Domain.Regression
     /// We know that Γ(r,λ)=1Γ(r)λrxr−1e−λx if x≥0. In this case the likelihood function L is
         //∏iΓ(r,λ)xi=1Γ(r)nλnrxr−11xr−12...xr−1ne−λT
     /// </summary>
-    public class UnivariateRegressionFitting
+    public static class UnivariateRegressionFitting
     {
-        private readonly IList<decimal> pointsInternal;
         private static decimal λ = 0m, α = 0m, k = 0m;
         private static decimal mean, variance;
         private static double[] coefficients;
-        /// <summary>
-        /// These inputs need to be time specific inputs.
-        /// </summary>
-        /// <param name="pointsInternal"></param>
-        public UnivariateRegressionFitting(IList<decimal> pointsInternal)
-        {
-            this.pointsInternal = pointsInternal;
-            ExponentialDistributionFit(pointsInternal);
-            //GammaDistributionFit(pointsInternal);
-            //GetNormalFit(pointsInternal);
-        }
 
 
-        private static void ExponentialDistributionFit(IList<decimal> points)
+
+        public static Func<double,double> ExponentialDistributionFit(IList<double> points)
         {
-            var sum = 0m;
+            var sum = 0d;
             int n = points.Count();
             foreach (var d in points)
             {
                 sum += d;
             }
             λ = n / sum;
+            return ExponentialPDF;
         }
 
-        public double ExponentialPDF(double x)
+        public static double ExponentialPDF(double x)
         {
             var result = (double)λ * Math.Pow(Math.E, ((-1) * (double)λ * x));
             return result;
@@ -69,14 +59,14 @@ namespace ActuarialIntelligence.Domain.Regression
         //    return gammaDist;
         //}
 
-        private void GetNormalFit(IList<decimal> points)
+        private static void GetNormalFit(IList<decimal> points)
         {
             mean = BasicRegresssionCalcs.Mean(points);
             variance = BasicRegresssionCalcs.Variance(points);
 
         }
 
-        public double NormalDistributionValueAt(double x)
+        public static double NormalDistributionValueAt(double x)
         {
             var firstTerm = (1 / Math.Sqrt(2 * Math.PI * (double)variance));
             var secondTerm = Math.Pow(Math.E, ((-1) * Math.Pow((x - (double)mean), 2)) / (2 * (double)variance));

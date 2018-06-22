@@ -1,6 +1,7 @@
 ﻿using ActuarialIntelligence.Domain.ContainerObjects;
 using ActuarialIntelligence.Domain.NeuralMemmories;
 using ActuarialIntelligence.Domain.NeuronParametrix.Interfaces;
+using ActuarialIntelligence.Domain.Regression;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -26,13 +27,6 @@ namespace ActuarialIntelligence.Domain.NeuralLearners
             }
             return sumHeight;
         }
-
-        public static void ExtrapolateAllObjectMethods()
-        {
-            // Extrapolate via a simple quadratic fit all MemmoryStoredValues
-            // And store the delegate Equation Pointer.
-        }
-
 
         /// Returns Memmory object
         public static NeuralMemmory<int, StorageType> StoreAggregate<StorageType>
@@ -75,6 +69,39 @@ namespace ActuarialIntelligence.Domain.NeuralLearners
 
             if (null == prop || !prop.CanWrite || types == "") return;
             prop.SetValue(objectInconcern, valueToSet, null);
+        }
+    }
+    /// <summary>
+    /// These two classes are tightly coupled.
+    /// </summary>
+    public static class NeuralImagination
+    {
+        // Extrapolate via a simple quadratic fit all MemmoryStoredValues
+        // And store the delegate Equation Pointer.
+        public static Dictionary<IObject, Func<double, double>>
+            ExtrapolateAllObjectMethods(IList<IObject> objects, int testThreshold)
+        {
+            var rnd = new Random();
+            var funcPerObjectPermiationMethodDictionary =
+                    new Dictionary<IObject, Func<double, double>>();
+            foreach (var obj in objects)
+            {
+
+                var allObjectPermeabilities = obj.TestAllObjectPermeabilities();
+                foreach (var objectFunction in allObjectPermeabilities)
+                {
+                    var regressionPoints = new List<double>();
+                    for (int i = 0; i < testThreshold; i++)
+                    {
+                        double randomValue = rnd.NextDouble();
+                        regressionPoints.Add(objectFunction.Yval(randomValue));
+                    }
+                    funcPerObjectPermiationMethodDictionary.Add(obj,
+                        UnivariateRegressionFitting.
+                        ExponentialDistributionFit(regressionPoints));
+                }
+            }
+            return funcPerObjectPermiationMethodDictionary;
         }
     }
 }
