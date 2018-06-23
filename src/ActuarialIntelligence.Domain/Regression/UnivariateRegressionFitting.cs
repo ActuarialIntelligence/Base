@@ -24,7 +24,7 @@ namespace ActuarialIntelligence.Domain.Regression
             {
                 sum += d;
             }
-            λ = n / sum;
+            λ = (decimal)(n / sum);  
             return ExponentialPDF;
         }
 
