@@ -81,7 +81,7 @@ The functioning of the DDD-Style Interpolation method, ensures the functioning o
 Bond and Annuity implementations.
  
 #### Example:
-namespace ActuarialIntelligence.Tests.Numerical
+namespace ActuarialIntelligence.Tests.Numerical																								.
 {
     [TestFixture]
     [Category("Domain")]
