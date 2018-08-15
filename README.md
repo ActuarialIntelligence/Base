@@ -64,7 +64,7 @@ Visit: https://github.com/ActuarialIntelligence/Base/tree/ER2018EXE and clone th
 Once complete, go to your local repository(I.e. where the repository was cloned to) and open the ActuarialIntelligence.sln 
 file with Visual Studio.
 
-To see a simple demo of the Domain Driven Design Style Graphics Engine built with C#, set the   
+To see a simple demo of the Domain Driven Design Style Graphics Engine built with C#, set the test application as teh startup and simply run:   
 ![Screenshot](AppStarting.gif)
 
 ## Running the tests
