@@ -1,6 +1,6 @@
 # ActuarialIntelligence Framework 
-##For an Efficient Business Layer for Actuarial and AI based Reporting.
-###DEMO : Graphics Engine built up Domain Driven Design Style. 
+## For an Efficient Business Layer for Actuarial and AI based Reporting.
+### DEMO : Graphics Engine built up Domain Driven Design Style. 
 
 Having built this within an n-layered architecture clarifies and ensures separation of concerns. Simply put, it enforces 
 good design and coding principles for all extensions and changes.
@@ -159,7 +159,7 @@ Research Gate
 
 None of the code was obtained from external sources, i.e. the code was written by the author.
 
-#Disclaimer
+# Disclaimer
 
 We have provided test coverage as best as we can and as such we will not be held responsible for any and all losses or damages that may asise from the usage of this software.
 
