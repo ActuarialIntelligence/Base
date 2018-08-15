@@ -1,7 +1,8 @@
+![Screenshot](Ai.png)
 # ActuarialIntelligence Framework 
 ## For an Efficient Business Layer for Actuarial and AI based Reporting.
 ### DEMO : Graphics Engine built up Domain Driven Design Style. 
-
+...
 Having built this within an n-layered architecture clarifies and ensures separation of concerns. Simply put, it enforces 
 good design and coding principles for all extensions and changes.
 
@@ -45,19 +46,20 @@ To name just a few, the rest of which can be found within:
 We have included a sample database mainly as a guideline for mining.
 There a variety of experimental implementations that we will branch-out.
 In this present state, the solution is capable of 'evolving' based on feedback from mining-structures. 
-
+...
 	
 
 ## Getting Started
-
+...
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+...
 
 ### Prerequisites
-
+...
 .NET Version 4.6 and compatible Visual Studio.
-
+...
 ### Installing
-
+...
 Visit: https://github.com/ActuarialIntelligence/Base/ and clone the repository as follows:
 ![Screenshot](Clone.gif)
 
@@ -79,8 +81,9 @@ Threading.
 
 The functioning of the DDD-Style Interpolation method, ensures the functioning of all Black and Scholes pricing, 
 Bond and Annuity implementations.
- 
+ ...
 #### Example:
+...
 namespace ActuarialIntelligence.Tests.Numerical																								.
 {
     [TestFixture]
@@ -128,38 +131,39 @@ namespace ActuarialIntelligence.Tests.Numerical																								.
         }
     }
 }
+...
 
 ## Built With
-
+...
 Visual Studio 2017 Community Edition.
-
+...
 ## Evolution Development Sample
-
+...
 ![Screenshot](AI.gif)
-
+...
 ## Versioning
-
+...
 We use Git/GitExtensions combination for versioning.
-
+...
 ## Authors
-
+...
 Rajah Iyer, Jyothiniranjan Pillay
 https://www.researchgate.net/profile/Rajah_Iyer
 https://www.linkedin.com/in/rajah-iyer-628689168/
-
+...
 
 ## License
-
+...
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
+...
 ## Acknowledgments
-
+...
 HAL
 Research Gate
 
 None of the code was obtained from external sources, i.e. the code was written by the author.
-
+...
 # Disclaimer
-
+...
 We have provided test coverage as best as we can and as such we will not be held responsible for any and all losses or damages that may asise from the usage of this software.
-
+...
