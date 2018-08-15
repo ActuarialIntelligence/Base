@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AtRiskCalculator.cs" />
+    <Compile Include="ChapmanKolmogorovCalculator.cs" />
+    <Compile Include="HazardPDFCalculator.cs" />
+    <Compile Include="Interfaces\ICalculate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -47,13 +51,15 @@
       <Project>{4d013a73-50b5-451a-ba5e-da003fa42249}</Project>
       <Name>ActuarialIntelligence.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ActuarialIntelligence.Infrastructure.Data\ActuarialIntelligence.Infrastructure.Data.csproj">
+      <Project>{5701E063-EB92-4AC1-8929-43C95A4815C2}</Project>
+      <Name>ActuarialIntelligence.Infrastructure.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ActuarialIntelligence.Infrastructure.Interfaces\ActuarialIntelligence.Infrastructure.Interfaces.csproj">
       <Project>{06c9bd66-fb54-4093-8340-43fc1f4394e4}</Project>
       <Name>ActuarialIntelligence.Infrastructure.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

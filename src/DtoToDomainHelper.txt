@@ -1,0 +1,169 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Lf.C.Utilities;
+
+namespace Lf.C.Infrastructure.Helpers
+{
+    //public class DtoToDomainHelper2
+    //{
+    //    private IList<object> _Dto;
+    //    private IList<object> _Domain;
+
+    //    public DtoToDomainHelper2(IList<object> Dto, IList<object> Domain)
+    //    {
+    //        _Dto = Dto;
+    //        _Domain = Domain;
+    //        SetDomainValuesToDtoValues();
+    //    }
+
+    //    private void SetDomainValuesToDtoValues()
+    //    {
+    //        int Objectcounter = 0;
+    //        foreach (object o in _Dto)
+    //        {
+               
+    //            List<PropertyInfo> DtoProp = o.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
+    //            foreach (PropertyInfo pf in DtoProp)
+    //            {
+                    
+    //                PropertyInfo Domainprop = _Domain[Objectcounter].GetType().GetProperty(pf.ToString().Split(' ')[1], BindingFlags.Public | BindingFlags.Instance);
+    //                string temp = pf.ToString().Split(' ')[1];
+    //                string Types = Domainprop.ToString().Split(' ')[0];
+    //                if (Types.Split('.').Count() == 1)
+    //                {
+
+    //                }
+    //                else
+    //                {
+    //                    Types = Types.Split('.')[1];
+    //                }
+    //                object got = pf.GetValue(o,null);
+    //                if (null != Domainprop && Domainprop.CanWrite)
+    //                {
+    //                    object setGot = new object();
+    //                    if (got != null)
+    //                    {
+    //                        setGot = StringUtilities.ParseToTypeFromTypeEntry(Types, got.ToString());
+    //                        Domainprop.SetValue(_Domain[Objectcounter], setGot, null);// Each property (As obtained from the previous line) is set within the object. 
+    //                    }
+    //                }
+    //            }
+
+    //            Objectcounter++;
+    //        }
+    //    }
+    //}
+
+
+    //    public class DtoToDomainHelper<Domain> where Domain : new() //Revised
+    //{
+    //    private IList<object> _Dto;
+    //    private object _Domain;
+
+    //    public DtoToDomainHelper(IList<object> Dto)
+    //    {
+    //        _Dto = Dto;          
+    //    }
+
+    //    public IList<Domain> SetDomainValuesToDtoValues()
+    //    {
+    //        int Objectcounter = 0;
+    //        Type domainObjecttype=typeof(Domain);
+    //        Domain domain = new Domain();
+    //        IList<Domain> populatedListOfDomainObjects = new List<Domain>();      
+    //        foreach (object o in _Dto)
+    //        {
+    //            domain = (Domain)Activator.CreateInstance(domainObjecttype);
+    //            List<PropertyInfo> DtoProp = o.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
+    //            foreach (PropertyInfo pf in DtoProp)
+    //            {
+    //                Type tempType = typeof(Domain);
+    //                PropertyInfo Domainprop = tempType.GetProperty(pf.ToString().Split(' ')[1], BindingFlags.Public | BindingFlags.Instance);
+    //                string temp = pf.ToString().Split(' ')[1];
+    //                string Types = Domainprop.ToString().Split(' ')[0];
+    //                if (Types.Split('.').Count() == 1)
+    //                {
+
+    //                }
+    //                else
+    //                {
+    //                    Types = Types.Split('.')[1];
+    //                }
+
+    //                object got = pf.GetValue(o, null);
+    //                if (null != Domainprop && Domainprop.CanWrite)
+    //                {
+    //                    object setGot = new object();
+
+    //                    if (got != null)
+    //                    {
+    //                        setGot = StringUtilities.ParseToTypeFromTypeEntry(Types, got.ToString());
+    //                        Domainprop.SetValue(domain, setGot, null);
+
+    //                    }
+    //                }
+    //            }
+    //            populatedListOfDomainObjects.Add(domain);
+    //            Objectcounter++;
+    //        }
+    //        return populatedListOfDomainObjects;
+    //    }
+    //}
+
+    public class DtoToDomainHelper<Domain> where Domain : new() //Revised
+    {
+        private IList<object> _Dto;
+        private object _Domain;
+
+        public DtoToDomainHelper(IList<object> Dto)
+        {
+            _Dto = Dto;
+        }
+
+        public IList<object> SetDomainValuesToDtoValues()
+        {
+            int Objectcounter = 0;
+            Type domainObjecttype = typeof(Domain);
+            object domain = new object();
+            IList<object> populatedListOfDomainObjects = new List<object>();
+            foreach (object o in _Dto)
+            {
+                domain = Activator.CreateInstance(domainObjecttype);
+                List<PropertyInfo> DtoProp = o.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
+                foreach (PropertyInfo pf in DtoProp)
+                {
+                    Type tempType = typeof(Domain);
+                    PropertyInfo Domainprop = tempType.GetProperty(pf.ToString().Split(' ')[1], BindingFlags.Public | BindingFlags.Instance);
+                    string Types = Domainprop.ToString().Split(' ')[0];
+                    if (Types.Split('.').Count() == 1)
+                    {
+
+                    }
+                    else
+                    {
+                        Types = Types.Split('.')[1];
+                    }
+
+                    object got = pf.GetValue(o, null);
+                    if (null != Domainprop && Domainprop.CanWrite)
+                    {
+                        object setGot = new object();
+
+                        if (got != null)
+                        {
+                            setGot = StringUtilities.ParseToTypeFromTypeEntry(Types, got.ToString());
+                            Domainprop.SetValue(domain, setGot, null);
+
+                        }
+                    }
+                }
+                populatedListOfDomainObjects.Add(domain);
+                Objectcounter++;
+            }
+            return populatedListOfDomainObjects;
+        }
+    }
+
+   
+}

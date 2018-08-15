@@ -40,10 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculator Return Objects\HazardPdfCdfHazardTriplet.cs" />
+    <Compile Include="ChapmanKolmogorov.cs" />
     <Compile Include="ContainerObjects\BondDetails.cs" />
     <Compile Include="ContainerObjects\ListTermCashflowSet.cs" />
+    <Compile Include="Date\DateIncrement.cs" />
+    <Compile Include="DBHazardPDF.cs" />
+    <Compile Include="Enums\DateIncrementTypes.cs" />
+    <Compile Include="Enums\TimeIncrementTypes.cs" />
     <Compile Include="Financial Instrument Objects\BondHalfYearly.cs" />
     <Compile Include="Financial Instrument Objects\HalfYearlyBondYield.cs" />
+    <Compile Include="Hazard.cs" />
+    <Compile Include="KaplanMeier.cs" />
     <Compile Include="Model Containers\ModelContainer.cs" />
     <Compile Include="ContainerObjects\Nominal.cs" />
     <Compile Include="ContainerObjects\NominalCashflowSet.cs" />
@@ -70,12 +78,30 @@
     <Compile Include="Model Containers\ModelInterfaces\IModel.cs" />
     <Compile Include="Model Containers\ModelInterfaces\IModelContainer.cs" />
     <Compile Include="Model Containers\SimpleFunctionContainer.cs" />
+    <Compile Include="NeuralLearners\NeuralLearner.cs" />
+    <Compile Include="NeuralMemmories\NeuralMemmory.cs" />
+    <Compile Include="NeuralProcessors\NeuralProcessor.cs" />
+    <Compile Include="NeuronParametrix\Interfaces\IObject.cs" />
+    <Compile Include="NeuronParametrix\NeuralObject.cs" />
+    <Compile Include="NeuronParametrix\NeuralObjectList.cs" />
+    <Compile Include="NeuronParametrix\Objective.cs" />
+    <Compile Include="ObservationObjects\PairedObservation.cs" />
+    <Compile Include="PnL\AtRisk.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Financial Instrument Objects\ZSpread.cs" />
+    <Compile Include="Regression\BasicRegresssionCalcs.cs" />
+    <Compile Include="Regression\UnivariateRegressionFitting.cs" />
+    <Compile Include="StatAIEntities.cs" />
+    <Compile Include="Time\TimeIncrement.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Calculator Return Objects\" />
     <Folder Include="Reader Domain Objects\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ActuarialIntelligence.Infrastructure.Data\ActuarialIntelligence.Infrastructure.Data.csproj">
+      <Project>{5701E063-EB92-4AC1-8929-43C95A4815C2}</Project>
+      <Name>ActuarialIntelligence.Infrastructure.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

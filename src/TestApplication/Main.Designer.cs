@@ -40,7 +40,7 @@
             this.DisplayBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DisplayBox.BackColor = System.Drawing.Color.Black;
+            this.DisplayBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.DisplayBox.Location = new System.Drawing.Point(-1, -2);
             this.DisplayBox.Name = "DisplayBox";
             this.DisplayBox.Size = new System.Drawing.Size(1039, 557);

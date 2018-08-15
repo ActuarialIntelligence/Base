@@ -1,0 +1,159 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using Lf.C.Domain.Interfaces;
+using Lf.C.Domain.MaitlandEventsFile;
+using Lf.C.Infrastructure.Data.DataConnections.Maitland;
+using Lf.C.Infrastructure.Data.Dto.A2Contract;
+using Lf.C.Utilities;
+
+namespace Lf.C.Infrastructure.Data.Readers.MaitlandEventsFile
+{
+    /// <summary>
+    /// The Aim of a consumer here is to enter the data directly into the Dto
+    /// Without having to strongly type the code for doing this
+    /// </summary>
+    public class BaseConsumerReader : IDatedDataReader<TablesFilesCollection>
+    {
+        private readonly IAlchemyContractBaseReaderHelper<TableSeparatedRawDataPerFileCollectionDto> helper;
+        private TableSeparatedRawDataPerFileCollectionDto tables;
+        private readonly Type dto;
+        private readonly IDictionary<string, Type> hTableObjects;
+        private readonly IList<string> fileNames;
+        private readonly IDictionary<string, string[]> columns;
+
+        public BaseConsumerReader(Type dto, IDictionary<string, Type> horizontalTableObjects,
+            IAlchemyContractBaseReaderHelper<TableSeparatedRawDataPerFileCollectionDto> readerHelper,
+            IList<string> fileNames)
+        {
+            this.dto = dto;
+            this.helper = readerHelper;           
+            this.hTableObjects = horizontalTableObjects;
+            this.columns = readerHelper.HorizontalTablesFields;
+            this.fileNames = fileNames;
+
+        }
+
+        public TablesFilesCollection GetData(DateTime valuationDate)
+        {
+            var completeResult = new TablesFilesCollection();
+            this.tables = this.helper.LoadData(valuationDate);
+            foreach (var s in this.fileNames)
+            {
+                var dimensions = this.helper.ReturnHorizontalTableDimensionsAndAddHorizontalTablesFields(s);
+                completeResult.AddToCollection(this.InsertTableValuesIntoDtoLists(s, dimensions));
+            }
+
+            return completeResult;
+        }
+
+        private object InsertIntoVerticalDto(string filename)
+        {
+            Console.WriteLine("Populating Vertical Dto for file :" + filename);
+            var obj = Activator.CreateInstance(this.dto);
+
+            foreach (var s in this.tables.RawDataPerFileList.Single(r => r.FileName == filename).VerticalTable)
+            {
+                var prop = obj.GetType().GetProperty(s.DynamicColumns[0], BindingFlags.Public | BindingFlags.Instance);
+                
+                if (null != prop && prop.CanWrite)
+                {
+                    var types = prop.ToString().Split(' ')[0];
+                    prop.SetValue(obj, StringUtilities.ParseToTypeFromTypeEntry(types, s.DynamicColumns[1]), null);
+                }
+            }
+
+            return obj;
+        }
+
+        private RawTableCollectionPerFile InsertTableValuesIntoDtoLists(string fileName, IList<int> dimensions)
+        {
+            IList<object> verticalDtosList = new List<object>();
+            var cnt = 0;
+            var outputObject = new RawTableCollectionPerFile();
+            verticalDtosList.Add(this.InsertIntoVerticalDto(fileName));
+
+            foreach (var t in dimensions)// each dimension is associated with one Table object
+            {
+                var total = GetTotal(cnt, dimensions);
+                this.columns[fileName][cnt] = Regex.Replace(this.columns[fileName][cnt], "\"", "");
+                var tempFields = this.columns[fileName][cnt].Split(',');// fields associated with each object field type in order.               
+                var horizontalTableObjectType = this.hTableObjects[tempFields[0]];// gets the object associated with each dimension        
+                var listOfDtosOneForEachLineInCurrentTable = this.ReturnlistOfDtosOneForEachLineInCurrentTable(fileName,horizontalTableObjectType,cnt,t,total,tempFields);
+                AddToOutputObjectsCollection(outputObject,listOfDtosOneForEachLineInCurrentTable, tempFields[0], fileName); 
+                cnt++;
+            }
+
+            AddToOutputObjectsCollection(outputObject, verticalDtosList,"Vertical",fileName);
+            return outputObject;
+        }
+
+        private IList<object> ReturnlistOfDtosOneForEachLineInCurrentTable(string fileName, Type horizontalTableObjectType, int cnt, int dimension, int total, string[] tempFields)
+        {
+             IList<object> listOfDtosOneForEachLineInCurrentTable = new List<object>();
+            foreach (var s in this.tables.RawDataPerFileList.Single(r => r.FileName == fileName).AllTablesButVerticalTable)
+            {
+                var domainObjectInconcern = Activator.CreateInstance(horizontalTableObjectType); // try and make generic Mwah ha ha 
+                var concatenatedArrayValues = ConcatenateArrayValues(s.DynamicColumns);
+                if (concatenatedArrayValues != "")
+                {
+                    var fieldValues = s.DynamicColumns; // get all specific field values from file loop
+                    for (var fieldPlacementCounter = 1; fieldPlacementCounter < dimension; fieldPlacementCounter++)
+                    {
+                        SetPropertyValues(cnt, fieldPlacementCounter, total, domainObjectInconcern, tempFields, fieldValues);
+                    }
+                }
+                listOfDtosOneForEachLineInCurrentTable.Add(domainObjectInconcern);
+            }
+            return listOfDtosOneForEachLineInCurrentTable;
+        }
+
+
+
+        private static void AddToOutputObjectsCollection(RawTableCollectionPerFile outputObject,
+            IList<object> listOfDtosOneForEachLineInTable, 
+            string tableName, string fileName)
+        {
+            var outputObjectelements = new RawTableObjectsList
+            {
+                tableName = tableName,
+                tableValues = listOfDtosOneForEachLineInTable
+            };
+            outputObject.fileName = fileName;
+            outputObject.AddTable(outputObjectelements);
+        }
+
+
+        private static void SetPropertyValues(int cnt, int fieldPlacementCounter,int total, 
+            object domainObjectInconcern, IList<string> tempFields, IList<string> fieldValues)
+        {
+            var prop = domainObjectInconcern.GetType().GetProperty(tempFields[fieldPlacementCounter].Split('\r')[0], BindingFlags.Public | BindingFlags.Instance);
+            var types = prop != null && prop.ToString() != "" ? prop.ToString().Split(' ')[0] : "";
+            var typeToParse = types.Replace("System.", "");
+
+            if (null == prop || !prop.CanWrite || types == "") return;
+            prop.SetValue(domainObjectInconcern,
+                cnt == 0
+                    ? StringUtilities.ParseToTypeFromTypeEntry(typeToParse, fieldValues[fieldPlacementCounter])
+                    : StringUtilities.ParseToTypeFromTypeEntry(typeToParse, fieldValues[total + fieldPlacementCounter + 1]),
+                null);
+        }
+
+        private static int GetTotal(int cnt, IList<int> dimensions)
+        {
+            var total = 0;
+            total = cnt == 0 ? 0 : total + dimensions[cnt - 1];
+            total = cnt > 1 ? total + 1 : total;
+            return total;
+        }
+
+        private static string ConcatenateArrayValues(IEnumerable<string> values)
+        {
+            return values.Aggregate("", (current, r) => current + r);
+        }
+    }
+}
+
+

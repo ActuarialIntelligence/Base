@@ -44,10 +44,19 @@
     <Compile Include="Connections Interfaces\ILowLevelConnection.cs" />
     <Compile Include="Connections Interfaces\IQueryDataConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Readers Interfaces\IDataReader.cs" />
+    <Compile Include="Writers Interfaces\IDataWriter.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Readers Interfaces\" />
-    <Folder Include="Writers Interfaces\" />
+    <ProjectReference Include="..\ActuarialIntelligence.Domain\ActuarialIntelligence.Domain.csproj">
+      <Project>{4D013A73-50B5-451A-BA5E-DA003FA42249}</Project>
+      <Name>ActuarialIntelligence.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActuarialIntelligence.Infrastructure.Data\ActuarialIntelligence.Infrastructure.Data.csproj">
+      <Project>{5701E063-EB92-4AC1-8929-43C95A4815C2}</Project>
+      <Name>ActuarialIntelligence.Infrastructure.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
