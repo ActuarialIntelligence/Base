@@ -58,7 +58,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-Visit: https://github.com/ActuarialIntelligence/Base/tree/ER2018EXE and clone the repository as follows:
+Visit: https://github.com/ActuarialIntelligence/Base/ and clone the repository as follows:
 ![Screenshot](Clone.gif)
 
 Once complete, go to your local repository(I.e. where the repository was cloned to) and open the ActuarialIntelligence.sln 
