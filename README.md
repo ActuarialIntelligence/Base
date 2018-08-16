@@ -1,4 +1,4 @@
-![Screenshot](Ai.png)
+![Screenshot](Graphing.gif)
 # ActuarialIntelligence Framework 
 ## For an Efficient Business Layer for Actuarial and AI based Reporting.
 ### DEMO : Graphics Engine built up Domain Driven Design Style. 
