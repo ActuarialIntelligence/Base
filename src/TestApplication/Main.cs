@@ -61,7 +61,7 @@ namespace TestApplication
             AnglePictureBox.BackColor = Color.Transparent;
             pivotX = DisplayBox.Width / 2;
             pivotY = DisplayBox.Height / 2;
-            container = new SimpleFunctionContainer((u, v) => Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)) / (2) * Math.Pow(Math.Sin(2 * Math.Atan(v / u)), 3), 8, 8, 20);
+            container = new SimpleFunctionContainer((u, v) => (Math.Pow(u, 3) * v - Math.Pow(v, 3) * u) / 3900000, 8, 8, 20);
             vectorPointsList = container.VectorPointsList;
             model = new ModelContainer(container);
         }
