@@ -1,7 +1,7 @@
 ![Screenshot](Graphing.gif)
 # ActuarialIntelligence Framework 
 ## For an Efficient Business Layer for Actuarial and AI based Reporting.
-### DEMO : Graphics Engine built up Domain Driven Design Style. 
+### INCLUDED HEREIN ADDITIONAL DEMO : Graphics Engine built up Domain Driven Design Style (We have build this as a challenge to demonstrate the possibility). 
 
 Design has a direct impact on efficiency and scalability of any solution and as such is of great importance. 
 Every organization/team has the following concerns when subscribing to a new implementation:
