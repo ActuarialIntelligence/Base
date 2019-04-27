@@ -27,7 +27,7 @@ namespace ActuarialIntelligence.Domain.Differential
             var cnt = 0;
             for(int i=n;i>0;i--)
             {
-                row[cnt] = (constant * (n - (cnt - 1)) * (decimal)Math.Pow((-1), (cnt))) / ((decimal)Math.Pow(h, 2 * n));
+                row.Add((constant * (n - (cnt - 1)) * (decimal)Math.Pow((-1), (cnt))) / ((decimal)Math.Pow(h, 2 * n)));
                 cnt++;
             }
             return row;
