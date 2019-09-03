@@ -4,12 +4,7 @@ using ActuarialIntelligence.Domain.Model_Containers.ModelInterfaces;
 using ActuarialIntelligence.Graphics;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TestApplication
@@ -61,8 +56,8 @@ namespace TestApplication
             AnglePictureBox.BackColor = Color.Transparent;
             pivotX = DisplayBox.Width / 2;
             pivotY = DisplayBox.Height / 2;
-            //container = new SimpleFunctionContainer((u, v) => (Math.Pow(u, 3) * v - Math.Pow(v, 3) * u) / 3900000, 8, 8, 20);
-            container = new SimpleFunctionContainer((u, v) => (Math.Pow(Math.Cos(u), 3) * v - Math.Pow(v, 3) * u) / 3900000, 8, 8, 20);
+            container = new SimpleFunctionContainer((u, v) => (Math.Pow(u, 3) * v - Math.Pow(v, 3) * u) / 3900000, 8, 8, 20);
+            //container = new SimpleFunctionContainer((u, v) => (Math.Pow(Math.Cos(u), 3) * v - Math.Pow(v, 3) * u) / 3900000, 8, 8, 20);
             
             vectorPointsList = container.VectorPointsList;
             model = new ModelContainer(container);
