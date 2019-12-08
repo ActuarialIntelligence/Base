@@ -16,7 +16,7 @@ namespace ActuarialIntelligence.Domain.Regression
 
 
 
-        public static Func<double,double> ExponentialDistributionFit(IList<double> points)
+        public static Func<double, double> ExponentialDistributionFit(IList<double> points)
         {
             var sum = 0d;
             int n = points.Count();
@@ -24,7 +24,7 @@ namespace ActuarialIntelligence.Domain.Regression
             {
                 sum += d;
             }
-            λ = (decimal)(n / sum);  
+            λ = (decimal)(n / sum);
             return ExponentialPDF;
         }
 

@@ -3,11 +3,6 @@ using ActuarialIntelligence.Domain.PnL;
 using ActuarialIntelligence.Infrastructure.Data.Enums;
 using ActuarialIntelligence.Infrastructure.Interfaces.Readers_Interfaces;
 using Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ActuarialIntelligence.Calculators
 {

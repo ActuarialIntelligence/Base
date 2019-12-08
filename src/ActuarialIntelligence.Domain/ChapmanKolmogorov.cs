@@ -7,7 +7,7 @@ namespace Domain
     {
         public readonly IList<DBHazardPDF> hazards;
         public int ModelID { get; private set; }
-        public ChapmanKolmogorov(IList<DBHazardPDF> hazards,int modelID)
+        public ChapmanKolmogorov(IList<DBHazardPDF> hazards, int modelID)
         {
             this.hazards = hazards;
             ModelID = modelID;
@@ -18,10 +18,10 @@ namespace Domain
         public decimal GetProbabilityOfJumpOutOfState(int timeIndex)
         {
             var result = 0m;
-            foreach(var hzd in hazards)
+            foreach (var hzd in hazards)
             {
-                result += hzd.GetDFTypeSpecificValueFromDb(timeIndex,1);
-               
+                result += hzd.GetDFTypeSpecificValueFromDb(timeIndex, 1);
+
             }
             return result;
         }
@@ -33,5 +33,5 @@ namespace Domain
         }
     }
 
-   
+
 }

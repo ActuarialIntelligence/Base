@@ -21,7 +21,7 @@ namespace ActuarialIntelligence.Domain.NeuralLearners
         public static double SumHeight(IList<IObject> objects)
         {
             var sumHeight = 0d;
-            foreach(var obj in objects)
+            foreach (var obj in objects)
             {
                 sumHeight += obj.Height;
             }
@@ -34,11 +34,11 @@ namespace ActuarialIntelligence.Domain.NeuralLearners
             , IList<IObject> objects)
         {
             return new NeuralMemmory<int, StorageType>(
-                new Point<int, StorageType>(1,LearnedDelegate(objects))); 
+                new Point<int, StorageType>(1, LearnedDelegate(objects)));
         }
 
         /// Returns Memmory object
-        public static NeuralMemmory<int,IList<StoreType>> StoreAll<StoreType>(IList<IObject> objects
+        public static NeuralMemmory<int, IList<StoreType>> StoreAll<StoreType>(IList<IObject> objects
             , string WhatToStore)
         {
             var list = new List<StoreType>();

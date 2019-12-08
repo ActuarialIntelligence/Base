@@ -13,7 +13,7 @@ namespace ActuarialIntelligence.Domain.NeuronParametrix
         public double Weight { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
         public double Elasticity { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-        public IList<Point<int,Func<double,double>>> TestAllObjectPermeabilities()
+        public IList<Point<int, Func<double, double>>> TestAllObjectPermeabilities()
         {
             return new List<Point<int, Func<double, double>>>();
         }

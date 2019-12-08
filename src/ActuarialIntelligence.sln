@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActuarialIntelligence.DependencyResolution", "ActuarialIntelligence.DependencyResolution\ActuarialIntelligence.DependencyResolution.csproj", "{5B96E712-0AD8-4449-9357-7A49800CEBFD}"
 EndProject
@@ -52,6 +52,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HelpfulNotes", "HelpfulNote
 		DtoToDomainHelper.txt = DtoToDomainHelper.txt
 		DynamicObjectBuilder.txt = DynamicObjectBuilder.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KubernetesService", "KubernetesService\KubernetesService.csproj", "{EBF0A13C-FDA1-4CC5-9143-A570EC55B41B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,10 @@ Global
 		{8F2891FE-0579-4712-88C8-D68889425EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F2891FE-0579-4712-88C8-D68889425EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F2891FE-0579-4712-88C8-D68889425EC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBF0A13C-FDA1-4CC5-9143-A570EC55B41B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBF0A13C-FDA1-4CC5-9143-A570EC55B41B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBF0A13C-FDA1-4CC5-9143-A570EC55B41B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBF0A13C-FDA1-4CC5-9143-A570EC55B41B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

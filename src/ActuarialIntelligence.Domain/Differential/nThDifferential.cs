@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ActuarialIntelligence.Domain.Differential
 {
@@ -21,11 +18,11 @@ namespace ActuarialIntelligence.Domain.Differential
         /// <param name="variableList"></param>
         /// <param name="h"></param>
         /// <returns></returns>
-        public IList<decimal> DifferentialRow(int n,decimal constant, double h)
+        public IList<decimal> DifferentialRow(int n, decimal constant, double h)
         {
             var row = new List<decimal>();
             var cnt = 0;
-            for(int i=n;i>0;i--)
+            for (int i = n; i > 0; i--)
             {
                 row.Add((constant * (n - (cnt - 1)) * (decimal)Math.Pow((-1), (cnt))) / ((decimal)Math.Pow(h, 2 * n)));
                 cnt++;

@@ -21,18 +21,18 @@ namespace Domain
             nelsonAalen = new KaplanMeier(observationsInternal);
             var result = new List<Point<decimal, decimal>>();
             var cnt = 0;
-           
+
             foreach (var set in observationsInternal)
             {
-                    var survival = nelsonAalen.GetSurvivalOverPeriod(cnt);
-                    var v1 = survival==0?0:(-1) * Math.Log((double)survival);
-                    var v2 = (double)(set.unitTime);
-                    var div = (decimal)((-1) * v1 / v2);
-                   
-                    var point = new Point<decimal, decimal>(set.unitTime * cnt, (div));
-                    result.Add(point);
-                   
-                    cnt++;
+                var survival = nelsonAalen.GetSurvivalOverPeriod(cnt);
+                var v1 = survival == 0 ? 0 : (-1) * Math.Log((double)survival);
+                var v2 = (double)(set.unitTime);
+                var div = (decimal)((-1) * v1 / v2);
+
+                var point = new Point<decimal, decimal>(set.unitTime * cnt, (div));
+                result.Add(point);
+
+                cnt++;
 
             }
             return result;
@@ -44,7 +44,7 @@ namespace Domain
         /// <returns></returns>
         public IList<Point<decimal, decimal>> GetHazardsOverPeriods()
         {
-           
+
             var result = new List<Point<decimal, decimal>>();
             var hazards = GetHazardFunctionOverEachPeriod();
             var cnt = 0;
@@ -69,7 +69,7 @@ namespace Domain
                 var v1 = hazards[cnt].Yval;
                 var v2 = obs.unitTime;
                 var res = v1 * v2 * (decimal)exponentE;
-                var point = new Point<decimal, decimal>(obs.unitTime * cnt, (obs.unitTime * hazards[cnt].Yval * 
+                var point = new Point<decimal, decimal>(obs.unitTime * cnt, (obs.unitTime * hazards[cnt].Yval *
                     (decimal)Math.Pow(Math.E, (double)((-1) * hazards[cnt].Yval * obs.unitTime))));//Survival : CDF => staying in current state up until time t.
                 result.Add(point);
                 cnt++;
@@ -81,7 +81,7 @@ namespace Domain
         {
             var list = new List<decimal>();
             var PDF = GetPDF();
-            foreach(var val in PDF)
+            foreach (var val in PDF)
             {
                 list.Add(val.Yval);
             }
@@ -90,7 +90,7 @@ namespace Domain
 
         public decimal GetPDFValue(int timeIndex)
         {
-            cache = cache==null? GetPDF():cache;
+            cache = cache == null ? GetPDF() : cache;
             return cache[timeIndex].Yval;
         }
 
@@ -117,7 +117,7 @@ namespace Domain
         /// <returns></returns>
         public IList<Point<decimal, decimal>> SurvivalFunction()
         {
-           
+
             MaximumSurvivalValue = 0;
             MaximumSurvivalValueTime = 0;
             nelsonAalen = new KaplanMeier(observationsInternal);
@@ -126,8 +126,8 @@ namespace Domain
             foreach (var set in observationsInternal)
             {
                 var survival = nelsonAalen.GetSurvivalValueUpToPeriod(cnt + 1);
-                
-                SetMaximumSurvivalValue(survival,cnt);
+
+                SetMaximumSurvivalValue(survival, cnt);
                 var point = new Point<decimal, decimal>(set.unitTime * cnt, (survival));
                 result.Add(point);
                 cnt++;
@@ -152,7 +152,7 @@ namespace Domain
             foreach (var set in observationsInternal)
             {
                 var survival = nelsonAalen.GetSurvivalValueUpToPeriod(cnt + 1);
-                var point = new Point<decimal, decimal>(set.unitTime * cnt, (1-survival));
+                var point = new Point<decimal, decimal>(set.unitTime * cnt, (1 - survival));
                 result.Add(point);
                 cnt++;
             }

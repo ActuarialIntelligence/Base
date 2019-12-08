@@ -28,7 +28,7 @@ namespace ActuarialIntelligence.Calculators
             var returnObject = new List<HazardPdfCdfHazardTriplet>();
 
             Console.WriteLine("Calculating Transition:" + transitionCode);
-            
+
             var observationList = hazardReader.GetData(populationGroup, dateFrom, dateTo,
             new Domain.Date.DateIncrement(DateIncrementTypes.Month, 1), transitionCode, currentState, 1);
 
