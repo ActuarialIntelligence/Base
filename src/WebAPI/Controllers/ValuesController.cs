@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ActuarialIntelligence.Domain.ContainerObjects;
+using ActuarialIntelligence.Domain.Financial_Instrument_Objects;
+using ActuarialIntelligence.Domain.Mathematical_Technique_Objects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -10,11 +13,13 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<decimal>
+           Get(ListTermCashflowSet cashFlowSet, int days, decimal nominal)
         {
-            return new string[] { "value1", "value2" };
+            ZSpreadSpecificAnnuity annuity = new ZSpreadSpecificAnnuity(cashFlowSet, days);
+            var result = Interpolation.Interpolate(annuity.GetPV, 0.01m, 0.09m, nominal);
+            return result;
         }
 
         // GET api/values/5
