@@ -20,6 +20,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Examples" Version="2.9.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="4.5.5" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="4.0.1" />
+    <PackageReference Include="Unity" Version="5.11.2" />
   </ItemGroup>
 
   <ItemGroup>
