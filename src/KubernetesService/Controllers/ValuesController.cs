@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ActuarialIntelligence.Domain.ContainerObjects;
 using ActuarialIntelligence.Domain.Financial_Instrument_Objects;
 using ActuarialIntelligence.Domain.Mathematical_Technique_Objects;
@@ -15,12 +12,20 @@ namespace KubernetesService.Controllers
     {
 
         // GET api/values
-        [HttpGet]
+        [HttpGet("ZSpreadSpecificAnnuityPresentValue")]
         public ActionResult<decimal>
             GetZSpreadSpecificAnnuity(ListTermCashflowSet cashFlowSet, int days,decimal nominal)
         {
             ZSpreadSpecificAnnuity annuity = new ZSpreadSpecificAnnuity(cashFlowSet, days);
             var result = Interpolation.Interpolate(annuity.GetPV, 0.01m, 0.09m, nominal);
+            return result;
+        }
+        [HttpGet("InterpolateFunction")]
+        public ActionResult<decimal> InterpolateFunction(Func<decimal, decimal> functional,
+            decimal testValue1, decimal testValue2, decimal interpolationValue)
+        {
+            var f = interpolationValue;
+            var result = Interpolation.Interpolate(functional, testValue1, testValue2, f);
             return result;
         }
 
