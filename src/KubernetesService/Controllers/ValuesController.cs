@@ -13,14 +13,25 @@ namespace KubernetesService.Controllers
     {
 
         // GET api/values
-        [HttpGet("ZSpreadSpecificAnnuityPresentValue")]
+        [HttpGet("ZSpreadPresentValue")]
         public ActionResult<decimal>
-            GetZSpreadSpecificAnnuity(ListTermCashflowSet cashFlowSet, int days,decimal nominal)
+            ZSpreadPresentValue(ListTermCashflowSet cashFlowSet, int days,decimal nominal)
         {
             Annuity annuity = new Annuity(cashFlowSet, days);
-            var result = Interpolation.Interpolate(annuity.GetPV, 0.01m, 0.09m, nominal);
+            var result = Interpolation.Interpolate(annuity.GetZSpreadPV, 0.01m, 0.09m, nominal);
             return result;
         }
+
+        // GET api/values
+        [HttpGet("AnnuityPresentValue")]
+        public ActionResult<decimal>
+            AnnuityPresentValue(ListTermCashflowSet cashFlowSet, int days, decimal nominal)
+        {
+            Annuity annuity = new Annuity(cashFlowSet, days);
+            var result = annuity.GetPV();
+            return result;
+        }
+
         [HttpGet("InterpolateFunction")]
         public ActionResult<decimal> InterpolateFunction(Func<decimal, decimal> functional,
             decimal testValue1, decimal testValue2, decimal interpolationValue)
