@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KubernetesService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Domain")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class DomainController : ControllerBase
     {
 
         // GET api/values
