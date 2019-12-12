@@ -17,7 +17,7 @@ namespace KubernetesService.Controllers
         public ActionResult<decimal>
             GetZSpreadSpecificAnnuity(ListTermCashflowSet cashFlowSet, int days,decimal nominal)
         {
-            ZSpreadSpecificAnnuity annuity = new ZSpreadSpecificAnnuity(cashFlowSet, days);
+            Annuity annuity = new Annuity(cashFlowSet, days);
             var result = Interpolation.Interpolate(annuity.GetPV, 0.01m, 0.09m, nominal);
             return result;
         }

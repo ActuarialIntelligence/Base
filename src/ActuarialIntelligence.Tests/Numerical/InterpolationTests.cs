@@ -36,7 +36,7 @@ namespace ActuarialIntelligence.Tests.Numerical
             var flows = new ListTermCashflowSet(cashFlowSet, Term.MonthlyEffective);
             var zSpread = new ZSpread(flows, 2000000m);
             var result = zSpread.Spread();
-            var annuity = new ZSpreadSpecificAnnuity(flows, 30);
+            var annuity = new Annuity(flows, 30);
             var check = annuity.GetPV(0.0132866482605499030537820089M);
             Assert.IsTrue(IsEqualWithinThreshold(result, 0.0132866482605499030537820089M));
             Assert.IsTrue(IsEqualWithinThreshold(check, 2000000m));
