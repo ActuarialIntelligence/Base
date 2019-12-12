@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KubernetesService.Controllers
 {
+    //http://localhost:5000/api/Domain/ZSpreadSpecificAnnuityPresentValue
     [Route("api/Domain")]
     [ApiController]
     public class DomainController : ControllerBase
@@ -28,6 +29,19 @@ namespace KubernetesService.Controllers
             var result = Interpolation.Interpolate(functional, testValue1, testValue2, f);
             return result;
         }
+        [HttpPost("Test")]
+        public ActionResult<ParseObject> Test(ParseObject parseObject)
+        {
+            var str = "";
+            foreach(var a in parseObject.array)
+            {
+                str += a;
+            }
+            var result = (parseObject.testValue1 + parseObject.testValue2).ToString() + str;
+            return new ParseObject() { array=new String[2]{"async","b" }, testValue1=1, testValue2=2 };
+        }
+
+       
 
         #region NeededLater
         //// GET api/values/5
@@ -56,4 +70,12 @@ namespace KubernetesService.Controllers
         //}
         #endregion
     }
+    public class ParseObject
+    {
+        public String[] array { get; set; }
+        public decimal testValue1 { get; set; }
+        public decimal testValue2 { get; set; }
+
+    }
+
 }
