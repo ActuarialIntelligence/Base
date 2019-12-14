@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 
 namespace APIConsumerTestApplication
 {
@@ -6,7 +6,8 @@ namespace APIConsumerTestApplication
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
         }
+      
     }
 }
