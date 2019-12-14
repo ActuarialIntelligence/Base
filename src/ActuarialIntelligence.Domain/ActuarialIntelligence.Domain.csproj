@@ -47,6 +47,7 @@
     <Compile Include="Date\DateIncrement.cs" />
     <Compile Include="DBHazardPDF.cs" />
     <Compile Include="Differential\nThDifferential.cs" />
+    <Compile Include="Enums\RESTMethodType.cs" />
     <Compile Include="Enums\DateIncrementTypes.cs" />
     <Compile Include="Enums\TimeIncrementTypes.cs" />
     <Compile Include="Financial Instrument Objects\BondHalfYearly.cs" />

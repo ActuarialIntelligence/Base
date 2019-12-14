@@ -47,6 +47,7 @@
     <Compile Include="AtRiskCalculator.cs" />
     <Compile Include="ChapmanKolmogorovCalculator.cs" />
     <Compile Include="HazardPDFCalculator.cs" />
+    <Compile Include="Helpers\APIConsumerHelper.cs" />
     <Compile Include="Interfaces\ICalculate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

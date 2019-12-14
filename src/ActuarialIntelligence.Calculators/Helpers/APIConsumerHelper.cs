@@ -4,36 +4,39 @@ using System.Net;
 using System.IO;
 using System.Web.Script.Serialization;
 using System.Text;
+using ActuarialIntelligence.Domain.Enums;
 
-namespace ActuarialIntelligence.Infrastructure.Consumers
+namespace ActuarialIntelligence.Calculators.Helpers
 {
-    public static class Class1
+    //"http://localhost:5000/api/Domain/Test"
+    //"POST"
+    public static class APIConsumerHelper
     {
-        public static void test()
+        public static ReturnType ReceiveHTTPObjectPointer<ParameterType,ReturnType>(ParameterType parameterLObject, 
+            string url,
+            RESTMethodType methodType)
         {
-
             HttpWebRequest request = (HttpWebRequest)WebRequest
-                 .Create("http://localhost:5000/api/Domain/Test");
-            request.Method = "POST";
+                     .Create(url);
+            request.Method = methodType.ToString();
             request.ContentType = "application/json";
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             using (var sw = new StreamWriter(request.GetRequestStream()))
             {
-                string json = serializer.Serialize(new ParseObject()
-                {
-                    array = new string[2]
-                    { "async","bool"},
-                    testValue1 = 1
-                    ,
-                    testValue2 = 2
-                });
+                string json = serializer.Serialize(parameterLObject);
                 sw.Write(json);
                 sw.Flush();
             }
 
-
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             Stream receiveStream = response.GetResponseStream();
+            string strP = ReadResponseStream(receiveStream);
+            var result = JsonConvert.DeserializeObject<ReturnType>(strP);
+            return result;
+        }
+
+        private static string ReadResponseStream(Stream receiveStream)
+        {
             Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
             // Pipes the stream to a higher level stream reader with the required encoding format. 
             StreamReader readStream = new StreamReader(receiveStream, encode);
@@ -50,23 +53,7 @@ namespace ActuarialIntelligence.Infrastructure.Consumers
                 strP += str;
                 count = readStream.Read(read, 0, 256);
             }
-            //JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-            var result = JsonConvert.DeserializeObject<ParseObject>(strP);
-        }
-        public class ParseObject
-        {
-            public String[] array;
-            public decimal testValue1;
-            public decimal testValue2;
-
-        }
-
-        public class TermCashflowYieldSet
-        {
-            public decimal cashflow;
-            public decimal term;
-            public DateTime date;
-            //public SpotYield spotYield;
+            return strP;
         }
     }
 }
