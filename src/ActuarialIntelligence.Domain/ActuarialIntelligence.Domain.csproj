@@ -44,6 +44,7 @@
     <Compile Include="ChapmanKolmogorov.cs" />
     <Compile Include="ContainerObjects\BondDetails.cs" />
     <Compile Include="ContainerObjects\ListTermCashflowSet.cs" />
+    <Compile Include="ContainerObjects\PlainListTermCashFlowSet.cs" />
     <Compile Include="Date\DateIncrement.cs" />
     <Compile Include="DBHazardPDF.cs" />
     <Compile Include="Differential\nThDifferential.cs" />

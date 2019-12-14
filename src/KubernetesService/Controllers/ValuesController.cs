@@ -25,9 +25,11 @@ namespace KubernetesService.Controllers
         // GET api/values
         [HttpGet("AnnuityPresentValue")]
         public ActionResult<decimal>
-            AnnuityPresentValue(ListTermCashflowSet cashFlowSet, int days, decimal nominal)
+            AnnuityPresentValue(PlainListTermCashFlowSet cashFlowSet, int days, decimal nominal)
         {
-            Annuity annuity = new Annuity(cashFlowSet, days);
+            var cashFlowList = 
+                new ListTermCashflowSet(cashFlowSet.cashflowSet, cashFlowSet.termType);
+            Annuity annuity = new Annuity(cashFlowList, days);
             var result = annuity.GetPV();
             return result;
         }

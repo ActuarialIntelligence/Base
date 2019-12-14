@@ -12,7 +12,7 @@ namespace ActuarialIntelligence.Domain.Regression
     {
         private static decimal λ = 0m, α = 0m, k = 0m;
         private static decimal mean, variance;
-        private static double[] coefficients;
+        //private static double[] coefficients;
 
 
 

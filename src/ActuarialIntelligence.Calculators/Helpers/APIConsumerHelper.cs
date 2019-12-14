@@ -12,7 +12,8 @@ namespace ActuarialIntelligence.Calculators.Helpers
     //"POST"
     public static class APIConsumerHelper
     {
-        public static ReturnType ReceiveHTTPObjectPointer<ParameterType,ReturnType>(ParameterType parameterLObject, 
+        public static ReturnType ReceiveHTTPObjectPointer<ParameterType,ReturnType>
+            (ParameterType parameterLObject, 
             string url,
             RESTMethodType methodType)
         {
@@ -43,7 +44,6 @@ namespace ActuarialIntelligence.Calculators.Helpers
             Char[] read = new Char[256];
             // Reads 256 characters at a time.    
             int count = readStream.Read(read, 0, 256);
-            Console.WriteLine("HTML...\r\n");
             var strP = "";
             while (count > 0)
             {
