@@ -53,7 +53,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HelpfulNotes", "HelpfulNote
 		DynamicObjectBuilder.txt = DynamicObjectBuilder.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KubernetesService", "KubernetesService\KubernetesService.csproj", "{EBF0A13C-FDA1-4CC5-9143-A570EC55B41B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KubernetesService", "KubernetesService\KubernetesService.csproj", "{EBF0A13C-FDA1-4CC5-9143-A570EC55B41B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIConsumerTestApplication", "APIConsumerTestApplication\APIConsumerTestApplication.csproj", "{2E7D6408-DD66-4DB3-A83C-1F74D0B70024}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{EBF0A13C-FDA1-4CC5-9143-A570EC55B41B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBF0A13C-FDA1-4CC5-9143-A570EC55B41B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBF0A13C-FDA1-4CC5-9143-A570EC55B41B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E7D6408-DD66-4DB3-A83C-1F74D0B70024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E7D6408-DD66-4DB3-A83C-1F74D0B70024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E7D6408-DD66-4DB3-A83C-1F74D0B70024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E7D6408-DD66-4DB3-A83C-1F74D0B70024}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +141,7 @@ Global
 		{06C9BD66-FB54-4093-8340-43FC1F4394E4} = {6373E067-6C1B-4351-AF04-BA47828735FE}
 		{9CF5491D-E0A1-4447-BC64-9AD143E6EB78} = {3B8E354A-F06D-409F-BC16-7447A8519DA1}
 		{8F2891FE-0579-4712-88C8-D68889425EC8} = {1D5CB254-EE62-486B-A836-4340B28879D6}
+		{2E7D6408-DD66-4DB3-A83C-1F74D0B70024} = {233764A4-5B6D-4144-A01C-092A136279FF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7AFF1FB0-27A8-4765-900D-F53F52605824}
