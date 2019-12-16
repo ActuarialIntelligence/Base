@@ -34,12 +34,14 @@ namespace KubernetesService.Controllers
             return result;
         }
 
-        [HttpGet("InterpolateFunction")]
-        public ActionResult<decimal> InterpolateFunction(Func<decimal, decimal> functional,
-            decimal testValue1, decimal testValue2, decimal interpolationValue)
+        [HttpGet("Z-Spread")]
+        public ActionResult<decimal> ZSpread(PlainListTermCashFlowSet cashFlowSet)
         {
-            var f = interpolationValue;
-            var result = Interpolation.Interpolate(functional, testValue1, testValue2, f);
+            var cashFlowList =
+    new ListTermCashflowSet(cashFlowSet.cashflowSet, cashFlowSet.termType);
+            
+            var res = new ZSpread(cashFlowList,cashFlowSet.nominal);
+            var result = res.CalculateZspread();
             return result;
         }
         [HttpPost("Test")]

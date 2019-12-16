@@ -9,5 +9,6 @@ namespace ActuarialIntelligence.Domain.ContainerObjects
         public IList<TermCashflowYieldSet> cashflowSet;
         public DateTime anchorDate;
         public Term termType;
+        public decimal  nominal;
     }
 }
