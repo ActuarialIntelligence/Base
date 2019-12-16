@@ -34,7 +34,7 @@ namespace KubernetesService.Controllers
             return result;
         }
 
-        [HttpGet("Z-Spread")]
+        [HttpPost("Z-Spread")]
         public ActionResult<decimal> ZSpread(PlainListTermCashFlowSet cashFlowSet)
         {
             var cashFlowList =
