@@ -10,5 +10,6 @@ namespace ActuarialIntelligence.Domain.ContainerObjects
         public DateTime anchorDate;
         public Term termType;
         public decimal  nominal;
+        public RESTMethodType restMethodType;
     }
 }

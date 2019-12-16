@@ -13,7 +13,7 @@ namespace KubernetesService.Controllers
     {
 
         // GET api/values
-        [HttpGet("ZSpreadPresentValue")]
+        [HttpGet("Z-SpreadPresentValue")]
         public ActionResult<decimal>
             ZSpreadPresentValue(ListTermCashflowSet cashFlowSet, int days,decimal nominal)
         {
