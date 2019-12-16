@@ -44,6 +44,8 @@ namespace KubernetesService.Controllers
             var result = res.CalculateZspread();
             return result;
         }
+
+
         [HttpPost("Test")]
         public ActionResult<ParseObject> Test(ParseObject parseObject)
         {
@@ -85,6 +87,9 @@ namespace KubernetesService.Controllers
         //}
         #endregion
     }
+    /// <summary>
+    /// For test purposes only
+    /// </summary>
     public class ParseObject
     {
         public String[] array { get; set; }
