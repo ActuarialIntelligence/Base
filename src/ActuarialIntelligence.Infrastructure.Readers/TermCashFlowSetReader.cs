@@ -32,7 +32,8 @@ namespace ActuarialIntelligence.Infrastructure.Readers
                     (s.cashflow,s.term,s.date,new SpotYield(s.yield
                     ,Domain.Enums.Term.MonthlyEffective)));
             }
-            return new PlainListTermCashFlowSet() { cashflowSet = cashflowList }; 
+            return new PlainListTermCashFlowSet() { cashflowSet = cashflowList, 
+                restMethodType = Domain.Enums.RESTMethodType.POST }; 
             
         }
     }
