@@ -33,7 +33,11 @@ namespace KubernetesService.Controllers
             var result = annuity.GetPV();
             return result;
         }
-
+        /// <summary>
+        /// POST
+        /// </summary>
+        /// <param name="cashFlowSet"></param>
+        /// <returns></returns>
         [HttpPost("Z-Spread")]
         public ActionResult<decimal> ZSpread(PlainListTermCashFlowSet cashFlowSet)
         {
