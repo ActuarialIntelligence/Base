@@ -51,6 +51,7 @@
     <Compile Include="Enums\RESTMethodType.cs" />
     <Compile Include="Enums\DateIncrementTypes.cs" />
     <Compile Include="Enums\TimeIncrementTypes.cs" />
+    <Compile Include="Financial Instrument Objects\AnnuityEquations.cs" />
     <Compile Include="Financial Instrument Objects\BondHalfYearly.cs" />
     <Compile Include="Financial Instrument Objects\HalfYearlyBondYield.cs" />
     <Compile Include="Hazard.cs" />
@@ -67,7 +68,7 @@
     <Compile Include="ContainerObjects\_3Vector.cs" />
     <Compile Include="Enums\FromTo.cs" />
     <Compile Include="Enums\Term.cs" />
-    <Compile Include="Financial Instrument Objects\ZSpreadSpecificAnnuity.cs" />
+    <Compile Include="Financial Instrument Objects\Annuity.cs" />
     <Compile Include="Mathematical Technique Objects\GivensRotationMatrix.cs" />
     <Compile Include="Mathematical Technique Objects\HouseholderBase.cs" />
     <Compile Include="Mathematical Technique Objects\HouseholderQR.cs" />
