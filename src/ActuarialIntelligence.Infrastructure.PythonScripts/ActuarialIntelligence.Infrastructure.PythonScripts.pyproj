@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>4fcabed7-a6bf-4219-ab75-ab22b1676398</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>LogisticRegression.py</StartupFile>
+    <StartupFile>CompuVision.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

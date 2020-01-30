@@ -1,4 +1,10 @@
+
 import cv2
+import glob
+import random
+import numpy as np
+emotions = ["neutral", "anger", "contempt", "disgust", "fear", "happy", "sadness", "surprise"] #Emotion list
+fishface =  cv2.face.LBPHFaceRecognizer_create() #Initialize fisher face classifier
 
 imagePath = 'C:\\Users\\rajiyer\\Documents\\Test Data\\OLD_CODE\\FaceDetection\\Faces.jfif'
 cascadeClassifierPath = 'C:\\Users\\rajiyer\\Documents\\Test Data\\OLD_CODE\\FaceDetection\\haarcascade_frontalface_alt.xml'
