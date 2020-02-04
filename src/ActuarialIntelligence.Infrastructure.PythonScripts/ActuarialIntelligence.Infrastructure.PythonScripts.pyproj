@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>4fcabed7-a6bf-4219-ab75-ab22b1676398</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>CompuVision.py</StartupFile>
+    <StartupFile>RealTimeVideoSentiment.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -25,6 +25,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CompuVision.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RealTimeVideoSentiment.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
