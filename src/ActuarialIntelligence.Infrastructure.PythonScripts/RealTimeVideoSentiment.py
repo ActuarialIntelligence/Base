@@ -3,6 +3,17 @@ import imutils
 import cv2
 from keras.models import load_model
 import numpy as np
+#import mysql.connector as con
+
+#mydb = con.connect(
+#  host="localhost",
+#  user="yourusername",
+#  passwd="yourpassword",
+# database="mydatabase"
+#)
+#mycursor = mydb.cursor()
+
+
 
 # parameters for loading data and images
 detection_model_path = 'C:\\Users\\rajiyer\\Documents\\Test Data\\Sentiment Analysis\\Emotion-recognition-master\\haarcascade_files\\haarcascade_frontalface_default.xml'
@@ -54,7 +65,10 @@ while True:
     for (i, (emotion, prob)) in enumerate(zip(EMOTIONS, preds)):
                 # construct the label text
                 text = "{}: {:.2f}%".format(emotion, prob * 100)
-
+                #sql = "INSERT INTO predData (Metadata, Probability) VALUES (%s, %s)"
+                #val = ("Meta", prob * 100)
+                #mycursor.execute(sql, val)
+                #mydb.commit()
                 # draw the label + probability bar on the canvas
                # emoji_face = feelings_faces[np.argmax(preds)]
 
@@ -69,6 +83,8 @@ while True:
                 cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
                 cv2.rectangle(frameClone, (fX, fY), (fX + fW, fY + fH),
                               (0, 0, 255), 2)
+
+
 #    for c in range(0, 3):
 #        frame[200:320, 10:130, c] = emoji_face[:, :, c] * \
 #        (emoji_face[:, :, 3] / 255.0) + frame[200:320,
@@ -82,4 +98,3 @@ while True:
 
 camera.release()
 cv2.destroyAllWindows()
-
