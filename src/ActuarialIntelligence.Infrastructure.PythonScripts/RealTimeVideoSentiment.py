@@ -34,6 +34,8 @@ EMOTIONS = ["angry" ,"disgust","scared", "happy", "sad", "surprised",
 # starting video streaming
 cv2.namedWindow('your_face')
 camera = cv2.VideoCapture(0)
+f= open("C:\\Users\\rajiyer\\Documents\\Test Data\\Probability.txt","a+")
+
 while True:
     frame = camera.read()[1]
     #reading the frame
@@ -67,6 +69,7 @@ while True:
                 text = "{}: {:.2f}%".format(emotion, prob * 100)
                 #sql = "INSERT INTO predData (Metadata, Probability) VALUES (%s, %s)"
                 #val = ("Meta", prob * 100)
+                f.write(text)
                 #mycursor.execute(sql, val)
                 #mydb.commit()
                 # draw the label + probability bar on the canvas
