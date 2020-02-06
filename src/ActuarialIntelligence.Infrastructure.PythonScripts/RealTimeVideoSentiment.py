@@ -3,6 +3,7 @@ import imutils
 import cv2
 from keras.models import load_model
 import numpy as np
+import geocoder
 #import mysql.connector as con
 
 #mydb = con.connect(
@@ -13,7 +14,7 @@ import numpy as np
 #)
 #mycursor = mydb.cursor()
 
-
+g = geocoder.ip('me')
 
 # parameters for loading data and images
 detection_model_path = 'C:\\Users\\rajiyer\\Documents\\Test Data\\Sentiment Analysis\\Emotion-recognition-master\\haarcascade_files\\haarcascade_frontalface_default.xml'
@@ -70,6 +71,8 @@ while True:
                 #sql = "INSERT INTO predData (Metadata, Probability) VALUES (%s, %s)"
                 #val = ("Meta", prob * 100)
                 f.write(text)
+                str1 = ''.join(str(e) for e in g.latlng)
+                f.write(str1)
                 #mycursor.execute(sql, val)
                 #mydb.commit()
                 # draw the label + probability bar on the canvas
