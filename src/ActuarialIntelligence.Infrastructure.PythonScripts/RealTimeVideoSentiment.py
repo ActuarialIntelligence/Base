@@ -71,8 +71,8 @@ while True:
                 #sql = "INSERT INTO predData (Metadata, Probability) VALUES (%s, %s)"
                 #val = ("Meta", prob * 100)
                 f.write(text)
-                str1 = ''.join(str(e) for e in g.latlng)
-                f.write(str1)
+                #str1 = ''.join(str(e) for e in g.latlng)
+                #f.write(str1)
                 #mycursor.execute(sql, val)
                 #mydb.commit()
                 # draw the label + probability bar on the canvas

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using ActuarialIntelligence.Domain.ContainerObjects;
 using ActuarialIntelligence.Domain.Financial_Instrument_Objects;
 using ActuarialIntelligence.Domain.Mathematical_Technique_Objects;
@@ -48,7 +49,7 @@ namespace KubernetesService.Controllers
             var result = res.CalculateZspread();
             return result;
         }
-
+ 
 
         [HttpPost("Test")]
         public ActionResult<ParseObject> Test(ParseObject parseObject)
@@ -62,7 +63,28 @@ namespace KubernetesService.Controllers
             return new ParseObject() { array=new String[2]{"async","b" }, testValue1=1, testValue2=2 };
         }
 
-       
+
+        [HttpPost("TestRunPython")]
+        public ActionResult<string> TestRunPython()
+        {
+            var psi = new ProcessStartInfo();
+            psi.FileName = @"C:\Users\rajiyer\PycharmProjects\TestPlot\venv\Scripts\python.exe";
+            var script = @"C:\Users\rajiyer\Documents\Projects\AI\Base\src\ActuarialIntelligence.Infrastructure.PythonScripts\LogisticRegression.py";
+            psi.Arguments = $"\"{script}\"";
+            psi.UseShellExecute = false;
+            psi.CreateNoWindow = true;
+            psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
+            var errors = "";
+            var results = "";
+            using (var process = Process.Start(psi))
+            {
+                errors = process.StandardError.ReadToEnd();
+                results = process.StandardOutput.ReadToEnd();
+            }
+            return results;
+        }
+
 
         #region NeededLater
         //// GET api/values/5
