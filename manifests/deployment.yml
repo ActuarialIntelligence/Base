@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: "zspreadapicluster"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: "zspreadapicluster"
+    spec:
+      containers:
+        - name: "zspreadapicluster"
+          image: "zspreadapicontainer.azurecr.io/zspreadapicluster"
+          ports:
+          - containerPort: 80
