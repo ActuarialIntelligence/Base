@@ -27,6 +27,9 @@
     <Compile Include="CompuVision.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Recommendation.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="RealTimeVideoSentiment.py">
       <SubType>Code</SubType>
     </Compile>

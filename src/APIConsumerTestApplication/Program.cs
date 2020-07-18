@@ -9,7 +9,7 @@ namespace APIConsumerTestApplication
         {
             var psi = new ProcessStartInfo();
             psi.FileName = @"C:\Users\rajiyer\PycharmProjects\TestPlot\venv\Scripts\python.exe";
-            var script = @"C:\Users\rajiyer\Documents\Projects\AI\Base\src\ActuarialIntelligence.Infrastructure.PythonScripts\LogisticRegression.py";
+            var script = @"C:\Users\rajiyer\Documents\Projects\AI\Base\src\ActuarialIntelligence.Infrastructure.PythonScripts\Recommendation.py";
             psi.Arguments = $"\"{script}\"";
             psi.UseShellExecute = false;
             psi.CreateNoWindow = true;
