@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace ActuarialIntelligence.Domain.Model_Containers.ModelInterfaces
 {
+    /// <summary>
+    /// Place a grid over the image, take the difference in the RGB over intersecting points, and 
+    /// increase the height for increasing gradient and decrease, i.e. below zero, for decreasing gradients from previous iterated value.
+    /// </summary>
     public class ImageToModelContainer : IModelContainer
     {
         public IList<Point<_3Vector, _3Vector>> VectorPointsList => throw new NotImplementedException();
