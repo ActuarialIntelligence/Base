@@ -32,8 +32,8 @@ namespace ActuarialIntelligence.Domain.Financial_Instrument_Objects
         /// <returns></returns>
         public decimal CalculateZspread()
         {
-            ZSpreadSpecificAnnuity annuity = new ZSpreadSpecificAnnuity(cashFlowSet, days);
-            var result = Interpolation.Interpolate(annuity.GetPV, 0.01m, 0.09m, nominal);
+            Annuity annuity = new Annuity(cashFlowSet, days);
+            var result = Interpolation.Interpolate(annuity.GetZSpreadPV, 0.01m, 0.09m, nominal);
             spread = result;
             return result;
         }

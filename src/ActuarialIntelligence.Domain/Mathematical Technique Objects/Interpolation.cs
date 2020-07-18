@@ -10,6 +10,12 @@ namespace ActuarialIntelligence.Domain.Mathematical_Technique_Objects
         private static decimal i1, i2 = 0;
         private static decimal f = 0;
         private static decimal previousValue = 0;
+
+        public static object Interpolate(Func<decimal, decimal> getPV, decimal v1, decimal v2, object nominal)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Method to interpolate to a stipulated degree of accuracy the value of a functional.
         /// </summary>

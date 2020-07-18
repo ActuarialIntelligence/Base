@@ -1,8 +1,7 @@
 ﻿using AI.ThreadManagement.Interfaces;
+using AI.ThreadManagement.Looping;
 using NUnit.Framework;
 using System;
-using Moq;
-using AI.ThreadManagement.Looping;
 
 namespace Threading.Tests
 {

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using ActuarialIntelligence.Domain.ContainerObjects;
+﻿using ActuarialIntelligence.Domain.ContainerObjects;
 using ActuarialIntelligence.Domain.Financial_Instrument_Objects;
 using ActuarialIntelligence.Tests.TestData;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 
 namespace ActuarialIntelligence.Tests
 {

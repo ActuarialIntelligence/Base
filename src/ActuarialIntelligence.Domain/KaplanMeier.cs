@@ -11,12 +11,12 @@ namespace Domain
         {
             this.observationsInternal = observationsInternal;
         }
-        
+
         public decimal GetSurvivalValueUpToPeriod(int periods)
         {
             var result = 1m;
             var cnt = 0;
-            foreach(var observation in observationsInternal)
+            foreach (var observation in observationsInternal)
             {
                 try
                 {
@@ -27,7 +27,7 @@ namespace Domain
                     }
                     cnt++;
                 }
-                catch(DivideByZeroException)
+                catch (DivideByZeroException)
                 {
                     result = 0;
                 }
@@ -39,34 +39,36 @@ namespace Domain
         public decimal GetSurvivalOverPeriod(int period)
         {
             decimal result = 0;
-            try { 
-              result =  (1-(observationsInternal[period].deaths / observationsInternal[period].total));
-           
+            try
+            {
+                result = (1 - (observationsInternal[period].deaths / observationsInternal[period].total));
+
             }
             catch (DivideByZeroException)
             {
                 result = 0;
             }
-            if(result<0)
+            if (result < 0)
             {
                 result = 0;
             }
             return result;
         }
 
-        public static decimal GetSurvivalValue(IList<PairedObservation> observations,int periods)
+        public static decimal GetSurvivalValue(IList<PairedObservation> observations, int periods)
         {
             var result = 1m;
             var cnt = 0;
             foreach (var observation in observations)
             {
-                try { 
-                result = result * (1 - (observation.deaths / observation.total));
-                if (cnt == periods - 1)
+                try
                 {
-                    break;
-                }
-                cnt++;
+                    result = result * (1 - (observation.deaths / observation.total));
+                    if (cnt == periods - 1)
+                    {
+                        break;
+                    }
+                    cnt++;
                 }
                 catch (DivideByZeroException)
                 {
@@ -76,11 +78,12 @@ namespace Domain
             return result;
         }
 
-        public static decimal GetSurvivalOverPeriod(IList<PairedObservation> observations,int period)
+        public static decimal GetSurvivalOverPeriod(IList<PairedObservation> observations, int period)
         {
             decimal result = 0;
-            try { 
-             result = (1 - (observations[period - 1].deaths / observations[period - 1].total));
+            try
+            {
+                result = (1 - (observations[period - 1].deaths / observations[period - 1].total));
             }
             catch (DivideByZeroException)
             {

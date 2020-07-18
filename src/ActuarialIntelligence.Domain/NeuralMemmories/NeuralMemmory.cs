@@ -7,7 +7,7 @@ namespace ActuarialIntelligence.Domain.NeuralMemmories
     /// For use by learner and processor objects.
     /// Sums of object properties for instance will be stored here if necessary.
     /// </summary>
-    public class NeuralMemmory<U,T>
+    public class NeuralMemmory<U, T>
     {
         private readonly Point<U, T> memmoryValues;
         public NeuralMemmory(Point<U, T> memmoryValues)

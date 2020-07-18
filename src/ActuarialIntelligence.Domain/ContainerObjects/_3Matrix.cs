@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace ActuarialIntelligence.Domain.ContainerObjects
-{ 
+{
     /// <summary>
     /// 3 by 3 Matrix object
     /// </summary>

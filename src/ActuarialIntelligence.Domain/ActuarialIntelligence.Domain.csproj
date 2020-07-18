@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,11 +45,14 @@
     <Compile Include="ChapmanKolmogorov.cs" />
     <Compile Include="ContainerObjects\BondDetails.cs" />
     <Compile Include="ContainerObjects\ListTermCashflowSet.cs" />
+    <Compile Include="ContainerObjects\PlainListTermCashFlowSet.cs" />
     <Compile Include="Date\DateIncrement.cs" />
     <Compile Include="DBHazardPDF.cs" />
     <Compile Include="Differential\nThDifferential.cs" />
+    <Compile Include="Enums\RESTMethodType.cs" />
     <Compile Include="Enums\DateIncrementTypes.cs" />
     <Compile Include="Enums\TimeIncrementTypes.cs" />
+    <Compile Include="Financial Instrument Objects\AnnuityEquations.cs" />
     <Compile Include="Financial Instrument Objects\BondHalfYearly.cs" />
     <Compile Include="Financial Instrument Objects\HalfYearlyBondYield.cs" />
     <Compile Include="Hazard.cs" />
@@ -65,7 +69,7 @@
     <Compile Include="ContainerObjects\_3Vector.cs" />
     <Compile Include="Enums\FromTo.cs" />
     <Compile Include="Enums\Term.cs" />
-    <Compile Include="Financial Instrument Objects\ZSpreadSpecificAnnuity.cs" />
+    <Compile Include="Financial Instrument Objects\Annuity.cs" />
     <Compile Include="Mathematical Technique Objects\GivensRotationMatrix.cs" />
     <Compile Include="Mathematical Technique Objects\HouseholderBase.cs" />
     <Compile Include="Mathematical Technique Objects\HouseholderQR.cs" />
@@ -76,6 +80,7 @@
     <Compile Include="Matrix\_mnMatrix.cs" />
     <Compile Include="Matrix\_nMatrix.cs" />
     <Compile Include="Matrix\_nVector.cs" />
+    <Compile Include="Model Containers\ModelInterfaces\ImageToModelContainer.cs" />
     <Compile Include="Model Containers\ModelInterfaces\IModel.cs" />
     <Compile Include="Model Containers\ModelInterfaces\IModelContainer.cs" />
     <Compile Include="Model Containers\SimpleFunctionContainer.cs" />

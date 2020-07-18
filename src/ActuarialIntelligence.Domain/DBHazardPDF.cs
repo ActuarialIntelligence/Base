@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Domain
+﻿namespace Domain
 {
     public class DBHazardPDF
     {
@@ -16,7 +14,7 @@ namespace Domain
             this.startDate = startDate;
         }
 
-        public decimal GetDFTypeSpecificValueFromDb(int timeIndex,int DFTypeID)
+        public decimal GetDFTypeSpecificValueFromDb(int timeIndex, int DFTypeID)
         {
             //Report.Write("s.TimeIndex == "+ timeIndex + " && s.StartDate ==" + startDate+ " && s.ModelID ==" + ModelId + " && s.StateID == " + StateFromToID + "&& s.DFTypeID == " + DFTypeID);
             //return context.HazardPDFs.SingleOrDefault(s => s.TimeIndex == 

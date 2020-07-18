@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ActuarialIntelligence.Domain.NeuronParametrix.Interfaces
 {
-    public interface IObject 
+    public interface IObject
     {
         double Height { get; set; }
         double Width { get; set; }

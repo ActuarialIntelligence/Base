@@ -40,10 +40,12 @@
             this.DisplayBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DisplayBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.DisplayBox.Location = new System.Drawing.Point(-1, -2);
+            this.DisplayBox.BackColor = System.Drawing.Color.White;
+            this.DisplayBox.Location = new System.Drawing.Point(397, -4);
+            this.DisplayBox.Margin = new System.Windows.Forms.Padding(6);
             this.DisplayBox.Name = "DisplayBox";
-            this.DisplayBox.Size = new System.Drawing.Size(1039, 557);
+            this.DisplayBox.Size = new System.Drawing.Size(1419, 1075);
+            this.DisplayBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.DisplayBox.TabIndex = 7;
             this.DisplayBox.TabStop = false;
             this.DisplayBox.Click += new System.EventHandler(this.DisplayBox_Click);
@@ -51,21 +53,23 @@
             // 
             // AnglePictureBox
             // 
-            this.AnglePictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.AnglePictureBox.Location = new System.Drawing.Point(-1, -2);
+            this.AnglePictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.AnglePictureBox.Location = new System.Drawing.Point(-2, -4);
+            this.AnglePictureBox.Margin = new System.Windows.Forms.Padding(6);
             this.AnglePictureBox.Name = "AnglePictureBox";
-            this.AnglePictureBox.Size = new System.Drawing.Size(198, 200);
+            this.AnglePictureBox.Size = new System.Drawing.Size(396, 385);
             this.AnglePictureBox.TabIndex = 8;
             this.AnglePictureBox.TabStop = false;
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1035, 554);
+            this.ClientSize = new System.Drawing.Size(2070, 1065);
             this.Controls.Add(this.AnglePictureBox);
             this.Controls.Add(this.DisplayBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Main";
             this.Text = "Actuarial Intelligence";
             this.Load += new System.EventHandler(this.Main_Load);

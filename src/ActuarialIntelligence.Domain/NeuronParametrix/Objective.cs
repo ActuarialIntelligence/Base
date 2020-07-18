@@ -9,7 +9,7 @@
     public static class Objective
     {
         public static string objective { get { return "Height"; } }
-        public static double Height { get{ return 100; } }
+        public static double Height { get { return 100; } }
         public static double MarginOfAllowledError { get { return 10; } }
     }
 }

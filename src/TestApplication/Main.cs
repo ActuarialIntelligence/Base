@@ -20,8 +20,8 @@ namespace TestApplication
 
         private void Main_Resize(object sender, EventArgs e)
         {
-            pivotX = DisplayBox.Width / 2;
-            pivotY = DisplayBox.Height / 2;
+            pivotX = DisplayBox.Width;
+            pivotY = DisplayBox.Height;
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -58,7 +58,6 @@ namespace TestApplication
             pivotY = DisplayBox.Height / 2;
             container = new SimpleFunctionContainer((u, v) => (Math.Pow(u, 3) * v - Math.Pow(v, 3) * u) / 3900000, 8, 8, 20);
             //container = new SimpleFunctionContainer((u, v) => (Math.Pow(Math.Cos(u), 3) * v - Math.Pow(v, 3) * u) / 3900000, 8, 8, 20);
-            
             vectorPointsList = container.VectorPointsList;
             model = new ModelContainer(container);
         }
