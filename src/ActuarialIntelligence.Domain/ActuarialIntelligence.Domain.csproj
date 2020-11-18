@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ronz.Core, Version=17.9.17.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ronz.Core.17.9.17.4\lib\net46\Ronz.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Ronz.Pdf, Version=17.9.21.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ronz.Pdf.17.9.21.1\lib\net40\Ronz.Pdf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -92,6 +98,7 @@
     <Compile Include="NeuronParametrix\NeuralObjectList.cs" />
     <Compile Include="NeuronParametrix\Objective.cs" />
     <Compile Include="ObservationObjects\PairedObservation.cs" />
+    <Compile Include="PDF\PDFFormatter.cs" />
     <Compile Include="PnL\AtRisk.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Financial Instrument Objects\ZSpread.cs" />
@@ -108,6 +115,9 @@
       <Project>{5701E063-EB92-4AC1-8929-43C95A4815C2}</Project>
       <Name>ActuarialIntelligence.Infrastructure.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
