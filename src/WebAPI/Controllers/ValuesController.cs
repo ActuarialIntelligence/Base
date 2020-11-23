@@ -17,8 +17,8 @@ namespace WebAPI.Controllers
         public ActionResult<decimal>
            Get(ListTermCashflowSet cashFlowSet, int days, decimal nominal)
         {
-            ZSpreadSpecificAnnuity annuity = new ZSpreadSpecificAnnuity(cashFlowSet, days);
-            var result = Interpolation.Interpolate(annuity.GetPV, 0.01m, 0.09m, nominal);
+            Annuity annuity = new Annuity(cashFlowSet, days);
+            var result = Interpolation.Interpolate(annuity.GetZSpreadPV, 0.01m, 0.09m, nominal);
             return result;
         }
 

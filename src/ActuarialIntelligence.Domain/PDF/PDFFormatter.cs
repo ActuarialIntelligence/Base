@@ -7,40 +7,24 @@ using Cyotek.GhostScript.PdfConversion;
 
 namespace ActuarialIntelligence.Domain.PDF
 {
-
-
-    public class PDFFormatter
+    /// <summary>
+    /// I know ...
+    /// </summary>
+    public class PDFFormatterAndExtractor
     {
-        public PDFFormatter(Pdf2ImageSettings Settings,
-        AntiAliasMode _antiAliasMode,
-                            int _dpi,
-                            GridFitMode _gridFitMode,
-                            ImageFormat _imageFormat,
-                            PaperSize _paperSize,
-                            PdfTrimMode _trimMode,
+        public PDFFormatterAndExtractor(Pdf2ImageSettings Settings,
                             string _pdfFileName,
                             int PageCount,
                             string PdfPassword )
         {
             this.Settings = Settings;
-            this._antiAliasMode = _antiAliasMode;
-            this._dpi = _dpi;
-            this._gridFitMode = _gridFitMode;
-            this._imageFormat = _imageFormat;
-            this._paperSize = _paperSize;
-            this._trimMode = _trimMode;
+
             this._pdfFileName = _pdfFileName;
             this.PageCount = PageCount;
             this.PdfPassword = PdfPassword;
 
         }
         private Pdf2ImageSettings Settings;
-        private AntiAliasMode _antiAliasMode;
-        private int _dpi;
-        private GridFitMode _gridFitMode;
-        private ImageFormat _imageFormat;
-        private PaperSize _paperSize;
-        private PdfTrimMode _trimMode;
         private string _pdfFileName;
         private int PageCount;
         private string PdfPassword;
@@ -133,6 +117,12 @@ int pageNumber, string password, Pdf2ImageSettings settings)
             return result;
         }
 
+        /// <summary>
+        /// Main function to call
+        /// </summary>
+        /// <param name="startPage"></param>
+        /// <param name="lastPage"></param>
+        /// <returns></returns>
         public Bitmap[] GetImages(int startPage, int lastPage)
         {
             List<Bitmap> results;

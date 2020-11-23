@@ -34,6 +34,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Unofficial.Microsoft.AnalysisServices.AdomdClient.13.0.4001\lib\net40\Microsoft.AnalysisServices.AdomdClient.dll</HintPath>
     </Reference>
+    <Reference Include="Ronz.Core, Version=17.9.17.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ronz.Core.17.9.17.4\lib\net46\Ronz.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Ronz.Pdf, Version=17.9.21.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ronz.Pdf.17.9.21.1\lib\net40\Ronz.Pdf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -80,6 +86,12 @@
       <Project>{9c5fd537-eccd-49f8-ad1a-7d3f9b81ba53}</Project>
       <Name>ActuarialIntelligence.Infrastructure.Writers</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="gsdll32.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
