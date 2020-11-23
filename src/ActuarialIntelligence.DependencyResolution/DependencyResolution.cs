@@ -1,9 +1,11 @@
-﻿using ActuarialIntelligence.Calculators.PDF;
+﻿using ActuarialIntelligence.Calculators.Interfaces;
+using ActuarialIntelligence.Calculators.PDF;
 using ActuarialIntelligence.Infrastructure.Connections;
 using ActuarialIntelligence.Infrastructure.Interfaces.Readers_Interfaces;
 using ActuarialIntelligence.Infrastructure.Readers;
 using Cyotek.GhostScript.PdfConversion;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Threading;
 
@@ -19,7 +21,7 @@ namespace ActuarialIntelligence.DependencyResolution
             return reader;
         }
 
-        public static PDFReformatter pDFReformatter(string path, int startpage, string password )
+        public static IFormat<Bitmap[]> pDFReformatter(string path, int startpage, string password )
         {
             var settings = new Pdf2ImageSettings();
             settings.AntiAliasMode = Cyotek.GhostScript.AntiAliasMode.High;
