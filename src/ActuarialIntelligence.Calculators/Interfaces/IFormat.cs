@@ -8,6 +8,6 @@ namespace ActuarialIntelligence.Calculators.Interfaces
 {
     public interface IFormat<T>
     {
-        T FormatAndReturn();
+        T FormatAndReturn(int startpage, int endpage);
     }
 }

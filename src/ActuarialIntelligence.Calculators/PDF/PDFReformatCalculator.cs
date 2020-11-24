@@ -13,10 +13,9 @@ namespace ActuarialIntelligence.Calculators.PDF
             this.pDFFormatterAndExtractor = pDFFormatterAndExtractor;
         }
 
-        public Bitmap[] FormatAndReturn()
+        public Bitmap[] FormatAndReturn(int startpage, int endpage)
         {
-            var result = pDFFormatterAndExtractor.GetImages(1,1);
-            //throw new System.NotImplementedException();
+            var result = pDFFormatterAndExtractor.GetImages(startpage, endpage);
             return result;
         }
     }
