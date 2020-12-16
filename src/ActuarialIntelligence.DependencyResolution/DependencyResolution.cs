@@ -21,7 +21,7 @@ namespace ActuarialIntelligence.DependencyResolution
             return reader;
         }
 
-        public static IFormat<Bitmap[]> pDFReformatter(string path, int startpage, string password )
+        public static IFormat<Bitmap[]> pDFReformatter(string path, int startpage, string password)
         {
             var settings = new Pdf2ImageSettings();
             settings.AntiAliasMode = Cyotek.GhostScript.AntiAliasMode.High;

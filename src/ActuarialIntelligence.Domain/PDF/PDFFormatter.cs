@@ -8,7 +8,8 @@ using Cyotek.GhostScript.PdfConversion;
 namespace ActuarialIntelligence.Domain.PDF
 {
     /// <summary>
-    /// I know ...
+    /// It is recommended to refactor to effect change in 
+    /// the size of the code blocks into more granular domain form
     /// </summary>
     public class PDFFormatterAndExtractor
     {
