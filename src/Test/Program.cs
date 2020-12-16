@@ -4,6 +4,7 @@ using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 using System.Text;
 using System.IO;
 using Nito.AsyncEx;
+using System.Windows.Documents;
 
 namespace Test
 {
@@ -28,7 +29,47 @@ namespace Test
 
         static async void MainAsync(string[] args)
         {
-            var ocrType = await UploadAndRecognizeImageAsync(@"C:\Users\rajiyer\Documents\TestData\Arabic Text\Ariha.png", OcrLanguages.Ar);
+            var ocrTypeEnglish = await UploadAndRecognizeImageAsync(@"C:\Users\rajiyer\Documents\TestData\Arabic Text\Ariha.png", OcrLanguages.En);
+            var ocrTypeArabic = await UploadAndRecognizeImageAsync(@"C:\Users\rajiyer\Documents\TestData\Arabic Text\Ariha.png", OcrLanguages.Ar);
+            string ocrbounds = "";
+            foreach (var region in ocrTypeEnglish.Regions)
+            {
+                foreach (var line in region.Lines)
+                {
+                    foreach (var word in line.Words)
+                    {
+                        // The separation character should be a configurable one
+                         ocrbounds = word.Text=="ocr" || word.Text == "OCR"?word.BoundingBox : "";
+                        if (!ocrbounds.Equals(""))
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            var allText = "";
+            var ocrBounds = ocrbounds.Split(',');
+            foreach (var region in ocrTypeArabic.Regions)
+            {
+                foreach (var line in region.Lines)
+                {
+                    foreach (var word in line.Words)
+                    {
+                        // The separation character should be a configurable one
+                        var bounds = word.BoundingBox.Split(',');
+                        //Check to see if the words are within the region
+                        //The region values are returned from the step that returns position of characters OCR on the document 
+                        if((int.Parse(bounds[0]) > int.Parse(ocrBounds[0])) 
+                            && (int.Parse(bounds[1]) > int.Parse(ocrBounds[1]))
+                            && (int.Parse(bounds[2]) < int.Parse(ocrBounds[2])) 
+                            && (int.Parse(bounds[3]) < int.Parse(ocrBounds[3])))
+                        {
+                            allText += "," + word.Text;
+                        }
+                    }
+                }
+            }
         }
 
         internal static async Task<OcrResult> UploadAndRecognizeImageAsync(string imageFilePath, OcrLanguages language)
@@ -42,6 +83,7 @@ namespace Test
                 using (Stream imageFileStream = File.OpenRead(imageFilePath))
                 {
                     OcrResult ocrResult = await client.RecognizePrintedTextInStreamAsync(false, imageFileStream, language);
+
                     return ocrResult;
                 }
             }
