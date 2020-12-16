@@ -60,10 +60,10 @@ namespace Test
                         var bounds = word.BoundingBox.Split(',');
                         //Check to see if the words are within the region
                         //The region values are returned from the step that returns position of characters OCR on the document 
-                        if((int.Parse(bounds[0]) > int.Parse(ocrBounds[0])) 
-                            && (int.Parse(bounds[1]) > int.Parse(ocrBounds[1]))
-                            && (int.Parse(bounds[2]) < int.Parse(ocrBounds[2])) 
-                            && (int.Parse(bounds[3]) < int.Parse(ocrBounds[3])))
+                        if((int.Parse(bounds[0]) > int.Parse(ocrBounds[0])) // + a preconfigured
+                            && (int.Parse(bounds[1]) > int.Parse(ocrBounds[1])) // + b preconfigured
+                            && (int.Parse(bounds[2]) < int.Parse(ocrBounds[2])) // + c preconfigured
+                            && (int.Parse(bounds[3]) < int.Parse(ocrBounds[3]))) // + d preconfigured
                         {
                             allText += "," + word.Text;
                         }
