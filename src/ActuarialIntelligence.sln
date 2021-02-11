@@ -69,6 +69,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PythonRunnerEXE", "PythonRu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{7CD795CC-43DD-4B15-B5C9-39D2FB192CD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActuarialIntelligence.Infrastructure.Serializers", "ActuarialIntelligence.Infrastructure.Serializers\ActuarialIntelligence.Infrastructure.Serializers.csproj", "{B59E9AC0-8EA3-49C4-81EC-055FC21165CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,10 @@ Global
 		{7CD795CC-43DD-4B15-B5C9-39D2FB192CD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CD795CC-43DD-4B15-B5C9-39D2FB192CD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CD795CC-43DD-4B15-B5C9-39D2FB192CD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B59E9AC0-8EA3-49C4-81EC-055FC21165CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B59E9AC0-8EA3-49C4-81EC-055FC21165CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B59E9AC0-8EA3-49C4-81EC-055FC21165CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B59E9AC0-8EA3-49C4-81EC-055FC21165CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -176,6 +182,7 @@ Global
 		{4FCABED7-A6BF-4219-AB75-AB22B1676398} = {6373E067-6C1B-4351-AF04-BA47828735FE}
 		{0C2A2CAD-C4F3-4E38-9410-0A6B51D42A38} = {846214C2-E1CC-4C1E-8F09-86BB5582072B}
 		{7CD795CC-43DD-4B15-B5C9-39D2FB192CD7} = {233764A4-5B6D-4144-A01C-092A136279FF}
+		{B59E9AC0-8EA3-49C4-81EC-055FC21165CE} = {6373E067-6C1B-4351-AF04-BA47828735FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7AFF1FB0-27A8-4765-900D-F53F52605824}

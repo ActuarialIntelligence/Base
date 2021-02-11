@@ -4,16 +4,22 @@ using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 using System.Text;
 using System.IO;
 using Nito.AsyncEx;
-using System.Windows.Documents;
 
 namespace Test
 {
     class Program
     {
         private const string Filename = @"C:\Users\rajiyer\Documents\Articles\Arabic";
+        
 
+        /// <summary>
+        /// The following is for Demonstration purposes only
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
+
+            //objServer.Disconnect();
             //var formatter = DependencyResolution.pDFReformatter(@"C:\Users\rajiyer\Documents\Beginners_Guide_To_Arabic.pdf", 40, "");
             //var domain = formatter.FormatAndReturn(1,39);
             //for (int i = 0; i < 39; i++)
@@ -21,17 +27,17 @@ namespace Test
             //    var i2 = new Bitmap(domain[i]);
             //    i2.Save(Filename + i + ".png", ImageFormat.Png);
             //}
-           
+
             AsyncContext.Run(() => MainAsync(args));
         }
 
-
-
         static async void MainAsync(string[] args)
         {
+            #region Load Data
             var ocrTypeEnglish = await UploadAndRecognizeImageAsync(@"C:\Users\rajiyer\Documents\TestData\Arabic Text\Ariha.png", OcrLanguages.En);
             var ocrTypeArabic = await UploadAndRecognizeImageAsync(@"C:\Users\rajiyer\Documents\TestData\Arabic Text\Ariha.png", OcrLanguages.Ar);
             string ocrbounds = "";
+            #endregion
             foreach (var region in ocrTypeEnglish.Regions)
             {
                 foreach (var line in region.Lines)
@@ -39,7 +45,7 @@ namespace Test
                     foreach (var word in line.Words)
                     {
                         // The separation character should be a configurable one
-                         ocrbounds = word.Text=="ocr" || word.Text == "OCR"?word.BoundingBox : "";
+                         ocrbounds = word.Text=="HS Code" || word.Text == "HS CODE"?word.BoundingBox : "";
                         if (!ocrbounds.Equals(""))
                         {
                             break;
@@ -58,15 +64,22 @@ namespace Test
                     {
                         // The separation character should be a configurable one
                         var bounds = word.BoundingBox.Split(',');
+                        if(word.Text == "الإطلاق؛") // Example Word
+                        {
+                            // If word is ~ 'HS Code' 
+                            // Applies to all words within the Document that has been OCR'd
+                            System.Console.WriteLine(word.Text);
+                        }
                         //Check to see if the words are within the region
                         //The region values are returned from the step that returns position of characters OCR on the document 
-                        if((int.Parse(bounds[0]) > int.Parse(ocrBounds[0])) // + a preconfigured
-                            && (int.Parse(bounds[1]) > int.Parse(ocrBounds[1])) // + b preconfigured
-                            && (int.Parse(bounds[2]) < int.Parse(ocrBounds[2])) // + c preconfigured
-                            && (int.Parse(bounds[3]) < int.Parse(ocrBounds[3]))) // + d preconfigured
-                        {
-                            allText += "," + word.Text;
-                        }
+                        //if((int.Parse(bounds[0]) > int.Parse(ocrBounds[0])) // + a preconfigured
+                        //    && (int.Parse(bounds[1]) > int.Parse(ocrBounds[1])) // + b preconfigured
+                        //    && (int.Parse(bounds[2]) < int.Parse(ocrBounds[2])) // + c preconfigured
+                        //    && (int.Parse(bounds[3]) < int.Parse(ocrBounds[3]))) // + d preconfigured
+                        //{
+                        //    allText += "," + word.Text;
+                        //}
+
                     }
                 }
             }
@@ -74,7 +87,7 @@ namespace Test
 
         internal static async Task<OcrResult> UploadAndRecognizeImageAsync(string imageFilePath, OcrLanguages language)
         {
-            string key = "";
+            string key = "Key";
             string endPoint = "https://tasmu-ocr-solution.cognitiveservices.azure.com/";
             var credentials = new ApiKeyServiceClientCredentials(key);
 

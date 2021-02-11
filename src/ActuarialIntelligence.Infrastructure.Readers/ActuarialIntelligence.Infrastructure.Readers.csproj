@@ -34,6 +34,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Unofficial.Microsoft.AnalysisServices.AdomdClient.13.0.4001\lib\net40\Microsoft.AnalysisServices.AdomdClient.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AnalysisServices.Server.Core, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AnalysisServices.Server.13.0.1601.5\lib\Microsoft.AnalysisServices.Server.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AnalysisServices.Server.Tabular, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AnalysisServices.Server.13.0.1601.5\lib\Microsoft.AnalysisServices.Server.Tabular.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AnalysisServices.Server.Tabular.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AnalysisServices.Server.13.0.1601.5\lib\Microsoft.AnalysisServices.Server.Tabular.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,6 +70,9 @@
       <Project>{06c9bd66-fb54-4093-8340-43fc1f4394e4}</Project>
       <Name>ActuarialIntelligence.Infrastructure.Interfaces</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

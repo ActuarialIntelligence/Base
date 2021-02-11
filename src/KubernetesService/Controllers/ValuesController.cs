@@ -86,7 +86,6 @@ namespace KubernetesService.Controllers
             return results;
         }
 
-
         #region NeededLater
         //// GET api/values/5
         //[HttpGet("{id}")]

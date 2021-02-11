@@ -1,6 +1,8 @@
 ﻿using ActuarialIntelligence.Infrastructure.Interfaces.Connection_Interfaces;
 using ActuarialIntelligence.Infrastructure.Interfaces.Readers_Interfaces;
+using Microsoft.AnalysisServices;
 using Microsoft.AnalysisServices.AdomdClient;
+using Microsoft.AnalysisServices.Tabular;
 using System.Collections.Generic;
 
 namespace ActuarialIntelligence.Infrastructure.Readers
@@ -21,6 +23,20 @@ namespace ActuarialIntelligence.Infrastructure.Readers
         public void ClearAndDispose()
         {
             connection.ClearAndDispose();
+        }
+
+
+        public static void ExecuteXMLA(string Xmla)
+        {
+            var xmla = Xmla;
+            var objServer = new Server();
+            objServer.Connect("");
+            var reader = objServer.ExecuteReader(xmla, out XmlaResultCollection resultsOut,null,true);
+            while(reader.Read())
+            {
+                var row = reader[0]; 
+            }
+            objServer.Disconnect();
         }
 
         public IList<string> GetData()

@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{06C9BD66-FB54-4093-8340-43FC1F4394E4}</ProjectGuid>
+    <ProjectGuid>{B59E9AC0-8EA3-49C4-81EC-055FC21165CE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ActuarialIntelligence.Infrastructure.Interfaces</RootNamespace>
-    <AssemblyName>ActuarialIntelligence.Infrastructure.Interfaces</AssemblyName>
+    <RootNamespace>ActuarialIntelligence.Infrastructure.Serializers</RootNamespace>
+    <AssemblyName>ActuarialIntelligence.Infrastructure.Serializers</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,23 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connections Interfaces\IDataConnection.cs" />
-    <Compile Include="Connections Interfaces\ILowLevelConnection.cs" />
-    <Compile Include="Connections Interfaces\IQueryDataConnection.cs" />
+    <Compile Include="XMLSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Readers Interfaces\IDataReader.cs" />
-    <Compile Include="Serialization Interfaces\ISerialize.cs" />
-    <Compile Include="Writers Interfaces\IDataWriter.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\ActuarialIntelligence.Domain\ActuarialIntelligence.Domain.csproj">
-      <Project>{4D013A73-50B5-451A-BA5E-DA003FA42249}</Project>
-      <Name>ActuarialIntelligence.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ActuarialIntelligence.Infrastructure.Data\ActuarialIntelligence.Infrastructure.Data.csproj">
-      <Project>{5701E063-EB92-4AC1-8929-43C95A4815C2}</Project>
-      <Name>ActuarialIntelligence.Infrastructure.Data</Name>
+    <ProjectReference Include="..\ActuarialIntelligence.Infrastructure.Interfaces\ActuarialIntelligence.Infrastructure.Interfaces.csproj">
+      <Project>{06c9bd66-fb54-4093-8340-43fc1f4394e4}</Project>
+      <Name>ActuarialIntelligence.Infrastructure.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
