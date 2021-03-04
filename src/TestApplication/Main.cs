@@ -20,14 +20,14 @@ namespace TestApplication
 
         private void Main_Resize(object sender, EventArgs e)
         {
-            pivotX = DisplayBox.Width;
-            pivotY = DisplayBox.Height;
+            pivotX =  DisplayBox.Width / 3;
+            pivotY =  DisplayBox.Height / 3;
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
-            width = DisplayBox.Width;
-            height = DisplayBox.Height;
+            pivotX = DisplayBox.Width / 3;
+            pivotY = DisplayBox.Height / 3;
             this.DisplayBox.Image = new Bitmap(DisplayBox.Width, DisplayBox.Height);
             InitializeAngleGrid();
         }
@@ -42,8 +42,18 @@ namespace TestApplication
 
         }
 
+        private void DisplayBox_Resize(object sender, EventArgs e)
+        {
+            pivotX = DisplayBox.Width / 3;
+            pivotY = DisplayBox.Height / 3;
+        }
+
         private void DisplayBox_MouseMove(object sender, MouseEventArgs e)
         {
+            pivotX = DisplayBox.Width / 3;
+            pivotY = DisplayBox.Height / 3;
+            textBox1.Text = pivotX.ToString() + ";" + pivotY.ToString() + ":" +
+                DisplayBox.Width.ToString() + ";" + DisplayBox.Height.ToString();
             var result = DrawGraphics.DrawBitmap(e, this.DisplayBox, vectorPointsList, pivotX, pivotY);
             DrawGrids();
             DrawAngleAxis(result);
@@ -54,8 +64,8 @@ namespace TestApplication
         {
             InitializeComponent();
             AnglePictureBox.BackColor = Color.Transparent;
-            pivotX = DisplayBox.Width / 2;
-            pivotY = DisplayBox.Height / 2;
+            pivotX = DisplayBox.Width/3;
+            pivotY = DisplayBox.Height/3;
             container = new SimpleFunctionContainer((u, v) => (Math.Pow(u, 3) * v - Math.Pow(v, 3) * u) / 3900000, 8, 8, 20);
             //container = new SimpleFunctionContainer((u, v) => (Math.Pow(Math.Cos(u), 3) * v - Math.Pow(v, 3) * u) / 3900000, 8, 8, 20);
             vectorPointsList = container.VectorPointsList;

@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.DisplayBox = new System.Windows.Forms.PictureBox();
             this.AnglePictureBox = new System.Windows.Forms.PictureBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DisplayBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AnglePictureBox)).BeginInit();
             this.SuspendLayout();
@@ -45,11 +47,11 @@
             this.DisplayBox.Margin = new System.Windows.Forms.Padding(6);
             this.DisplayBox.Name = "DisplayBox";
             this.DisplayBox.Size = new System.Drawing.Size(1419, 1075);
-            this.DisplayBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.DisplayBox.TabIndex = 7;
             this.DisplayBox.TabStop = false;
             this.DisplayBox.Click += new System.EventHandler(this.DisplayBox_Click);
             this.DisplayBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DisplayBox_MouseMove);
+            this.DisplayBox.Resize += new System.EventHandler(this.DisplayBox_Resize);
             // 
             // AnglePictureBox
             // 
@@ -61,11 +63,27 @@
             this.AnglePictureBox.TabIndex = 8;
             this.AnglePictureBox.TabStop = false;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(67, 419);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(327, 31);
+            this.textBox1.TabIndex = 9;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(67, 457);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(327, 31);
+            this.textBox2.TabIndex = 10;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2070, 1065);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.AnglePictureBox);
             this.Controls.Add(this.DisplayBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -77,12 +95,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.DisplayBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AnglePictureBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.PictureBox DisplayBox;
         private System.Windows.Forms.PictureBox AnglePictureBox;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 

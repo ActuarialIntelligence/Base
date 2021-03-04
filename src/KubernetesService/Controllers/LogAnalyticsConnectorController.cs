@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.OperationalInsights;
 using Microsoft.Rest.Azure.Authentication;
@@ -14,21 +10,19 @@ namespace KubernetesService.Controllers
     [ApiController]
     public class LogAnalyticsConnectorController : ControllerBase
     {
-        [HttpGet("LogAnalyticsConnector")]
-        public ActionResult<string> LogAnalyticsConnector()
-        { return "200"; }
 
         [HttpPost("LogAnalyticsConnector")]
-        public ActionResult<string> LogAnalyticsConnector(string query, string WorkspaceId,
-                                                               string ClientId,
-                                                               string ClientSecret,
-                                                              string Domain)
+        public string LogAnalyticsConnector(string query)
         {
-            var workspaceId = WorkspaceId;//"<your workspace ID>";
-            var clientId = ClientId;//"<your client ID>";
-            var clientSecret = ClientSecret;//"<your client secret>";
+            //query = "Heartbeat | where TimeGenerated > ago(7d)";// GetInv(name)
+            var workspaceId = "";//"<your workspace ID>"; // Config
+            var clientId = "";//"<your client ID>"; 
+            var clientSecret = "";//"<your client secret>"; // Key Vault Exports in Environment
+            var json = "";
+            // Reading from Environment Add-IN Init Port --- to env  
+            // OS OS.GetEvv
 
-            var domain = Domain;//"<your AAD domain>";
+            var domain = "microsoft.onmicrosoft.com";//"<your AAD domain>";
             var authEndpoint = "https://login.microsoftonline.com";
             var tokenAudience = "https://api.loganalytics.io/";
 
@@ -38,13 +32,25 @@ namespace KubernetesService.Controllers
                 TokenAudience = new Uri(tokenAudience),
                 ValidateAuthority = true
             };
-            var creds = ApplicationTokenProvider.LoginSilentAsync(domain, clientId, clientSecret, adSettings).GetAwaiter().GetResult();
-            var client = new OperationalInsightsDataClient(creds);
-            client.WorkspaceId = workspaceId;
 
-            var results = client.Query(query);
-            var json = JsonSerializer.Serialize(results);
+                var creds = ApplicationTokenProvider.LoginSilentAsync(domain, clientId, clientSecret, adSettings).GetAwaiter().GetResult();
+                
+                var client = new OperationalInsightsDataClient(creds);
+                client.WorkspaceId = workspaceId;
+            if (query != null)
+            {
+                var results = client.Query(query);
+                json = JsonSerializer.Serialize(results);
+            }
+            else
+            {
+                json = "Possibly innecurate Query.";
+            }
+
+
             return json;
         }
-    }
+
+
+     }
 }
