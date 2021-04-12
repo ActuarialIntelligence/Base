@@ -2,19 +2,18 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ActuarialIntelligence.Domain.ConnectedInstruction
 {
     public static class ConnectedInstruction
     {
-        public static IList<IList<double>> gridValues;
+        private static IList<IList<double>> gridValues;
         //public static string expression;
-        public static IList<IList<double>> ParseExpressionAndRunAgainstInMemmoryModel(string expression)
+        public static IList<IList<double>> ParseExpressionAndRunAgainstInMemmoryModel(IList<IList<double>> GridValues, string expression)
         {
+            gridValues = GridValues;
             #region HandleNullGrids
             if (gridValues == null)
             {
@@ -23,7 +22,7 @@ namespace ActuarialIntelligence.Domain.ConnectedInstruction
                 gridValues.Add(new List<double>() { 1d, 2d, 3d, 4d, 5d, 6d, 0d });
                 gridValues.Add(new List<double>() { 1d, 2d, 3d, 4d, 5d, 6d, 0d });
             }
-            #endregion
+            #endregion            
 
             var csc = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v4.0" } });
             var cp = new CompilerParameters()
@@ -45,29 +44,26 @@ namespace ActuarialIntelligence.Domain.ConnectedInstruction
 
                 using System;
                 using System.Collections.Generic;
-                namespace demo.domain
+                namespace ActuarialIntelligence.Domain.ConnectedInstruction
                 {
                     public class RuntimeClass
                     {
-                        public static List<double> Main (IList<IList<double>> gridValues)
+                        public static void Main (IList<IList<double>> gridValues)
                         {
-                            var res = ActionFunc(gridValues ,(u, v, w, x, y, z) => " + expression + @");
-                            return res;
+                            ActionFunc(gridValues ,(u, v, w, x, y, z) => " + expression + @"); 
                         }
 
-                        public static List<double> ActionFunc(IList<IList<double>> gridValues,
+                        public static void ActionFunc(IList<IList<double>> gridValues,
                             Func<double, double, double,
                             double, double, double, double> expression)
                         {
-                            var result = new List<double>();
+                            //var result = new List<double>();
                             foreach (var row in gridValues)
                             {
                                 var calc = expression(row[0], row[1], row[2], row[3], row[4], row[5]);
-                                row[6] = calc;
-                                result.Add(calc);
+                                row.Add(calc);
                                 //Console.WriteLine(calc.ToString());
                             }
-                            return result;
                         }
                     }
                 }
@@ -94,7 +90,7 @@ namespace ActuarialIntelligence.Domain.ConnectedInstruction
             else
             {
                 Assembly assembly = results.CompiledAssembly;
-                Type program = assembly.GetType("demo.domain.RuntimeClass");
+                Type program = assembly.GetType("ActuarialIntelligence.Domain.ConnectedInstruction.RuntimeClass");
                 MethodInfo main = program.GetMethod("Main");
                 object[] parameters = new object[1];
                 parameters[0] = gridValues;
@@ -102,6 +98,23 @@ namespace ActuarialIntelligence.Domain.ConnectedInstruction
                 main.Invoke(returnType, parameters);
                 //Console.WriteLine("Square root = \u221A");
             }
+        }
+        public static void WritetoCsvu(IList<IList<double>> gridValues,)
+        {
+            foreach()
+        }
+        public static void WritetoCsvu(IList<IList<double>> gridValues, string path)
+        {
+            Console.WriteLine("Write Begin " + DateTime.Now.ToString());
+            var sw = new StreamWriter(path);
+            var cnt = 0;
+            foreach (var row in gridValues)
+            {
+                sw.WriteLine(row[0] + "," + row[1] + "," + row[2] + "," + row[3] + "," + row[4] + "," + row[5] + "," + row[6]);
+                cnt++;
+            }
+            sw.Close();
+            Console.WriteLine("Write Complete " + DateTime.Now.ToString());
         }
     }
 }
