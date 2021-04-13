@@ -99,10 +99,6 @@ namespace ActuarialIntelligence.Domain.ConnectedInstruction
                 //Console.WriteLine("Square root = \u221A");
             }
         }
-        public static void WritetoCsvu(IList<IList<double>> gridValues,)
-        {
-            foreach()
-        }
         public static void WritetoCsvu(IList<IList<double>> gridValues, string path)
         {
             Console.WriteLine("Write Begin " + DateTime.Now.ToString());
