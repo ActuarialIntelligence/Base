@@ -15,7 +15,7 @@ namespace ActuarialIntelligence.Domain.Regression
         //private static double[] coefficients;
 
 
-
+        // Looking back at this, WOW :)
         public static Func<double, double> ExponentialDistributionFit(IList<double> points)
         {
             var sum = 0d;

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dtos\CashFlowSetDto.cs" />
+    <Compile Include="Dtos\QueryResultObject.cs" />
     <Compile Include="Enums\CustomerTimePeriods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

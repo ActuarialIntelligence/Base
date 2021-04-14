@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="kx">
+      <HintPath>..\..\..\..\..\..\source\repos\KDB\LogAnalyticsSDKOnKubernetes\packages\CSharpKDB.1.1.0\lib\netstandard2.0\kx.dll</HintPath>
+    </Reference>
     <Reference Include="Ronz.Core, Version=17.9.17.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Ronz.Core.17.9.17.4\lib\net46\Ronz.Core.dll</HintPath>
     </Reference>
@@ -53,6 +56,7 @@
     <Compile Include="Calculator Return Objects\HazardPdfCdfHazardTriplet.cs" />
     <Compile Include="ChapmanKolmogorov.cs" />
     <Compile Include="ConnectedInstruction\ConnectedInstruction.cs" />
+    <Compile Include="ConnectedInstruction\KXQueryConnection.cs" />
     <Compile Include="ContainerObjects\BondDetails.cs" />
     <Compile Include="ContainerObjects\ListTermCashflowSet.cs" />
     <Compile Include="ContainerObjects\PlainListTermCashFlowSet.cs" />
