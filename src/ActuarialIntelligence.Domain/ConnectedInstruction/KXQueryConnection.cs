@@ -134,7 +134,7 @@ string Credentials, string ReturnQuery, int column, List<int> rows)
         public int GetNumberOfRows()
         {
             c.Flip flip = c.td(result);
-            return c.n(flip.x);
+            return c.n(flip.y[0]);
         }
 
         public void Dispose()

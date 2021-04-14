@@ -151,6 +151,17 @@ namespace ActuarialIntelligence.Domain.ConnectedInstruction
                             for(int i=2;i<rowN;i++)
                             {
                                 var calc = expression((double)c.GetField(i,0), (double)c.GetField(i,1), (double)c.GetField(i,2), (double)c.GetField(i,3), (double)c.GetField(i,4), (double)c.GetField(i,5));                            
+                                result.Add(calc);
+                            }
+                            int cnt =0;
+                            foreach(var val in result)
+                            {
+                                Console.WriteLine(rowN.ToString() + ""  "" + val.ToString());
+                                if(cnt == 20)
+                                {
+                                    break;
+                                }
+                                    cnt++;
                             }
                             c.DisposeQconnection();
                             return result;
