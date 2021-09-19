@@ -1,4 +1,6 @@
-﻿using Microsoft.CSharp;
+﻿using ActuarialIntelligence.Domain.ContainerObjects;
+using ActuarialIntelligence.Domain.Financial_Instrument_Objects;
+using Microsoft.CSharp;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ namespace ActuarialIntelligence.Domain.ConnectedInstruction
         private static readonly bool IsMemoryPointer = true;
         public ConnectedInstruction()
         {
-            Qparser = new KXQueryConnection("localhost", 5000, "AFRICA/rajiyer:", "table"); ;
+            Qparser = new KXQueryConnection("localhost", 5000, "AFRICA/rajiyer:", "table"); 
         }
 
 
@@ -132,6 +134,7 @@ namespace ActuarialIntelligence.Domain.ConnectedInstruction
 
                 using System;
                 using System.Collections.Generic;
+                using ActuarialIntelligence.Domain.Financial_Instrument_Objects;
                 namespace ActuarialIntelligence.Domain.ConnectedInstruction
                 {
                     public class RuntimeClass
@@ -212,10 +215,37 @@ namespace ActuarialIntelligence.Domain.ConnectedInstruction
             Console.WriteLine("Write Complete " + DateTime.Now.ToString());
         }
 
+        public static double GetZSpread(IList<IList<double>> GridValues, int start, int end)
+        {
+            gridValues = GridValues;
+            var cashList = new List<TermCashflowYieldSet>();
+            var c = new ConnectedInstruction();
+            var rowN = c.GetNumberOfRows();
+            Console.WriteLine("Preparing Structured Load..." + DateTime.Now);
+            for (int i = start; i < end; i++)
+            {
+                var spotYield = new SpotYield(Convert.ToDecimal(gridValues[i][1]), Enums.Term.MonthlyEffective);
+                var termCashSet = new TermCashflowYieldSet(Convert.ToDecimal(gridValues[i][0]), 
+                    (decimal)i, new DateTime(2002,1,1,1,1,1).AddMonths(i), spotYield);
+                cashList.Add(termCashSet);
+               // Console.WriteLine(i.ToString());
+            }
+            Console.WriteLine("Structured Load Complete..." + DateTime.Now);
+            var cashflowSet = new ListTermCashflowSet(cashList, Enums.Term.MonthlyEffective);
+            var spread = new ZSpread(cashflowSet, 10000m);
+            Console.WriteLine("Success!..." + spread.ToString());
+            return (double) spread.CalculateZspread();
+        }
+
         public double GetField(int row, int column)
         {
             return Convert.ToDouble(Qparser.GetQField(column, row));
         }
+        public decimal GetDecimal(int row, int column)
+        {
+            return Convert.ToDecimal(Qparser.GetQField(column, row));
+        }
+
 
         public int GetNumberOfRows()
         {

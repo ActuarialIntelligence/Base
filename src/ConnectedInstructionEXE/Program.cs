@@ -52,6 +52,10 @@ namespace testObject
                 {
                     try
                     {
+                        if(expression.Equals("zspread"))
+                        {
+                            var result = ConnectedInstruction.GetZSpread(grid,3,503);
+                        }
                         if (expression.Substring(0, 19).ToLower().Equals("logisticregression "))
                         {
                             keepProcessing = true;
@@ -103,7 +107,7 @@ print(accuracy_score(target_test, predictions))
                             }
                             Console.WriteLine("Process Succeeded..." + DateTime.Now.ToString());
                         }
-                        if(expression.Equals("videoanalyse"))
+                        if(expression.Substring(0,12) == "videoanalyse")
                         {
                             #region python
                             var python = @"

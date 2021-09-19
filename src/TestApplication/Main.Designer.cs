@@ -42,11 +42,11 @@
             this.DisplayBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DisplayBox.BackColor = System.Drawing.Color.White;
-            this.DisplayBox.Location = new System.Drawing.Point(397, -4);
+            this.DisplayBox.BackColor = System.Drawing.Color.MidnightBlue;
+            this.DisplayBox.Location = new System.Drawing.Point(1, -1);
             this.DisplayBox.Margin = new System.Windows.Forms.Padding(6);
             this.DisplayBox.Name = "DisplayBox";
-            this.DisplayBox.Size = new System.Drawing.Size(1419, 1075);
+            this.DisplayBox.Size = new System.Drawing.Size(1436, 1075);
             this.DisplayBox.TabIndex = 7;
             this.DisplayBox.TabStop = false;
             this.DisplayBox.Click += new System.EventHandler(this.DisplayBox_Click);
@@ -56,7 +56,7 @@
             // AnglePictureBox
             // 
             this.AnglePictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.AnglePictureBox.Location = new System.Drawing.Point(-2, -4);
+            this.AnglePictureBox.Location = new System.Drawing.Point(1441, -1);
             this.AnglePictureBox.Margin = new System.Windows.Forms.Padding(6);
             this.AnglePictureBox.Name = "AnglePictureBox";
             this.AnglePictureBox.Size = new System.Drawing.Size(396, 385);
@@ -65,23 +65,25 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(67, 419);
+            this.textBox1.Location = new System.Drawing.Point(1441, 411);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(327, 31);
             this.textBox1.TabIndex = 9;
+            this.textBox1.Visible = false;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(67, 457);
+            this.textBox2.Location = new System.Drawing.Point(1441, 448);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(327, 31);
             this.textBox2.TabIndex = 10;
+            this.textBox2.Visible = false;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2070, 1065);
+            this.ClientSize = new System.Drawing.Size(1839, 1065);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.AnglePictureBox);

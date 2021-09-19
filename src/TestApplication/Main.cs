@@ -1,4 +1,5 @@
 ﻿using ActuarialIntelligence.Domain.ContainerObjects;
+using ActuarialIntelligence.Domain.MathContainers;
 using ActuarialIntelligence.Domain.Model_Containers;
 using ActuarialIntelligence.Domain.Model_Containers.ModelInterfaces;
 using ActuarialIntelligence.Graphics;
@@ -20,14 +21,13 @@ namespace TestApplication
 
         private void Main_Resize(object sender, EventArgs e)
         {
-            pivotX =  DisplayBox.Width / 3;
-            pivotY =  DisplayBox.Height / 3;
+            //1419, 1075
+
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
-            pivotX = DisplayBox.Width / 3;
-            pivotY = DisplayBox.Height / 3;
+
             this.DisplayBox.Image = new Bitmap(DisplayBox.Width, DisplayBox.Height);
             InitializeAngleGrid();
         }
@@ -44,17 +44,17 @@ namespace TestApplication
 
         private void DisplayBox_Resize(object sender, EventArgs e)
         {
-            pivotX = DisplayBox.Width / 3;
-            pivotY = DisplayBox.Height / 3;
+            //pivotX = 1419 / 2;
+            //pivotY = 1075 / 2;
         }
 
         private void DisplayBox_MouseMove(object sender, MouseEventArgs e)
         {
-            pivotX = DisplayBox.Width / 3;
-            pivotY = DisplayBox.Height / 3;
+            pivotX = 1419 / 2;
+            pivotY = 1075 / 2;
             textBox1.Text = pivotX.ToString() + ";" + pivotY.ToString() + ":" +
                 DisplayBox.Width.ToString() + ";" + DisplayBox.Height.ToString();
-            var result = DrawGraphics.DrawBitmap(e, this.DisplayBox, vectorPointsList, pivotX, pivotY);
+            var result = DrawGraphics.DrawBitmap(e, this.DisplayBox, vectorPointsList, 340, 250);
             DrawGrids();
             DrawAngleAxis(result);
             DisplayBox.Refresh();
@@ -64,12 +64,28 @@ namespace TestApplication
         {
             InitializeComponent();
             AnglePictureBox.BackColor = Color.Transparent;
-            pivotX = DisplayBox.Width/3;
-            pivotY = DisplayBox.Height/3;
-            container = new SimpleFunctionContainer((u, v) => (Math.Pow(u, 3) * v - Math.Pow(v, 3) * u) / 3900000, 8, 8, 20);
-            //container = new SimpleFunctionContainer((u, v) => (Math.Pow(Math.Cos(u), 3) * v - Math.Pow(v, 3) * u) / 3900000, 8, 8, 20);
+            container = new SimpleFunctionContainer((u, v) => (-v * (2* u -1)) / (Math.Pow((u - 1), 2) + Math.Pow(v, 2)) * 80, 8, 8, 20);
+            //container = new SimpleFunctionContainer((u, v) => (u*(1-u) - Math.Pow(v,2))/(Math.Pow((u - 1),2) + Math.Pow(v, 2)) * 200  + 200, 8, 8, 20);
+            //container = new SimpleFunctionContainer((u, v) => (Math.Pow(Math.Cos(u), 5) * v - Math.Pow(v, 5) * u) / 3900000, 8, 8, 20);
             vectorPointsList = container.VectorPointsList;
             model = new ModelContainer(container);
+        }
+        /// <summary>
+        /// Call/use this function, when you want the vector points to change.
+        /// </summary>
+        /// <param name="u"></param>
+        /// <param name="v"></param>
+        /// <param name="w"></param>
+        /// <param name="t"></param>
+        public void CallToChange(double x, double y, double z, double t)
+        {
+            //Dont forget to set the following outside of this function. 
+            //VariableFunctionContainer.FunctionCoEfficientList = new List<Func<double, double, double, double, double>>()
+               
+            container = new SimpleFunctionContainer((u, v) => VariableFunctionContainer.GetCurrentValue(1,x,y,z,t)*(u) + VariableFunctionContainer.GetCurrentValue(2, x, y, z, t) * (Math.Pow(u,2)), 8, 8, 20);
+            //container = new SimpleFunctionContainer((u, v) => (u*(1-u) - Math.Pow(v,2))/(Math.Pow((u - 1),2) + Math.Pow(v, 2)) * 200  + 200, 8, 8, 20);
+            //container = new SimpleFunctionContainer((u, v) => (Math.Pow(Math.Cos(u), 5) * v - Math.Pow(v, 5) * u) / 3900000, 8, 8, 20);
+            vectorPointsList = container.VectorPointsList;
         }
 
 

@@ -71,6 +71,7 @@
     <Compile Include="Financial Instrument Objects\HalfYearlyBondYield.cs" />
     <Compile Include="Hazard.cs" />
     <Compile Include="KaplanMeier.cs" />
+    <Compile Include="MathContainers\VariableFunctionContainer.cs" />
     <Compile Include="Model Containers\ModelContainer.cs" />
     <Compile Include="ContainerObjects\Nominal.cs" />
     <Compile Include="ContainerObjects\NominalCashflowSet.cs" />
