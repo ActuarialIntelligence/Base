@@ -2,7 +2,7 @@
 # ActuarialIntelligence Framework 
 ## For an Efficient Business Layer for Actuarial and AI based Reporting.
 ### INCLUDED HEREIN ADDITIONAL DEMO : Graphics Engine built up Domain Driven Design Style (We have build this as a challenge to demonstrate the possibility). 
-#### With sincere of gratitude going to Marlene Vorster 
+
 Design has a direct impact on efficiency and scalability of any solution and as such is of great importance. 
 Every organization/team has the following concerns when subscribing to a new implementation:
 In the short run:
@@ -467,7 +467,7 @@ https://www.linkedin.com/in/rajah-iyer-628689168/
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
-
+#### With sincere of gratitude going to Marlene Vorster 
 HAL
 Research Gate
 
