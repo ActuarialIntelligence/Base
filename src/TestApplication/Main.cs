@@ -18,7 +18,7 @@ namespace TestApplication
         SimpleFunctionContainer container;
         SimpleFunctionContainer container2;
         IList<Point<_3Vector, _3Vector>> vectorPointsList;
-        double pivotX = 400, pivotY = 350;
+        double pivotX = 800, pivotY = 700;
         _3Vector AngleX, AngleY, AngleZ, AngleZero;
         double freezeX, freezeY;
         bool freezeFrame = false;

@@ -75,11 +75,10 @@
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.textBox1.Location = new System.Drawing.Point(1188, -1);
+            this.textBox1.Location = new System.Drawing.Point(753, -1);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(327, 31);
+            this.textBox1.Size = new System.Drawing.Size(762, 31);
             this.textBox1.TabIndex = 9;
-            this.textBox1.Visible = false;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Main
