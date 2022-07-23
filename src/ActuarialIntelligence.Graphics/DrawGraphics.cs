@@ -11,9 +11,11 @@ namespace ActuarialIntelligence.Graphics
     /// Draws lines between all points that exist in the model vector pair list, and renders a Bitmap
     /// This layer aims to separate the concern of drawing from the model and associated objects.
     /// </summary>
-    public static class DrawGraphics // 
+    public class DrawGraphics //
     {
-        public static _3Matrix DrawBitmap(MouseEventArgs e, PictureBox graphicsDisplayBox, IList<Point<_3Vector, _3Vector>> pointsList, double pivotX, double pivotY)
+        public static List<PointVectorPair> actualPoints = new List<PointVectorPair>();
+
+        public static _3Matrix RotateAndDrawBitmap(MouseEventArgs e, PictureBox graphicsDisplayBox, IList<Point<_3Vector, _3Vector>> pointsList, double pivotX, double pivotY)
         {
 
             decimal scaleX = 4 / (decimal)graphicsDisplayBox.Width;
@@ -38,10 +40,20 @@ namespace ActuarialIntelligence.Graphics
                                 , (float)((pointA.c) + pivotY)
                                 , (float)((pointB.a) + pointB.b + pivotX)
                                 , (float)((pointB.c) + pivotY));
+
+                    actualPoints.Add(new PointVectorPair(new Point<double, double>(((pointA.a) + pointA.b + pivotX), ((pointA.c) + pivotY))
+                    , pointPair));
                 }
             }
             return rotationResult;
         }
+
+        //public static _3Matrix TranslateAndDrawBitmap(MouseEventArgs e, PictureBox graphicsDisplayBox, IList<Point<_3Vector, _3Vector>> pointsList, double pivotX, double pivotY)
+        //{
+
+
+
+        //}
 
         private static void EffectColourScheme(_3Matrix rotationResult, Domain.ContainerObjects.Point<_3Vector, _3Vector> pointPair, out _3Vector pointA, out _3Vector pointB, out Pen pen)
         {
@@ -97,6 +109,17 @@ namespace ActuarialIntelligence.Graphics
                 g.DrawLine(penY, 100, 100, (float)resY.a + 100, (float)resY.c + 100);
                 g.DrawLine(penZ, 100, 100, (float)resZ.a + 100, (float)resZ.c + 100);
 
+            }
+        }
+        public class PointVectorPair
+        {
+            public readonly Point<double, double> transformed;
+            public readonly Point<_3Vector, _3Vector> actual;
+            public PointVectorPair(Point<double, double> transformed,
+                Point<_3Vector, _3Vector> actual)
+            {
+                this.actual = actual;
+                this.transformed = transformed;
             }
         }
     }

@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.DisplayBox = new System.Windows.Forms.PictureBox();
             this.AnglePictureBox = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DisplayBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AnglePictureBox)).BeginInit();
             this.SuspendLayout();
@@ -42,11 +42,11 @@
             this.DisplayBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DisplayBox.BackColor = System.Drawing.Color.MidnightBlue;
+            this.DisplayBox.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.DisplayBox.Location = new System.Drawing.Point(1, -1);
             this.DisplayBox.Margin = new System.Windows.Forms.Padding(6);
             this.DisplayBox.Name = "DisplayBox";
-            this.DisplayBox.Size = new System.Drawing.Size(1436, 1075);
+            this.DisplayBox.Size = new System.Drawing.Size(1846, 1075);
             this.DisplayBox.TabIndex = 7;
             this.DisplayBox.TabStop = false;
             this.DisplayBox.Click += new System.EventHandler(this.DisplayBox_Click);
@@ -56,28 +56,31 @@
             // AnglePictureBox
             // 
             this.AnglePictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.AnglePictureBox.Location = new System.Drawing.Point(1441, -1);
+            this.AnglePictureBox.Location = new System.Drawing.Point(1, -1);
             this.AnglePictureBox.Margin = new System.Windows.Forms.Padding(6);
             this.AnglePictureBox.Name = "AnglePictureBox";
             this.AnglePictureBox.Size = new System.Drawing.Size(396, 385);
             this.AnglePictureBox.TabIndex = 8;
             this.AnglePictureBox.TabStop = false;
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(1441, 411);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(327, 31);
-            this.textBox1.TabIndex = 9;
-            this.textBox1.Visible = false;
-            // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(1441, 448);
+            this.textBox2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.textBox2.Location = new System.Drawing.Point(1510, -1);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(327, 31);
             this.textBox2.TabIndex = 10;
             this.textBox2.Visible = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.textBox1.Location = new System.Drawing.Point(1188, -1);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(327, 31);
+            this.textBox1.TabIndex = 9;
+            this.textBox1.Visible = false;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Main
             // 
@@ -104,8 +107,8 @@
         #endregion
         private System.Windows.Forms.PictureBox DisplayBox;
         private System.Windows.Forms.PictureBox AnglePictureBox;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

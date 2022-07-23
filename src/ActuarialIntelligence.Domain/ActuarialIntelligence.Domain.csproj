@@ -33,6 +33,12 @@
     <Reference Include="kx">
       <HintPath>..\..\..\..\..\..\source\repos\KDB\LogAnalyticsSDKOnKubernetes\packages\CSharpKDB.1.1.0\lib\netstandard2.0\kx.dll</HintPath>
     </Reference>
+    <Reference Include="kx.PerfMon, Version=0.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\kx.PerfMon.0.4.0\lib\net46\kx.PerfMon.dll</HintPath>
+    </Reference>
+    <Reference Include="qSharp, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\qSharp.2.2.0.0\lib\net40\qSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Ronz.Core, Version=17.9.17.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Ronz.Core.17.9.17.4\lib\net46\Ronz.Core.dll</HintPath>
     </Reference>

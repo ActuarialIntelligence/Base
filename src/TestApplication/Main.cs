@@ -13,12 +13,15 @@ namespace TestApplication
     public partial class Main : Form
     {
         private IModel model;
+
         double width, height;
         SimpleFunctionContainer container;
+        SimpleFunctionContainer container2;
         IList<Point<_3Vector, _3Vector>> vectorPointsList;
-        double pivotX = 0, pivotY = 0;
+        double pivotX = 400, pivotY = 350;
         _3Vector AngleX, AngleY, AngleZ, AngleZero;
-
+        double freezeX, freezeY;
+        bool freezeFrame = false;
         private void Main_Resize(object sender, EventArgs e)
         {
             //1419, 1075
@@ -30,14 +33,23 @@ namespace TestApplication
 
             this.DisplayBox.Image = new Bitmap(DisplayBox.Width, DisplayBox.Height);
             InitializeAngleGrid();
+            pivotX = DisplayBox.Width / 2;
+            pivotY = DisplayBox.Height / 2;
         }
 
         private void DisplayBox_Click(object sender, EventArgs e)
         {
-
+            if (freezeFrame)
+            {
+                freezeFrame = false;
+            }
+            else
+            {
+                freezeFrame = true;
+            }
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void pictureBox1_Click(object sender, MouseEventArgs e)
         {
 
         }
@@ -50,24 +62,88 @@ namespace TestApplication
 
         private void DisplayBox_MouseMove(object sender, MouseEventArgs e)
         {
-            pivotX = 1419 / 2;
-            pivotY = 1075 / 2;
-            textBox1.Text = pivotX.ToString() + ";" + pivotY.ToString() + ":" +
-                DisplayBox.Width.ToString() + ";" + DisplayBox.Height.ToString();
-            var result = DrawGraphics.DrawBitmap(e, this.DisplayBox, vectorPointsList, 340, 250);
-            DrawGrids();
-            DrawAngleAxis(result);
-            DisplayBox.Refresh();
+            RenderGraphics(e);
+
+            foreach (var pair in DrawGraphics.actualPoints)
+            {
+                if ((Math.Round(pair.transformed.Xval, 0) == e.X) && (Math.Round(pair.transformed.Yval, 0) == e.Y))
+                {
+
+                    textBox1.Text = e.X.ToString() + "||" + e.Y.ToString() + "||" + pair.actual.Xval.a + "||" + pair.actual.Xval.b + "||" + pair.actual.Xval.c;
+                }
+            }
+
+
+        }
+
+        private void RenderGraphics(MouseEventArgs e)
+        {
+            if (!freezeFrame)
+            {
+                //pivotX = 400;
+                //pivotY = 350;
+                //textBox1.Text = pivotX.ToString() + ";" + pivotY.ToString() + ":" +
+                //    DisplayBox.Width.ToString() + ";" + DisplayBox.Height.ToString() + ":" +
+                //    e.X.ToString() + ":" + e.Y.ToString();
+                var result = DrawGraphics.RotateAndDrawBitmap(e, this.DisplayBox, vectorPointsList, pivotX, pivotY);
+                DrawGrids();
+                DrawAngleAxis(result);
+                DisplayBox.Refresh();
+            }
+        }
+
+        private void DisplayBox_MouseUp(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void DisplayBox_MouseClick(object sender, MouseEventArgs e)
+        {
+
+            freezeX = e.X;
+            freezeY = e.Y;
+            pivotX = freezeX;
+            pivotY = freezeY;
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DisplayBox_MouseDown(object sender, MouseEventArgs e)
+        {
+
+
         }
 
         public Main()
         {
             InitializeComponent();
             AnglePictureBox.BackColor = Color.Transparent;
-            container = new SimpleFunctionContainer((u, v) => (-v * (2* u -1)) / (Math.Pow((u - 1), 2) + Math.Pow(v, 2)) * 80, 8, 8, 20);
-            //container = new SimpleFunctionContainer((u, v) => (u*(1-u) - Math.Pow(v,2))/(Math.Pow((u - 1),2) + Math.Pow(v, 2)) * 200  + 200, 8, 8, 20);
-            //container = new SimpleFunctionContainer((u, v) => (Math.Pow(Math.Cos(u), 5) * v - Math.Pow(v, 5) * u) / 3900000, 8, 8, 20);
+            //container = new SimpleFunctionContainer((u, v) => (-v * (2* u -1)) / (Math.Pow((u - 1), 2) + Math.Pow(v, 2)) * 80, 8, 8, 20);
+            //container2 = new SimpleFunctionContainer((u, v) => (u*(1-u) - Math.Pow(v,2))/(Math.Pow((u - 1),2) + Math.Pow(v, 2)) * 200  + 200, 8, 8, 20);
+            container2 = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Sin(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
+            container = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Cos(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
+
+            #region Test
+            var TdTrig = new List<Point<_3Vector, _3Vector>>();
+            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 0, 200)));
+            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 200, 0)));
+            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0)));
+            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 0, 200)));
+            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 200, 0)));
+            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 200, 0), new _3Vector(0, 0, 200)));
+            #endregion
+
+
             vectorPointsList = container.VectorPointsList;
+            foreach (var point in container2.VectorPointsList)
+            {
+                vectorPointsList.Add(point);
+            }
+            //vectorPointsList = TdTrig;//container.VectorPointsList;
             model = new ModelContainer(container);
         }
         /// <summary>
@@ -79,10 +155,10 @@ namespace TestApplication
         /// <param name="t"></param>
         public void CallToChange(double x, double y, double z, double t)
         {
-            //Dont forget to set the following outside of this function. 
+            //Dont forget to set the following outside of this function.
             //VariableFunctionContainer.FunctionCoEfficientList = new List<Func<double, double, double, double, double>>()
-               
-            container = new SimpleFunctionContainer((u, v) => VariableFunctionContainer.GetCurrentValue(1,x,y,z,t)*(u) + VariableFunctionContainer.GetCurrentValue(2, x, y, z, t) * (Math.Pow(u,2)), 8, 8, 20);
+
+            container = new SimpleFunctionContainer((u, v) => VariableFunctionContainer.GetCurrentValue(1, x, y, z, t) * (u) + VariableFunctionContainer.GetCurrentValue(2, x, y, z, t) * (Math.Pow(u, 2)), 8, 8, 20);
             //container = new SimpleFunctionContainer((u, v) => (u*(1-u) - Math.Pow(v,2))/(Math.Pow((u - 1),2) + Math.Pow(v, 2)) * 200  + 200, 8, 8, 20);
             //container = new SimpleFunctionContainer((u, v) => (Math.Pow(Math.Cos(u), 5) * v - Math.Pow(v, 5) * u) / 3900000, 8, 8, 20);
             vectorPointsList = container.VectorPointsList;
