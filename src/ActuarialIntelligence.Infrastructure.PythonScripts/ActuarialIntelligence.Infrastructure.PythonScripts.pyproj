@@ -21,6 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="EdgeDetection.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LogisticRegression.py">
       <SubType>Code</SubType>
     </Compile>

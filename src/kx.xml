@@ -1,0 +1,1009 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>kx</name>
+    </assembly>
+    <members>
+        <member name="T:kx.c">
+            <summary>
+            An extended class of <see cref="T:System.Net.Sockets.TcpClient"/> that serves as a connector class for 
+            interfacing with a KDB+ process.
+            </summary>
+            <remarks>
+            This class is essentially a serializer/deserializer of .NET types 
+            to/from the KDB+ IPC wire format, enabling remote method invocation in KDB+ via TCP/IP.
+            </remarks>
+        </member>
+        <member name="F:kx.c._guidInterProcess">
+            <summary>
+            Used to convert a .NET <see cref="T:System.Guid"/> into a KDB+ compatible id.
+            </summary>
+        </member>
+        <member name="F:kx.c._readBuffer">
+            <summary>
+            The buffer used to store the incoming message bytes from the remote prior to de-serialization.
+            </summary>
+        </member>
+        <member name="F:kx.c._writeBuffer">
+            <summary>
+            The buffer used to store the outgoing message bytes when serializing an object.
+            </summary>
+        </member>
+        <member name="F:kx.c._readPosition">
+            <summary>
+            The current position of the de-serializer within the read buffer.
+            </summary>
+        </member>
+        <member name="F:kx.c._writePosition">
+            <summary>
+            The current position of the serialiser within the write buffer.
+            </summary>
+        </member>
+        <member name="F:kx.c._isLittleEndian">
+            <summary>
+            A boolean flag indicating the Endianness of a message.
+            </summary>
+        </member>
+        <member name="M:kx.c.#ctor(System.String,System.Int32)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c" /> with a specified host and port 
+            to connect to.
+            </summary>
+            <param name="host">The host to connect to.</param>
+            <param name="port">The port to connect to.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="host" /> was null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="port" /> must be between <see cref="F:System.Net.IPEndPoint.MinPort" /> and <see cref="F:System.Net.IPEndPoint.MaxPort" /></exception>
+            <exception cref="T:kx.KException">Unable to connect to KDB+ process, access denied or process unavailable.</exception>
+        </member>
+        <member name="M:kx.c.#ctor(System.String,System.Int32,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c" /> with a specified host and port 
+            to connect to, a username/password for authentication, an optional maximum buffersize and
+            an optional flag indicating whether to use TLS.
+            </summary>
+            <param name="host">The host to connect to.</param>
+            <param name="port">The port to connect to.</param>
+            <param name="userPassword">The username and passsword, as "username:password" for remote authorisation.</param>
+            <param name="maxBufferSize">The maximum buffer size, default is 65536.</param>
+            <param name="useTLS">A boolean flag indicating whether or not TLS authentication is enabled, default is false.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="host" /> or <paramref name="userPassword" /> was null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="port" /> must be between <see cref="F:System.Net.IPEndPoint.MinPort" /> and <see cref="F:System.Net.IPEndPoint.MaxPort" /></exception>
+            <exception cref="T:kx.KException">Unable to connect to KDB+ process, access denied or process unavailable.</exception>
+        </member>
+        <member name="M:kx.c.#ctor">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c"/>
+            </summary>
+            <remarks>
+            Parameterless constructor intended for unit-testing only and access to global members.
+            </remarks>
+        </member>
+        <member name="M:kx.c.#ctor(System.Int32)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c"/> with a specified
+            KDB+ version number.
+            </summary>
+            <param name="versionNumber">The KDB+ version number to use for testing.</param>
+            <remarks>
+            Test constructor intended for unit-testing only, keep internal.
+            </remarks>
+        </member>
+        <member name="M:kx.c.#ctor(System.IO.Stream)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c"/> with a specified 
+            client-stream.
+            </summary>
+            <param name="clientStream">The client-stream.</param>
+            <remarks>
+            Test constructor intended for unit-testing only, keep internal.
+            </remarks>
+        </member>
+        <member name="M:kx.c.#ctor(System.IO.Stream,System.Int32)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c"/> with a specified 
+            client-stream and version-number.
+            </summary>
+            <param name="clientStream">The client-stream.</param>
+            <param name="versionNumber">The KDB+ version number to use for testing.</param>
+            <remarks>
+            Test constructor intended for unit-testing only, keep internal.
+            </remarks>
+        </member>
+        <member name="P:kx.c.IsCompressed">
+            <summary>
+            Gets or sets whether or not the resulting byte array is compressed.
+            </summary>
+        </member>
+        <member name="P:kx.c.IsSync">
+            <summary>
+            Gets or sets whether or not the resulting byte array is sync.
+            </summary>
+        </member>
+        <member name="P:kx.c.IsResponse">
+            <summary>
+            Gets or sets whether or not the resulting byte array is a response.
+            </summary>
+        </member>
+        <member name="P:kx.c.IsZipEnabled">
+            <summary>
+            Gets or sets whether zip compression is enabled.
+            </summary>
+        </member>
+        <member name="P:kx.c.ReadBuffer">
+            <summary>
+            Gets the buffer used to store the incoming message bytes from the remote prior 
+            to de-serialisation.
+            </summary>
+        </member>
+        <member name="P:kx.c.ReadPosition">
+            <summary>
+            Gets or sets the current postion of the de-serialiser with the read buffer.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">Read-Position cannot be less than zero.</exception>
+        </member>
+        <member name="P:kx.c.IsLittleEndian">
+            <summary>
+            Gets a boolean flag indicating the Endianness of a message;
+            <c>true</c> indicates little-Endian, <c>false</c> indicatse big-Endian.
+            </summary>
+        </member>
+        <member name="P:kx.c.e">
+            <summary>
+            Gets or sets character encoding for serialising/deserialising strings, 
+            default is <see cref="P:System.Text.Encoding.ASCII"/>.
+            </summary>
+        </member>
+        <member name="M:kx.c.Close">
+            <summary>
+            Disposes this <see cref="T:kx.c"/> instance and requests that the underlying
+            stream and TCP connection be closed.
+            </summary>
+        </member>
+        <member name="M:kx.c.k">
+            <summary>
+            Reads an incoming message from the remote KDB+ process.
+            </summary>
+            <returns>
+            Deserialised response to request.
+            </returns>
+        </member>
+        <member name="M:kx.c.k(System.Object)">
+            <summary>
+            Sends a sync message request to the remote KDB+ process.
+            </summary>
+            <param name="x">The object parameter to send.</param>
+            <returns>
+            Deserialised response to request.
+            </returns>
+        </member>
+        <member name="M:kx.c.k(System.String)">
+            <summary>
+            Sends a sync message request to the remote KDB+ process with a 
+            specified expression.
+            </summary>
+            <param name="s">The expression to send.</param>
+            <returns>
+            Deserialised response to request.
+            </returns>
+        </member>
+        <member name="M:kx.c.k(System.String,System.Object)">
+            <summary>
+            Sends a sync message request to the remote KDB+ process with a 
+            specified expression and request object.
+            </summary>
+            <param name="s">The expression to send.</param>
+            <param name="x">The object parameter to send.</param>
+            <returns>
+            Deserialised response to request.
+            </returns>
+        </member>
+        <member name="M:kx.c.k(System.String,System.Object,System.Object)">
+            <summary>
+            Sends a sync message request to the remote KDB+ process with a 
+            specified expression and request objects.
+            </summary>
+            <param name="s">The expression to send.</param>
+            <param name="x">The first object parameter to send.</param>
+            <param name="y">The second object parameter to send.</param>
+            <returns>
+            Deserialised response to request.
+            </returns>
+        </member>
+        <member name="M:kx.c.k(System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            Sends a sync message request to the remote KDB+ process with a 
+            specified expression and request objects.
+            </summary>
+            <param name="s">The expression to send.</param>
+            <param name="x">The first object parameter to send.</param>
+            <param name="y">The second object parameter to send.</param>
+            <param name="z">The third object parameter to send.</param>
+            <returns>
+            Deserialised response to request.
+            </returns>
+        </member>
+        <member name="M:kx.c.k0">
+            <summary>
+            Waits for an async message and read header.
+            </summary>
+        </member>
+        <member name="M:kx.c.ks(System.Object)">
+            <summary>
+            Sends an async message to the remote KDB+ process with a specified object parameter.
+            </summary>
+            <param name="x">The object parameter.</param>
+        </member>
+        <member name="M:kx.c.ks(System.String)">
+            <summary>
+            Sends an async message to the remote KDB+ process with a specified expression.
+            </summary>
+            <param name="s">The expression to send.</param>
+        </member>
+        <member name="M:kx.c.ks(System.String,System.Object)">
+            <summary>
+            Sends an async message to the remote KDB+ process with a specified expression 
+            and object parameter.
+            </summary>
+            <param name="s">The expression to send.</param>
+            <param name="x">The object parameter to send.</param>
+        </member>
+        <member name="M:kx.c.ks(System.String,System.Object,System.Object)">
+            <summary>
+            Sends an async message to the remote KDB+ process with a specified expression 
+            and object parameters.
+            </summary>
+            <param name="s">The expression to send.</param>
+            <param name="x">The first object parameter to send.</param>
+            <param name="y">The second object parameter to send.</param>
+        </member>
+        <member name="M:kx.c.kn(System.Object)">
+            <summary>
+            Sends an async message to the remote KDB+ process with a specified object parameter.
+            </summary>
+            <param name="x">The object parameter.</param>
+        </member>
+        <member name="M:kx.c.kr(System.Object)">
+            <summary>
+            Sends a response message to the remote KDB+ process.
+            </summary>
+            <param name="x">The response message to send.</param>
+            <remarks>
+            This should be called only during processing of an incoming sync message.
+            </remarks>
+        </member>
+        <member name="M:kx.c.Serialize(System.Int32,System.Object)">
+            <summary>
+            Serialises a specified object as a byte-array
+            </summary>
+            <param name="messageType">The type of object to be serialised.</param>
+            <param name="x">The object to be serialised.</param>
+            <returns>
+            A byte-array containing the serialised object data.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="x"/> parameter was null.</exception>
+        </member>
+        <member name="M:kx.c.Serialize(System.Int32,System.Object,System.Boolean)">
+            <summary>
+            Serialises a specified object as a byte-array
+            </summary>
+            <param name="messageType">The type of object to be serialised.</param>
+            <param name="x">The object to be serialised.</param>
+            <param name="zip">A boolean flag indicating whether or not zip compression is enabled.</param>
+            <returns>
+            A byte-array containing the serialised object data.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="x"/> parameter was null.</exception>
+        </member>
+        <member name="M:kx.c.Deserialize(System.Byte[])">
+            <summary>
+            Deserialises a specified byte-array to an object.
+            </summary>
+            <param name="buffer">The byte-array to be deserialised.</param>
+            <returns>
+            The deserialised object.
+            </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> parameter was null.</exception>
+            <exception cref="T:kx.KException">Error occurred during de-serialisation.</exception>
+        </member>
+        <member name="M:kx.c.ReadObject">
+            <summary>
+            Reads the contents of the incoming message from the client 
+            read-buffer.
+            </summary>
+            <returns>
+            The deserialised contents from the read-buffer.
+            </returns>
+        </member>
+        <member name="M:kx.c.ReadInt32">
+            <summary>
+            Reads an <see cref="T:System.Int32"/> from the client read-buffer.
+            </summary>
+            <returns>
+            A deserialised int from the client read-buffer.
+            </returns>
+        </member>
+        <member name="M:kx.c.Write(System.Byte[],System.Int32)">
+            <summary>
+            Writes a specified byte array directly to the underlying client stream.
+            </summary>
+            <param name="bytes">The byte array to be writtern to the client stream.</param>
+            <param name="number">The number of bytes to be written to the client stream.</param>
+        </member>
+        <member name="M:kx.c.NULL(System.Type)">
+            <summary>
+            Gets the null object for the specified <see cref="T:System.Type"/>.
+            </summary>
+            <param name="type">The .NET type.</param>
+            <returns>
+            Instance of null object of specified KDB+ type.
+            </returns>
+        </member>
+        <member name="M:kx.c.NULL(System.Char)">
+            <summary>
+            Gets the null object for the specified <see cref="T:System.Char"/> id.
+            </summary>
+            <param name="c">The character id.</param>
+            <returns>
+            Instance of null object of specified KDB+ type.
+            </returns>
+            <exception cref="T:System.ArgumentException"><paramref name="c"/> character is not recognised.</exception>
+        </member>
+        <member name="M:kx.c.qn(System.Object)">
+            <summary>
+            Tests whether an object is a null object of that type.
+            </summary>
+            <param name="x">The object to be tested for null.</param>
+            <returns>
+            <c>true</c> if the <paramref name="x"/> is KDB+ null; otherwise returns <c>false</c>.
+            </returns>
+            <remarks>
+            qn(NULL('j')) should return <c>true</c>.
+            </remarks>
+        </member>
+        <member name="M:kx.c.td(System.Object)">
+            <summary>
+            Removes the key from a keyed table. 
+            </summary>
+            <param name="X">The original object to convert to a <see cref="T:kx.c.Flip"/>.</param>
+            <returns>
+            A simple table.
+            </returns>
+        </member>
+        <member name="M:kx.c.n(System.Object)">
+            <summary>
+            Returns the number of elements in a specified object.
+            </summary>
+            <param name="x">The object to be serialised.</param>
+            <returns>
+            The number of elements in an object.
+            </returns>
+        </member>
+        <member name="M:kx.c.at(System.Object,System.Int32)">
+            <summary>
+            Gets the object at an index of an array.
+            </summary>
+            <param name="x">The array to index.</param>
+            <param name="i">The offset to index at.</param>
+            <returns>
+            The object at the index, or null if the object value represents 
+            a KDB+ null value for its' type.
+            </returns>
+        </member>
+        <member name="T:kx.c.Date">
+            <summary>
+            Represents a KDB+ Date type.
+            </summary>
+        </member>
+        <member name="M:kx.c.Date.#ctor(System.Int32)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c.Date"/> using 
+            a specified int that respresents the value.
+            </summary>
+            <param name="x">The value.</param>
+        </member>
+        <member name="M:kx.c.Date.#ctor(System.Int64)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c.Date"/> using 
+            a specified long that respresents the value.
+            </summary>
+            <param name="x">The value.</param>
+        </member>
+        <member name="M:kx.c.Date.#ctor(System.DateTime)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c.Date"/> using 
+            a specified <see cref="M:kx.c.Date.DateTime"/> that respresents the value.
+            </summary>
+            <param name="z">The value.</param>
+        </member>
+        <member name="P:kx.c.Date.i">
+            <summary>
+            Gets or sets the value of this KDB+ Date.
+            </summary>
+        </member>
+        <member name="M:kx.c.Date.DateTime">
+            <summary>
+            Converts this KDB+ <see cref="T:kx.c.Date"/> into an equivalent 
+            .NET <see cref="M:kx.c.Date.DateTime"/>
+            </summary>
+            <returns>
+            A <see cref="M:kx.c.Date.DateTime"/> that is equivalent to the KDB+ Date.
+            </returns>
+        </member>
+        <member name="M:kx.c.Date.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Date.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Date.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Date.CompareTo(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Date.CompareTo(kx.c.Date)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Date.Equals(kx.c.Date)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Date.op_Equality(kx.c.Date,kx.c.Date)">
+            <summary>
+            Determines whether two specified instances of <see cref="T:kx.c.Date"/> are equal.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if instances are equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Date.op_Inequality(kx.c.Date,kx.c.Date)">
+            <summary>
+            Determines whether two specified instances of <see cref="T:kx.c.Date"/> are not equal.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if instances are not equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Date.op_LessThan(kx.c.Date,kx.c.Date)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Date"/> is less than another specified 
+            <see cref="T:kx.c.Date"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is less than right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Date.op_GreaterThan(kx.c.Date,kx.c.Date)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Date"/> is greater than another specified 
+            <see cref="T:kx.c.Date"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is greater than right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Date.op_LessThanOrEqual(kx.c.Date,kx.c.Date)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Date"/> is less than or equal to 
+            another specified 
+            <see cref="T:kx.c.Date"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is less than or equal to right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Date.op_GreaterThanOrEqual(kx.c.Date,kx.c.Date)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Date"/> is greater than or equal to 
+            another specified 
+            <see cref="T:kx.c.Date"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is greater than or equal to right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:kx.c.Month">
+            <summary>
+            Represents a KDB+ Month type.
+            </summary>
+        </member>
+        <member name="M:kx.c.Month.#ctor(System.Int32)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c.Month"/> using a specified 
+            number of months.
+            </summary>
+            <param name="x">The number of months since Jan 2000.</param>
+        </member>
+        <member name="P:kx.c.Month.i">
+            <summary>
+            Gets or sets the number of months since Jan 2000
+            </summary>
+            <remarks>
+            Post-millennium is positive and pre is negative.
+            </remarks>
+        </member>
+        <member name="M:kx.c.Month.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Month.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Month.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Month.CompareTo(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Month.CompareTo(kx.c.Month)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Month.Equals(kx.c.Month)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Month.op_Equality(kx.c.Month,kx.c.Month)">
+            <summary>
+            Determines whether two specified instances of <see cref="T:kx.c.Month"/> are equal.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if instances are equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Month.op_Inequality(kx.c.Month,kx.c.Month)">
+            <summary>
+            Determines whether two specified instances of <see cref="T:kx.c.Month"/> are not equal.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if instances are not equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Month.op_LessThan(kx.c.Month,kx.c.Month)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Month"/> is less than another specified 
+            <see cref="T:kx.c.Month"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is less than right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Month.op_GreaterThan(kx.c.Month,kx.c.Month)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Month"/> is greater than another specified 
+            <see cref="T:kx.c.Month"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is greater than right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Month.op_LessThanOrEqual(kx.c.Month,kx.c.Month)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Month"/> is less than or equal to 
+            another specified 
+            <see cref="T:kx.c.Month"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is less than or equal to right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Month.op_GreaterThanOrEqual(kx.c.Month,kx.c.Month)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Month"/> is greater than or equal to 
+            another specified 
+            <see cref="T:kx.c.Month"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is greater than or equal to right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:kx.c.Minute">
+            <summary>
+            Represents a KDB+ Minute type.
+            </summary>
+        </member>
+        <member name="M:kx.c.Minute.#ctor(System.Int32)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c.Month"/> using a specified 
+            number of minutes since midnight.
+            </summary>
+            <param name="x">Number of minutes since midnight.</param>
+        </member>
+        <member name="P:kx.c.Minute.i">
+            <summary>
+            Gets or sets the number of minutes since midnight.
+            </summary>
+        </member>
+        <member name="M:kx.c.Minute.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Minute.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Minute.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Minute.CompareTo(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Minute.CompareTo(kx.c.Minute)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Minute.Equals(kx.c.Minute)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Minute.op_Equality(kx.c.Minute,kx.c.Minute)">
+            <summary>
+            Determines whether two specified instances of <see cref="T:kx.c.Minute"/> are equal.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if instances are equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Minute.op_Inequality(kx.c.Minute,kx.c.Minute)">
+            <summary>
+            Determines whether two specified instances of <see cref="T:kx.c.Minute"/> are not equal.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if instances are not equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Minute.op_LessThan(kx.c.Minute,kx.c.Minute)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Minute"/> is less than another specified 
+            <see cref="T:kx.c.Minute"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is less than right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Minute.op_GreaterThan(kx.c.Minute,kx.c.Minute)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Minute"/> is greater than another specified 
+            <see cref="T:kx.c.Minute"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is greater than right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Minute.op_LessThanOrEqual(kx.c.Minute,kx.c.Minute)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Minute"/> is less than or equal to 
+            another specified <see cref="T:kx.c.Minute"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is less than or equal to right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Minute.op_GreaterThanOrEqual(kx.c.Minute,kx.c.Minute)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Minute"/> is greater than or equal to 
+            another specified <see cref="T:kx.c.Minute"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is greater than or equal to right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:kx.c.Second">
+            <summary>
+            Represents a KDB+ Second type.
+            </summary>
+        </member>
+        <member name="M:kx.c.Second.#ctor(System.Int32)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c.Month"/> using a specified 
+            number of seconds.
+            </summary>
+            <param name="x">The number of seconds since midnight.</param>
+        </member>
+        <member name="P:kx.c.Second.i">
+            <summary>
+            Gets or sets the number of seconds since midnight.
+            </summary>
+        </member>
+        <member name="M:kx.c.Second.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Second.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Second.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Second.CompareTo(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Second.CompareTo(kx.c.Second)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Second.Equals(kx.c.Second)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.Second.op_Equality(kx.c.Second,kx.c.Second)">
+            <summary>
+            Determines whether two specified instances of <see cref="T:kx.c.Second"/> are equal.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if instances are equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Second.op_Inequality(kx.c.Second,kx.c.Second)">
+            <summary>
+            Determines whether two specified instances of <see cref="T:kx.c.Second"/> are not equal.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if instances are not equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Second.op_LessThan(kx.c.Second,kx.c.Second)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Second"/> is less than another specified 
+            <see cref="T:kx.c.Second"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is less than right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Second.op_GreaterThan(kx.c.Second,kx.c.Second)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Second"/> is greater than another specified 
+            <see cref="T:kx.c.Second"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is greater than right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Second.op_LessThanOrEqual(kx.c.Second,kx.c.Second)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Second"/> is less than or equal to 
+            another specified <see cref="T:kx.c.Second"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is less than or equal to right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.Second.op_GreaterThanOrEqual(kx.c.Second,kx.c.Second)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.Second"/> is greater than or equal to 
+            another specified <see cref="T:kx.c.Second"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is greater than or equal to right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:kx.c.KTimespan">
+            <summary>
+            Represents a KDB+ TimeSpan type.
+            </summary>
+        </member>
+        <member name="M:kx.c.KTimespan.#ctor(System.Int64)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c.KTimespan"/> using a specified 
+            number of nanoseconds.
+            </summary>
+            <param name="x">Number of nanoseconds since midnight.</param>
+        </member>
+        <member name="P:kx.c.KTimespan.t">
+            <summary>
+            Gets or sets the .NET <see cref="T:System.TimeSpan"/>.
+            </summary>
+        </member>
+        <member name="M:kx.c.KTimespan.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.KTimespan.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.KTimespan.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.KTimespan.CompareTo(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.KTimespan.CompareTo(kx.c.KTimespan)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.KTimespan.Equals(kx.c.KTimespan)">
+            <inheritdoc />
+        </member>
+        <member name="M:kx.c.KTimespan.op_Equality(kx.c.KTimespan,kx.c.KTimespan)">
+            <summary>
+            Determines whether two specified instances of <see cref="T:kx.c.KTimespan"/> are equal.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if instances are equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.KTimespan.op_Inequality(kx.c.KTimespan,kx.c.KTimespan)">
+            <summary>
+            Determines whether two specified instances of <see cref="T:kx.c.KTimespan"/> are not equal.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if instances are not equal; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.KTimespan.op_LessThan(kx.c.KTimespan,kx.c.KTimespan)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.KTimespan"/> is less than another specified 
+            <see cref="T:kx.c.KTimespan"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is less than right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.KTimespan.op_GreaterThan(kx.c.KTimespan,kx.c.KTimespan)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.KTimespan"/> is greater than another specified 
+            <see cref="T:kx.c.KTimespan"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is greater than right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.KTimespan.op_LessThanOrEqual(kx.c.KTimespan,kx.c.KTimespan)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.KTimespan"/> is less than or equal to 
+            another specified <see cref="T:kx.c.KTimespan"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is less than or equal to right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:kx.c.KTimespan.op_GreaterThanOrEqual(kx.c.KTimespan,kx.c.KTimespan)">
+            <summary>
+            Determines whether one specified <see cref="T:kx.c.KTimespan"/> is greater than or equal to 
+            another specified <see cref="T:kx.c.KTimespan"/>.
+            </summary>
+            <param name="left">The first instance.</param>
+            <param name="right">The second instance.</param>
+            <returns>
+            <c>true</c> if left instance is greater than or equal to right instance; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:kx.c.Dict">
+            <summary>
+            Represents a KDB+ dictionary type.
+            </summary>
+        </member>
+        <member name="M:kx.c.Dict.#ctor(System.Object,System.Object)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c.Dict"/>
+            </summary>
+            <param name="X">Keys to store. Should be an array type when using multiple values.</param>
+            <param name="Y">
+            Values to store. Index of each value should match the corresponding associated key.
+            Should be an array type when using multiple values.
+            </param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="X"/> or <paramref name="Y"/> was null.</exception>
+        </member>
+        <member name="P:kx.c.Dict.x">
+            <summary>
+            Gets or sets the <see cref="T:kx.c.Dict"/> keys.
+            </summary>
+        </member>
+        <member name="P:kx.c.Dict.y">
+            <summary>
+            Gets or sets the <see cref="T:kx.c.Dict"/> values.
+            </summary>
+        </member>
+        <member name="T:kx.c.Flip">
+            <summary>
+            Represents a KDB+ table type.
+            </summary>
+        </member>
+        <member name="M:kx.c.Flip.#ctor(kx.c.Dict)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.c.Flip"/> using a specified 
+            <see cref="T:kx.c.Dict"/>.
+            </summary>
+            <param name="X">The <see cref="T:kx.c.Dict"/>.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="X"/> was null.</exception>
+        </member>
+        <member name="P:kx.c.Flip.x">
+            <summary>
+            Gets or sets the array of column names
+            </summary>
+        </member>
+        <member name="P:kx.c.Flip.y">
+            <summary>
+            Gets or sets the array of column values.
+            </summary>
+        </member>
+        <member name="M:kx.c.Flip.at(System.String)">
+            <summary>
+            Gets the column values given the column name.
+            </summary>
+            <param name="s">The column name.</param>
+            <returns>
+            The value(s) associated with the column name which can be casted to an array of objects.
+            </returns>
+            <exception cref="T:System.IndexOutOfRangeException"><paramref name="s"/> column name was not found.</exception>
+        </member>
+        <member name="T:kx.KException">
+            <summary>
+            An exception that is thrown when in an error occurs in the <see cref="T:kx.c"/> class.
+            </summary>
+        </member>
+        <member name="M:kx.KException.#ctor">
+            <summary>
+            Initialises a new default instance of <see cref="T:kx.KException"/>.
+            </summary>
+        </member>
+        <member name="M:kx.KException.#ctor(System.String)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.KException"/> with a specified 
+            error message.
+            </summary>
+            <param name="message">The error message that explains the reason for this exception.</param>
+        </member>
+        <member name="M:kx.KException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.KException"/> with a specified 
+            error message and the excception that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for this exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="M:kx.KException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initialises a new instance of <see cref="T:kx.KException"/> with serialised data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialised data of the exception.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
+        </member>
+    </members>
+</doc>
