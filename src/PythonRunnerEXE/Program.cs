@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 
 
 namespace PythonRunnerEXE
@@ -10,7 +11,8 @@ namespace PythonRunnerEXE
     {
         static void Main(string[] args)
         {
-            CallProcessForexecution(args);
+            var pixcelList = GetPixcleList(@"C:\Users\rajiyer\Pictures\floorMarked.png");
+            var filteredList = FilterForModel(pixcelList).OrderBy(u=>u.Key);
         }
 
         private static void CallProcessForexecution(string[] args)
@@ -48,10 +50,10 @@ namespace PythonRunnerEXE
           
         }
         
-        private static IDictionary<int, int> GetPixcleList()
+        private static IDictionary<int, int> GetPixcleList(string path)
         {
 
-            System.Drawing.Bitmap b = new System.Drawing.Bitmap("");
+            System.Drawing.Bitmap b = new System.Drawing.Bitmap(path);
             var colour = new Color();
             var col = Color.FromArgb(0, 255, 0);
             IDictionary<int,int> colorList = new Dictionary<int, int>();
@@ -62,11 +64,27 @@ namespace PythonRunnerEXE
                     {
                         if (b.GetPixel(x, y).ToArgb().Equals(col.ToArgb()))
                         {
-                            colorList.Add(x,y);
+                            colorList.TryAdd(x,y);
                         }
                     }
                 }
             return colorList;
+        }
+        private static IDictionary<int, int> FilterForModel(IDictionary<int, int> keyValuePairs)
+        {
+            var filteredList = new Dictionary<int, int>();
+            var allKeys = keyValuePairs.Keys;
+            var allValues = keyValuePairs.Values;
+
+            var groupedKVP = keyValuePairs.GroupBy(u => u.Value);
+            var i = 0;
+            foreach (var grouping in groupedKVP)
+            {
+                var elements = grouping.ElementAtOrDefault(i);
+                filteredList.Add(elements.Key,elements.Value);
+            }
+
+            return filteredList;
         }
     }  
 }
