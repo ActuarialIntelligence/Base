@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImageToModelCalculator.cs" />
     <Compile Include="Interfaces\IFormat.cs" />
     <Compile Include="PDF\PDFReformatCalculator.cs" />
     <Compile Include="ZSpreadCalculator.cs" />

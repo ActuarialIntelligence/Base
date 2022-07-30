@@ -1,9 +1,11 @@
-﻿using ActuarialIntelligence.Domain.ContainerObjects;
+﻿using ActuarialIntelligence.Calculators;
+using ActuarialIntelligence.Domain.ContainerObjects;
 using ActuarialIntelligence.Domain.MathContainers;
 using ActuarialIntelligence.Domain.Model_Containers;
 using ActuarialIntelligence.Domain.Model_Containers.ModelInterfaces;
 using ActuarialIntelligence.Graphics;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -17,6 +19,7 @@ namespace TestApplication
         double width, height;
         SimpleFunctionContainer container;
         SimpleFunctionContainer container2;
+        BasicModelContainer mContainer;
         IList<Point<_3Vector, _3Vector>> vectorPointsList;
         double pivotX = 800, pivotY = 700;
         _3Vector AngleX, AngleY, AngleZ, AngleZero;
@@ -121,30 +124,28 @@ namespace TestApplication
         public Main()
         {
             InitializeComponent();
+    
             AnglePictureBox.BackColor = Color.Transparent;
             //container = new SimpleFunctionContainer((u, v) => (-v * (2* u -1)) / (Math.Pow((u - 1), 2) + Math.Pow(v, 2)) * 80, 8, 8, 20);
             //container2 = new SimpleFunctionContainer((u, v) => (u*(1-u) - Math.Pow(v,2))/(Math.Pow((u - 1),2) + Math.Pow(v, 2)) * 200  + 200, 8, 8, 20);
-            container2 = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Sin(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
-            container = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Cos(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
+            //container2 = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Sin(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
+            // = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Cos(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
 
             #region Test
-            var TdTrig = new List<Point<_3Vector, _3Vector>>();
-            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 0, 200)));
-            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 200, 0)));
-            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0)));
-            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 0, 200)));
-            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 200, 0)));
-            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 200, 0), new _3Vector(0, 0, 200)));
+            //var TdTrig = new List<Point<_3Vector, _3Vector>>();
+            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 0, 200)));
+            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 200, 0)));
+            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0)));
+            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 0, 200)));
+            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 200, 0)));
+            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 200, 0), new _3Vector(0, 0, 200)));
             #endregion
-
-
-            vectorPointsList = container.VectorPointsList;
-            foreach (var point in container2.VectorPointsList)
-            {
-                vectorPointsList.Add(point);
-            }
+         
+            var points = LoadModelFromImage("");
+            vectorPointsList = ImageToModelCalculator.PointsToVectorList(points);//container.VectorPointsList;
+            mContainer = new BasicModelContainer(vectorPointsList);
             //vectorPointsList = TdTrig;//container.VectorPointsList;
-            model = new ModelContainer(container);
+            model = new ModelContainer(mContainer);
         }
         /// <summary>
         /// Call/use this function, when you want the vector points to change.
@@ -187,6 +188,13 @@ namespace TestApplication
         {
             DrawGraphics.AngleAxis(rotationResult, AnglePictureBox, AngleX, AngleY, AngleZ);
             AnglePictureBox.Refresh();
+        }
+
+        private static IDictionary<int, int> LoadModelFromImage(string path)
+        {
+            var pixelList = ImageToModelCalculator.GetPixcleList(@"C:\Users\rajiyer\Pictures\floorMarked.png");
+            //var filteredList = ImageToModelCalculator.FilterForModel(pixelList);
+            return pixelList;
         }
     }
 }

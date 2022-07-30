@@ -79,6 +79,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ActuarialIntelligence.Calculators\ActuarialIntelligence.Calculators.csproj">
+      <Project>{93f742f1-f00a-48d3-a4f4-9c24b59a8b3a}</Project>
+      <Name>ActuarialIntelligence.Calculators</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ActuarialIntelligence.Domain\ActuarialIntelligence.Domain.csproj">
       <Project>{4D013A73-50B5-451A-BA5E-DA003FA42249}</Project>
       <Name>ActuarialIntelligence.Domain</Name>
