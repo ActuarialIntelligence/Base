@@ -44,13 +44,13 @@ namespace ActuarialIntelligence.Calculators
 
         }
 
-        public static IDictionary<int, int> GetPixcleList(string path)
+        public static IList<Point<int, int>> GetPixcleList(string path)
         {
 
             System.Drawing.Bitmap b = new System.Drawing.Bitmap(path);
-            var colour = new Color();
             var col = Color.FromArgb(0, 255, 0);
-            IDictionary<int, int> colorList = new Dictionary<int, int>();
+            //IDictionary<int, int> colorList = new Dictionary<int, int>();
+            var points = new List<Point<int, int>>();
 
             for (int y = 0; y < b.Height; y++)
             {
@@ -58,55 +58,82 @@ namespace ActuarialIntelligence.Calculators
                 {
                     if (b.GetPixel(x, y).ToArgb().Equals(col.ToArgb()))
                     {
-                        if (x != 0 && y != 0)
-                        {
-                            if (!colorList.ContainsKey(x))
-                            {
-                                colorList.Add(x, y);
-                            }
-           
-                        }
+                        var point = new Point<int, int>(x, y);
+                        points.Add(point);
                     }
                 }
             }
-            return colorList;
+            return points;
         }
-        public static IDictionary<int, int> FilterForModel(IDictionary<int, int> keyValuePairs)
-        {
-            var filteredList = new Dictionary<int, int>();
-            var allKeys = keyValuePairs.Keys;
-            var allValues = keyValuePairs.Values;
+        //public static IDictionary<int, int> FilterForModel(IDictionary<int, int> keyValuePairs)
+        //{
+        //    var filteredList = new Dictionary<int, int>();
+        //    var allKeys = keyValuePairs.Keys;
+        //    var allValues = keyValuePairs.Values;
 
-            var groupedKVP = keyValuePairs.GroupBy(u => u.Value);
-            var i = 0;
-            foreach (var grouping in groupedKVP)
-            {
-                var elements = grouping.ElementAtOrDefault(i);
-                filteredList.Add(elements.Key, elements.Value);
-            }
+        //    var groupedKVP = keyValuePairs.GroupBy(u => u.Value);
+        //    var i = 0;
+        //    foreach (var grouping in groupedKVP)
+        //    {
+        //        var elements = grouping.ElementAtOrDefault(i);
+        //        filteredList.Add(elements.Key, elements.Value);
+        //    }
 
-            return filteredList;
-        }
+        //    return filteredList;
+        //}
 
         public static IList<Point<_3Vector, _3Vector>> 
-            PointsToVectorList(IDictionary<int, int> dictionaryOfPoints)
+            PointsToVectorList(IList<Point<int, int>> points)
         {
-            var groupedDictionary = dictionaryOfPoints.OrderBy(u => u.Key).ToDictionary(u=>u.Key,u=>u.Value);
+            var uniqueX = new List<int>();
+            foreach(var point in points)
+            {
+                if(!uniqueX.Contains(point.Xval))
+                {
+                    uniqueX.Add(point.Xval);
+                }
+            }
+            var uniqueY = new List<int>();
+            foreach (var point in points)
+            {
+                if (!uniqueY.Contains(point.Yval))
+                {
+                    uniqueY.Add(point.Yval);
+                }
+            }
+            var vectorList = new List<Point<_3Vector, _3Vector>>();
+
+            foreach (var val in uniqueX)
+            {
+                var pointsWhere = points.Where(u => u.Xval == val).ToList();
+                vectorList.AddRange(ToVectorList(pointsWhere));
+            }
+            foreach (var val in uniqueY)
+            {
+                var pointsWhere = points.Where(u => u.Yval == val).ToList();
+                vectorList.AddRange(ToVectorList(pointsWhere));
+            }
+            return vectorList;
+        }
+
+        private static List<Point<_3Vector, _3Vector>> ToVectorList(IList<Point<int, int>> points)
+        {
             var vectorList = new List<Point<_3Vector, _3Vector>>();
             var i = 0;
-            var cnt = groupedDictionary.Count;
-            foreach(var kvp in groupedDictionary)
+            var cnt = points.Count;
+            foreach (var kvp in points)
             {
-                if(i+1<cnt)
+                if (i + 1 < cnt)
                 {
-                    var vec1 = new _3Vector(kvp.Key, kvp.Value, 0);
-                    
-                    var pair2 = groupedDictionary.ElementAt(i+1);
-                    var vec2 = new _3Vector(pair2.Key,pair2.Value,0);
+                    var vec1 = new _3Vector(kvp.Xval, kvp.Yval, 0);
+
+                    var pair2 = points.ElementAt(i + 1);
+                    var vec2 = new _3Vector(pair2.Xval, pair2.Yval, 0);
                     vectorList.Add(new Point<_3Vector, _3Vector>(vec1, vec2));
                     i++;
                 }
             }
+
             return vectorList;
         }
 

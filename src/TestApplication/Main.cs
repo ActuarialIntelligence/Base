@@ -190,7 +190,7 @@ namespace TestApplication
             AnglePictureBox.Refresh();
         }
 
-        private static IDictionary<int, int> LoadModelFromImage(string path)
+        private static IList<Point<int, int>> LoadModelFromImage(string path)
         {
             var pixelList = ImageToModelCalculator.GetPixcleList(@"C:\Users\rajiyer\Pictures\floorMarked.png");
             //var filteredList = ImageToModelCalculator.FilterForModel(pixelList);
