@@ -138,19 +138,19 @@ namespace ActuarialIntelligence.Calculators
         }
 
         public static IList<Point<_3Vector, _3Vector>>
-    PointsToVectorList(IDictionary<int, int> dictionaryOfPoints,int zOffset)
+    PointsToVectorList(IList<Point<int, int>> points, int zOffset)
         {
             var vectorList = new List<Point<_3Vector, _3Vector>>();
             var i = 0;
-            var cnt = dictionaryOfPoints.Count;
-            foreach (var kvp in dictionaryOfPoints)
+            var cnt = points.Count;
+            foreach (var kvp in points)
             {
                 if (i + 1 < cnt)
                 {
-                    var vec1 = new _3Vector(kvp.Key, kvp.Value, zOffset);
+                    var vec1 = new _3Vector(kvp.Xval, kvp.Yval, zOffset);
 
-                    var pair2 = dictionaryOfPoints.ElementAt(i + 1);
-                    var vec2 = new _3Vector(pair2.Key, pair2.Value, zOffset);
+                    var pair2 = points.ElementAt(i + 1);
+                    var vec2 = new _3Vector(pair2.Xval, pair2.Yval, zOffset);
                     vectorList.Add(new Point<_3Vector, _3Vector>(vec1, vec2));
                 }
             }
