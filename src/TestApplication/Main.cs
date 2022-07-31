@@ -155,6 +155,11 @@ namespace TestApplication
             {
                 vectorPointsList.Add(item);
             }
+            foreach (var item in vecAddList)
+            {
+                vectorPointsList.Add(new Point<_3Vector, _3Vector>
+                    (new _3Vector(item.Xval.a, item.Xval.b, 0), new _3Vector(item.Yval.a, item.Yval.b, 300)));
+            }
             mContainer = new BasicModelContainer(vectorPointsList);
             //vectorPointsList = TdTrig;//container.VectorPointsList;
             model = new ModelContainer(mContainer);
