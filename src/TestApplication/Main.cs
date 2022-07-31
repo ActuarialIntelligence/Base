@@ -143,6 +143,18 @@ namespace TestApplication
          
             var points = LoadModelFromImage("");
             vectorPointsList = ImageToModelCalculator.PointsToVectorList(points);//container.VectorPointsList;
+            var vecAddList = new List<Point<_3Vector, _3Vector>>();
+            foreach (var item in vectorPointsList)
+            {
+                var vecAdd = new Point<_3Vector, _3Vector>
+                    (new _3Vector(item.Xval.a, item.Xval.b, 300), new _3Vector(item.Yval.a, item.Yval.b, 300));
+                vecAddList.Add(vecAdd);
+            }
+            vecAddList.AddRange(vecAddList);
+            foreach(var item in vecAddList)
+            {
+                vectorPointsList.Add(item);
+            }
             mContainer = new BasicModelContainer(vectorPointsList);
             //vectorPointsList = TdTrig;//container.VectorPointsList;
             model = new ModelContainer(mContainer);
