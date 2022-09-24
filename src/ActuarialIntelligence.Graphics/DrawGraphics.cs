@@ -48,6 +48,39 @@ namespace ActuarialIntelligence.Graphics
             return rotationResult;
         }
 
+        public static _3Matrix RotateAndDrawUnlinedBitmap(MouseEventArgs e, PictureBox graphicsDisplayBox, IList<Point<_3Vector, _3Vector>> pointsList, double pivotX, double pivotY)
+        {
+
+            decimal scaleX = 4 / (decimal)graphicsDisplayBox.Width;
+            decimal rotationCounterX = scaleX * e.X;
+
+            decimal scaleY = 4 / (decimal)graphicsDisplayBox.Height;
+            decimal rotationCounterY = scaleY * e.Y;
+
+            graphicsDisplayBox.Image = new Bitmap(graphicsDisplayBox.Width, graphicsDisplayBox.Height);
+            var rotationResult = RotationMatrices.RotateByAngles((float)rotationCounterY, 0, (float)rotationCounterX);
+
+            foreach (var pointPair in pointsList)
+            {
+                using (var g = System.Drawing.Graphics.FromImage(graphicsDisplayBox.Image))
+                {
+                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                    _3Vector pointA, pointB;
+                    Pen pen;
+                    EffectColourScheme(rotationResult, pointPair, out pointA, out pointB, out pen);
+
+                    g.DrawEllipse(pen, (float)((pointA.a) + pivotX)
+                                , (float)((pointA.b) + pivotY)
+                                , (float)(3)
+                                , (float)(3));
+
+                    actualPoints.Add(new PointVectorPair(new Point<double, double>(((pointA.a) + pointA.b + pivotX), 0)
+                    , pointPair)); //((pointA.c) + pivotY)
+                }
+            }
+            return rotationResult;
+        }
+
         //public static _3Matrix TranslateAndDrawBitmap(MouseEventArgs e, PictureBox graphicsDisplayBox, IList<Point<_3Vector, _3Vector>> pointsList, double pivotX, double pivotY)
         //{
 

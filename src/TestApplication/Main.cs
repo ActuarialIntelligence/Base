@@ -65,7 +65,7 @@ namespace TestApplication
 
         private void DisplayBox_MouseMove(object sender, MouseEventArgs e)
         {
-            RenderGraphics(e);
+            RenderGraphics(e,false);
 
             foreach (var pair in DrawGraphics.actualPoints)
             {
@@ -79,7 +79,7 @@ namespace TestApplication
 
         }
 
-        private void RenderGraphics(MouseEventArgs e)
+        private void RenderGraphics(MouseEventArgs e, bool linesBetween)
         {
             if (!freezeFrame)
             {
@@ -88,10 +88,22 @@ namespace TestApplication
                 //textBox1.Text = pivotX.ToString() + ";" + pivotY.ToString() + ":" +
                 //    DisplayBox.Width.ToString() + ";" + DisplayBox.Height.ToString() + ":" +
                 //    e.X.ToString() + ":" + e.Y.ToString();
-                var result = DrawGraphics.RotateAndDrawBitmap(e, this.DisplayBox, vectorPointsList, pivotX, pivotY);
-                DrawGrids();
-                DrawAngleAxis(result);
-                DisplayBox.Refresh();
+                _3Matrix result;
+                if (linesBetween)
+                {
+                     result = DrawGraphics.RotateAndDrawBitmap(e, this.DisplayBox, vectorPointsList, pivotX, pivotY);
+                    DrawGrids();
+                    DrawAngleAxis(result);
+                    DisplayBox.Refresh();
+                }
+                else
+                {
+                    result = DrawGraphics.RotateAndDrawUnlinedBitmap(e, this.DisplayBox, vectorPointsList, pivotX, pivotY);
+                    DrawGrids();
+                    DrawAngleAxis(result);
+                    DisplayBox.Refresh();
+                }
+
             }
         }
 
@@ -141,13 +153,13 @@ namespace TestApplication
             //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 200, 0), new _3Vector(0, 0, 200)));
             #endregion
          
-            var points = LoadModelFromImage("");
+            var points = LoadModelFromImage(@"C:\Users\rajiyer\Pictures\floorMarked.png");
             vectorPointsList = ImageToModelCalculator.PointsToVectorList(points);//container.VectorPointsList;
             var vecAddList = new List<Point<_3Vector, _3Vector>>();
             foreach (var item in vectorPointsList)
             {
                 var vecAdd = new Point<_3Vector, _3Vector>
-                    (new _3Vector(item.Xval.a, item.Xval.b, 300), new _3Vector(item.Yval.a, item.Yval.b, 300));
+                    (new _3Vector(item.Xval.a, item.Xval.b, 0), new _3Vector(item.Yval.a, item.Yval.b, 0));
                 vecAddList.Add(vecAdd);
             }
             vecAddList.AddRange(vecAddList);
@@ -158,11 +170,21 @@ namespace TestApplication
             foreach (var item in vecAddList)
             {
                 vectorPointsList.Add(new Point<_3Vector, _3Vector>
-                    (new _3Vector(item.Xval.a, item.Xval.b, 0), new _3Vector(item.Yval.a, item.Yval.b, 300)));
+                    (new _3Vector(item.Xval.a, item.Xval.b, 0), new _3Vector(item.Yval.a, item.Yval.b, 0)));
             }
             mContainer = new BasicModelContainer(vectorPointsList);
             //vectorPointsList = TdTrig;//container.VectorPointsList;
             model = new ModelContainer(mContainer);
+        }
+        public void AddVerticals(double offset)
+        {
+            var vecAddList = new List<Point<_3Vector, _3Vector>>();
+            foreach (var item in vectorPointsList)
+            {
+                var vecAdd = new Point<_3Vector, _3Vector>
+                    (new _3Vector(item.Xval.a, item.Xval.b, offset), new _3Vector(item.Yval.a, item.Yval.b, offset));
+                vecAddList.Add(vecAdd);
+            }
         }
         /// <summary>
         /// Call/use this function, when you want the vector points to change.
@@ -209,7 +231,7 @@ namespace TestApplication
 
         private static IList<Point<int, int>> LoadModelFromImage(string path)
         {
-            var pixelList = ImageToModelCalculator.GetPixcleList(@"C:\Users\rajiyer\Pictures\floorMarked.png");
+            var pixelList = ImageToModelCalculator.GetPixcleList(path);
             //var filteredList = ImageToModelCalculator.FilterForModel(pixelList);
             return pixelList;
         }
