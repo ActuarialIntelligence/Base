@@ -46,4 +46,9 @@ namespace ActuarialIntelligence.Domain
     {
         public IDictionary<Identifier, string> rows { get; set; }
     }
+
+    public class ObjectByteStorePatternObject
+    {
+        public IDictionary<Identifier, byte[]> bytes { get; set; }
+    }
 }
