@@ -65,7 +65,7 @@ namespace TestApplication
 
         private void DisplayBox_MouseMove(object sender, MouseEventArgs e)
         {
-            RenderGraphics(e,false);
+            RenderGraphics(e,true);
 
             foreach (var pair in DrawGraphics.actualPoints)
             {
@@ -139,8 +139,8 @@ namespace TestApplication
     
             AnglePictureBox.BackColor = Color.Transparent;
             container = new SimpleFunctionContainer((u, v) => (-v * (2* u -1)) / (Math.Pow((u - 1), 2) + Math.Pow(v, 2)) * 80, 8, 8, 20);
-            container2 = new SimpleFunctionContainer((u, v) => (u*(1-u) - Math.Pow(v,2))/(Math.Pow((u - 1),2) + Math.Pow(v, 2)) * 200  + 200, 8, 8, 20);
-            container2 = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 30) * Math.Sin(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
+            //container2 = new SimpleFunctionContainer((u, v) =>  Math.Sqrt(Math.Pow(u,2) + Math.Pow(v, 2)) * Math.Pow(u,2) + Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)) * Math.Pow(v, 2) / 6900, 8, 8, 20);
+            //container2 = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 30) * Math.Sin(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
        // = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Cos(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
 
             #region Test
@@ -153,28 +153,28 @@ namespace TestApplication
             //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 200, 0), new _3Vector(0, 0, 200)));
             #endregion
          
-            var points = LoadModelFromImage(@"C:\Users\rajiyer\Pictures\floorMarked.png");
-            vectorPointsList = container2.VectorPointsList;
-            var vecAddList = new List<Point<_3Vector, _3Vector>>();
-            foreach (var item in vectorPointsList)
-            {
-                var vecAdd = new Point<_3Vector, _3Vector>
-                    (new _3Vector(item.Xval.a, item.Xval.b, 0), new _3Vector(item.Yval.a, item.Yval.b, 0));
-                vecAddList.Add(vecAdd);
-            }
-            vecAddList.AddRange(vecAddList);
-            foreach(var item in vecAddList)
-            {
-                vectorPointsList.Add(item);
-            }
-            foreach (var item in vecAddList)
-            {
-                vectorPointsList.Add(new Point<_3Vector, _3Vector>
-                    (new _3Vector(item.Xval.a, item.Xval.b, 0), new _3Vector(item.Yval.a, item.Yval.b, 0)));
-            }
-            mContainer = new BasicModelContainer(vectorPointsList);
+            //var points = LoadModelFromImage(@"C:\Users\rajiyer\Pictures\floorMarked.png");
+            vectorPointsList = container.VectorPointsList;
+            //var vecAddList = new List<Point<_3Vector, _3Vector>>();
+            //foreach (var item in vectorPointsList)
+            //{
+            //    var vecAdd = new Point<_3Vector, _3Vector>
+            //        (new _3Vector(item.Xval.a, item.Xval.b, 0), new _3Vector(item.Yval.a, item.Yval.b, 0));
+            //    vecAddList.Add(vecAdd);
+            //}
+            //vecAddList.AddRange(vecAddList);
+            //foreach(var item in vecAddList)
+            //{
+            //    vectorPointsList.Add(item);
+            //}
+            //foreach (var item in vecAddList)
+            //{
+            //    vectorPointsList.Add(new Point<_3Vector, _3Vector>
+            //        (new _3Vector(item.Xval.a, item.Xval.b, 0), new _3Vector(item.Yval.a, item.Yval.b, 0)));
+            //}
+            //mContainer = new BasicModelContainer(vectorPointsList);
             //vectorPointsList = TdTrig;//container.VectorPointsList;
-            model = new ModelContainer(mContainer);
+            model = new ModelContainer(container);
         }
         public void AddVerticals(double offset)
         {
