@@ -61,6 +61,8 @@
   <ItemGroup>
     <Compile Include="Calculator Return Objects\HazardPdfCdfHazardTriplet.cs" />
     <Compile Include="ChapmanKolmogorov.cs" />
+    <Compile Include="Identifier.cs" />
+    <Compile Include="ObjectStorePatternObject.cs" />
     <Compile Include="ConnectedInstruction\ConnectedInstruction.cs" />
     <Compile Include="ConnectedInstruction\KXQueryConnection.cs" />
     <Compile Include="ContainerObjects\BondDetails.cs" />
