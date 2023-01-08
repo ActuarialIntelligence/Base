@@ -84,7 +84,8 @@ namespace TestApplication
         }
         /// <summary>
         /// Only needs vectorPointsList to be set initially and on MouseMove
-        /// these points are rotated. Model Containers are reserved for later
+        /// these points are rotated. Model Containers are reserved for later.
+        /// Gets called on mouse move.  
         /// </summary>
         /// <param name="e"></param>
         /// <param name="linesBetween"></param>
