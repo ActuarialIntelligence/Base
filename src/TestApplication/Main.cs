@@ -9,6 +9,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
+using System.Configuration;
 
 namespace TestApplication
 {
@@ -19,12 +21,14 @@ namespace TestApplication
         double width, height;
         SimpleFunctionContainer container;
         SimpleFunctionContainer container2;
-        BasicModelContainer mContainer;
+        BasicModelContainer bContainer;
         IList<Point<_3Vector, _3Vector>> vectorPointsList;
         double pivotX = 800, pivotY = 700;
         _3Vector AngleX, AngleY, AngleZ, AngleZero;
         double freezeX, freezeY;
         bool freezeFrame = false;
+        bool IsFunction = true; // Set to false to load visualize data from AppSetting Location
+        
         private void Main_Resize(object sender, EventArgs e)
         {
             //1419, 1075
@@ -78,7 +82,12 @@ namespace TestApplication
 
 
         }
-
+        /// <summary>
+        /// Only needs vectorPointsList to be set initially and on MouseMove
+        /// these points are rotated. Model Containers are reserved for later
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="linesBetween"></param>
         private void RenderGraphics(MouseEventArgs e, bool linesBetween)
         {
             if (!freezeFrame)
@@ -135,14 +144,52 @@ namespace TestApplication
 
         public Main()
         {
-            InitializeComponent();
-    
-            AnglePictureBox.BackColor = Color.Transparent;
-            container = new SimpleFunctionContainer((u, v) => (-v * (2* u -1)) / (Math.Pow((u - 1), 2) + Math.Pow(v, 2)) * 80, 8, 8, 20);
+            #region Temp Functions for use
             //container2 = new SimpleFunctionContainer((u, v) =>  Math.Sqrt(Math.Pow(u,2) + Math.Pow(v, 2)) * Math.Pow(u,2) + Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)) * Math.Pow(v, 2) / 6900, 8, 8, 20);
             //container2 = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 30) * Math.Sin(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
-       // = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Cos(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
+            // = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Cos(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
+            #endregion
+            InitializeComponent();
+            if (IsFunction)
+            {
+                PlotFunctionalSentAsInlineDelegate();
+            }
+            else
+            {
+                var delimiter = '|';
+                ReadVisualDataFromTxTFileAndAssignToVectorPointsListForAutoVisualization(delimiter);
+            }
 
+        }
+
+        private void ReadVisualDataFromTxTFileAndAssignToVectorPointsListForAutoVisualization(char delimiter)
+        {
+            var pointsToVisualize = new List<IList<double>>();
+            var sr = new StreamReader(ConfigurationManager.AppSettings["orbitdata"]);
+            while (!sr.EndOfStream)
+            {
+                var row = sr.ReadLine().Split(delimiter);
+                pointsToVisualize.Add(new List<double>()
+                    { double.Parse(row[0]), double.Parse(row[1]), double.Parse(row[2]),
+                        double.Parse(row[3]), double.Parse(row[4]), double.Parse(row[5]), });
+
+            }
+            AssignPointsToVisualizeToVectorPointsList(pointsToVisualize);
+        }
+
+        private void AssignPointsToVisualizeToVectorPointsList(List<IList<double>> pointsToVisualize)
+        {
+            var vectorizePoints = new List<Point<_3Vector, _3Vector>>();
+            foreach (var vectorPointsSet in pointsToVisualize)
+            {
+                vectorizePoints.Add(new Point<_3Vector, _3Vector>
+                    (new _3Vector(vectorPointsSet[0], vectorPointsSet[1], vectorPointsSet[2]),
+                    new _3Vector(vectorPointsSet[3], vectorPointsSet[4], vectorPointsSet[5])));
+            }
+            bContainer = new BasicModelContainer(vectorizePoints);
+            vectorPointsList = vectorizePoints;
+
+            #region code samples
             #region Test
             //var TdTrig = new List<Point<_3Vector, _3Vector>>();
             //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 0, 200)));
@@ -152,9 +199,9 @@ namespace TestApplication
             //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 200, 0)));
             //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 200, 0), new _3Vector(0, 0, 200)));
             #endregion
-         
+
             //var points = LoadModelFromImage(@"C:\Users\rajiyer\Pictures\floorMarked.png");
-            vectorPointsList = container.VectorPointsList;
+
             //var vecAddList = new List<Point<_3Vector, _3Vector>>();
             //foreach (var item in vectorPointsList)
             //{
@@ -174,8 +221,17 @@ namespace TestApplication
             //}
             //mContainer = new BasicModelContainer(vectorPointsList);
             //vectorPointsList = TdTrig;//container.VectorPointsList;
+            #endregion 
+        }
+
+        private void PlotFunctionalSentAsInlineDelegate()
+        {
+            AnglePictureBox.BackColor = Color.Transparent;
+            container = new SimpleFunctionContainer((u, v) => (-v * (2 * u - 1)) / (Math.Pow((u - 1), 2) + Math.Pow(v, 2)) * 80, 8, 8, 20);
+            vectorPointsList = container.VectorPointsList;
             model = new ModelContainer(container);
         }
+
         public void AddVerticals(double offset)
         {
             var vecAddList = new List<Point<_3Vector, _3Vector>>();
