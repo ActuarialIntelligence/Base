@@ -4,6 +4,11 @@ using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 using System.Text;
 using System.IO;
 using Nito.AsyncEx;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System;
+using System.Collections.Generic;
 
 namespace Test
 {
@@ -18,7 +23,6 @@ namespace Test
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-
             //objServer.Disconnect();
             //var formatter = DependencyResolution.pDFReformatter(@"C:\Users\rajiyer\Documents\Beginners_Guide_To_Arabic.pdf", 40, "");
             //var domain = formatter.FormatAndReturn(1,39);
@@ -28,7 +32,57 @@ namespace Test
             //    i2.Save(Filename + i + ".png", ImageFormat.Png);
             //}
 
-            AsyncContext.Run(() => MainAsync(args));
+            //AsyncContext.Run(() => MainAsync(args));
+            RandomDataGenerator();
+
+        }
+
+        private static void RandomDataGenerator()
+        {
+            var displayNoOfLines = 10;
+            IFormatter formatter = new BinaryFormatter();
+            var rnd = new Random();
+            var RandomLList = new List<string>();
+            Console.WriteLine("Starting: " + DateTime.Now.ToString());
+            var cntr = 0;
+            var allTxt = "";
+            for (int i = 0; i < 5000000; i++)
+            {
+                // var tmp = rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString();
+                RandomLList.Add(rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString());
+
+                cntr++;
+            }
+
+            Console.WriteLine("RandomGen Process Ended: " + DateTime.Now.ToString());
+
+            using (Stream stream = new MemoryStream())
+            {
+                formatter.Serialize(stream, RandomLList);
+                var Mbs = ((double)stream.Length) / (1024 * 1024);
+                Console.WriteLine("Size in MB: " + Mbs.ToString());
+            }
+
+
+            for (int i = 0; i < displayNoOfLines; i++)
+            {
+                Console.WriteLine(RandomLList[i]);
+            }
+            Console.WriteLine("No Of Lines: " + cntr.ToString());
+            Console.WriteLine("Writing to file...c:\\TestData\\rnd.txt");
+            var sw = new StreamWriter("c:\\TestData\\rnd.txt");
+            cntr = 0;
+            foreach (var row in RandomLList)
+            {
+                sw.WriteLine(row);
+                cntr++;
+            }
+
+
+
+            sw.Close();
+            Console.WriteLine("DONE : Writing to file. ENTER to EXIT");
+            Console.ReadLine();
         }
 
         static async void MainAsync(string[] args)
