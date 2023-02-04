@@ -46,7 +46,7 @@ namespace Test
             Console.WriteLine("Starting: " + DateTime.Now.ToString());
             var cntr = 0;
             var allTxt = "";
-            for (int i = 0; i < 5000000; i++)
+            for (int i = 0; i < 2000000; i++)
             {
                 // var tmp = rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString();
                 RandomLList.Add(rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString() + "|" + rnd.NextDouble().ToString());
