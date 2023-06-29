@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Test
 {
@@ -23,17 +24,22 @@ namespace Test
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            //objServer.Disconnect();
-            //var formatter = DependencyResolution.pDFReformatter(@"C:\Users\rajiyer\Documents\Beginners_Guide_To_Arabic.pdf", 40, "");
-            //var domain = formatter.FormatAndReturn(1,39);
-            //for (int i = 0; i < 39; i++)
-            //{
-            //    var i2 = new Bitmap(domain[i]);
-            //    i2.Save(Filename + i + ".png", ImageFormat.Png);
-            //}
-
-            //AsyncContext.Run(() => MainAsync(args));
-            RandomDataGenerator();
+            var psi = new ProcessStartInfo();
+            psi.FileName = @"C:\Python311\python.exe";
+            var script = @"C:\Users\rajah\OneDrive\Documents\Projects\AI\Base\src\ActuarialIntelligence.Infrastructure.PythonScripts\StreamFootageAnalyse.py";
+            psi.Arguments = $"\"{script}\"";
+            psi.UseShellExecute = false;
+            psi.CreateNoWindow = true;
+            psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
+            var errors = "";
+            var results = "";
+            using (var process = Process.Start(psi))
+            {
+                errors = process.StandardError.ReadToEnd();
+                results = process.StandardOutput.ReadToEnd();
+            }
+            //return results;
 
         }
 

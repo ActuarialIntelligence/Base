@@ -19,8 +19,8 @@ import streamlink
 g = geocoder.ip('me')
 
 # parameters for loading data and images
-detection_model_path = 'C:\\Users\\Rajah\\Documents\\Test Data\\Sentiment Analysis\\Emotion-recognition-master\\haarcascade_files\\haarcascade_frontalface_default.xml'
-emotion_model_path = 'C:\\Users\\Rajah\\Documents\\Test Data\\Sentiment Analysis\\Emotion-recognition-master\\models\\_mini_XCEPTION.102-0.66.hdf5'
+detection_model_path = 'C:\\Users\\rajah\\OneDrive\\Documents\\Sentiment Analysis\\Emotion-recognition-master\\haarcascade_files\\haarcascade_frontalface_default.xml'
+emotion_model_path = 'C:\\Users\\rajah\\OneDrive\\Documents\\Sentiment Analysis\\Emotion-recognition-master\\models\\_mini_XCEPTION.102-0.66.hdf5'
 
 # hyper-parameters for bounding boxes shape
 # loading models
@@ -40,7 +40,7 @@ url = 'https://youtu.be/Bchx0mS7XOY'
 streams = streamlink.streams(url)
 camera = cv2.VideoCapture(streams["360p"].url)
 
-f = open("C:\\Users\\Rajah\\Documents\\Test Data\\Probability.txt", "a+")
+f = open("C:\\Users\\rajah\\OneDrive\\Documents\\Test Data\\Probability.txt", "a+")
 
 while True:
     frame = camera.read()[1]
