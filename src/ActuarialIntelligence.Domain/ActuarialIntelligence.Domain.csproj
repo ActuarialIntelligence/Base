@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="kx">
-      <HintPath>..\..\..\..\..\..\source\repos\KDB\LogAnalyticsSDKOnKubernetes\packages\CSharpKDB.1.1.0\lib\netstandard2.0\kx.dll</HintPath>
+      <HintPath>..\kx.dll</HintPath>
     </Reference>
     <Reference Include="kx.PerfMon, Version=0.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\kx.PerfMon.0.4.0\lib\net46\kx.PerfMon.dll</HintPath>
