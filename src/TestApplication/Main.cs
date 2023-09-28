@@ -1,34 +1,28 @@
-﻿using ActuarialIntelligence.Calculators;
-using ActuarialIntelligence.Domain.ContainerObjects;
+﻿using ActuarialIntelligence.Domain.ContainerObjects;
 using ActuarialIntelligence.Domain.MathContainers;
 using ActuarialIntelligence.Domain.Model_Containers;
 using ActuarialIntelligence.Domain.Model_Containers.ModelInterfaces;
 using ActuarialIntelligence.Graphics;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.IO;
-using System.Configuration;
 
 namespace TestApplication
 {
     public partial class Main : Form
     {
+        private MouseEventArgs mouseEventArgs = new MouseEventArgs(MouseButtons.None, 0, 1, 1, 1);
         private IModel model;
-
+        private double a = 1, b = 1, c = 1;
         double width, height;
         SimpleFunctionContainer container;
         SimpleFunctionContainer container2;
-        BasicModelContainer bContainer;
         IList<Point<_3Vector, _3Vector>> vectorPointsList;
-        double pivotX = 800, pivotY = 700;
+        double pivotX = 400, pivotY = 350;
         _3Vector AngleX, AngleY, AngleZ, AngleZero;
         double freezeX, freezeY;
         bool freezeFrame = false;
-        bool IsFunction = true; // Set to false to load visualize data from AppSetting Location
-        
         private void Main_Resize(object sender, EventArgs e)
         {
             //1419, 1075
@@ -37,6 +31,21 @@ namespace TestApplication
 
         private void Main_Load(object sender, EventArgs e)
         {
+
+            #region Timer
+            // Create a new timer
+            Timer myTimer = new Timer();
+
+            // Set the interval (in milliseconds) for the timer to tick
+            myTimer.Interval = 500; // 1000 milliseconds = 1 second
+
+            // Subscribe to the Tick event with a method
+            myTimer.Tick += MyTimer_Tick;
+
+            // Start the timer
+            myTimer.Start();
+
+            #endregion
 
             this.DisplayBox.Image = new Bitmap(DisplayBox.Width, DisplayBox.Height);
             InitializeAngleGrid();
@@ -69,27 +78,27 @@ namespace TestApplication
 
         private void DisplayBox_MouseMove(object sender, MouseEventArgs e)
         {
-            RenderGraphics(e,true);
-
-            foreach (var pair in DrawGraphics.actualPoints)
+            if (!freezeFrame)
             {
-                if ((Math.Round(pair.transformed.Xval, 0) == e.X) && (Math.Round(pair.transformed.Yval, 0) == e.Y))
-                {
+                mouseEventArgs = e;
+                RenderGraphics(e);
 
-                    textBox1.Text = e.X.ToString() + "||" + e.Y.ToString() + "||" + pair.actual.Xval.a + "||" + pair.actual.Xval.b + "||" + pair.actual.Xval.c;
+                foreach (var pair in DrawGraphics.actualPoints)
+                {
+                    if ((Math.Round(pair.transformed.Xval, 0) == e.X) && (Math.Round(pair.transformed.Yval, 0) == e.Y))
+                    {
+
+                        textBox1.Text = e.X.ToString() + "||" + e.Y.ToString() + "||" + pair.actual.Xval.a + "||" + pair.actual.Xval.b + "||" + pair.actual.Xval.c;
+                    }
                 }
             }
 
-
         }
         /// <summary>
-        /// Only needs vectorPointsList to be set initially and on MouseMove
-        /// these points are rotated. Model Containers are reserved for later.
-        /// Gets called on mouse move.  
+        /// Calls VecpointList and passes values only
         /// </summary>
         /// <param name="e"></param>
-        /// <param name="linesBetween"></param>
-        private void RenderGraphics(MouseEventArgs e, bool linesBetween)
+        private void RenderGraphics(MouseEventArgs e)
         {
             if (!freezeFrame)
             {
@@ -98,22 +107,10 @@ namespace TestApplication
                 //textBox1.Text = pivotX.ToString() + ";" + pivotY.ToString() + ":" +
                 //    DisplayBox.Width.ToString() + ";" + DisplayBox.Height.ToString() + ":" +
                 //    e.X.ToString() + ":" + e.Y.ToString();
-                _3Matrix result;
-                if (linesBetween)
-                {
-                     result = DrawGraphics.RotateAndDrawBitmap(e, this.DisplayBox, vectorPointsList, pivotX, pivotY);
-                    DrawGrids();
-                    DrawAngleAxis(result);
-                    DisplayBox.Refresh();
-                }
-                else
-                {
-                    result = DrawGraphics.RotateAndDrawUnlinedBitmap(e, this.DisplayBox, vectorPointsList, pivotX, pivotY);
-                    DrawGrids();
-                    DrawAngleAxis(result);
-                    DisplayBox.Refresh();
-                }
-
+                var result = DrawGraphics.RotateAndDrawBitmap(e, this.DisplayBox, vectorPointsList, pivotX, pivotY);
+                DrawGrids();
+                DrawAngleAxis(result);
+                DisplayBox.Refresh();
             }
         }
 
@@ -132,11 +129,6 @@ namespace TestApplication
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void DisplayBox_MouseDown(object sender, MouseEventArgs e)
         {
 
@@ -145,104 +137,54 @@ namespace TestApplication
 
         public Main()
         {
-            #region Temp Functions for use
-            //container2 = new SimpleFunctionContainer((u, v) =>  Math.Sqrt(Math.Pow(u,2) + Math.Pow(v, 2)) * Math.Pow(u,2) + Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)) * Math.Pow(v, 2) / 6900, 8, 8, 20);
-            //container2 = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 30) * Math.Sin(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
-            // = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Cos(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
-            #endregion
             InitializeComponent();
-            if (IsFunction)
-            {
-                PlotFunctionalSentAsInlineDelegate();
-            }
-            else
-            {
-                var delimiter = '|';
-                ReadVisualDataFromTxTFileAndAssignToVectorPointsListForAutoVisualization(delimiter);
-            }
-
+            AnglePictureBox.BackColor = Color.Transparent;
+            //container = new SimpleFunctionContainer((u, v) => (-v * (2* u -1)) / (Math.Pow((u - 1), 2) + Math.Pow(v, 2)) * 80, 8, 8, 20);
+            //container2 = new SimpleFunctionContainer((u, v) => (u*(1-u) - Math.Pow(v,2))/(Math.Pow((u - 1),2) + Math.Pow(v, 2)) * 200  + 200, 8, 8, 20);
+            InitializeModelPointsWithFunctionParameters();
         }
-
-        private void ReadVisualDataFromTxTFileAndAssignToVectorPointsListForAutoVisualization(char delimiter)
+        /// <summary>
+        /// Adds values to vecpointlist
+        ///         /// For animaions one can vary a,b,c with each call 
+        /// I would say introduce a timer tick event and call this, where each tick 
+        /// changes values of a,b,c 
+        /// </summary>
+        private void InitializeModelPointsWithFunctionParameters()
         {
-            var pointsToVisualize = new List<IList<double>>();
-            var sr = new StreamReader(ConfigurationManager.AppSettings["orbitdata"]);
-            while (!sr.EndOfStream)
-            {
-                var row = sr.ReadLine().Split(delimiter);
-                pointsToVisualize.Add(new List<double>()
-                    { double.Parse(row[0]), double.Parse(row[1]), double.Parse(row[2]),
-                        double.Parse(row[3]), double.Parse(row[4]), double.Parse(row[5]), });
+            container2 = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Sin(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
+            container = new SimpleFunctionContainer((u, v) => a * Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Cos(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
 
-            }
-            AssignPointsToVisualizeToVectorPointsList(pointsToVisualize);
-        }
-
-        private void AssignPointsToVisualizeToVectorPointsList(List<IList<double>> pointsToVisualize)
-        {
-            var vectorizePoints = new List<Point<_3Vector, _3Vector>>();
-            foreach (var vectorPointsSet in pointsToVisualize)
-            {
-                vectorizePoints.Add(new Point<_3Vector, _3Vector>
-                    (new _3Vector(vectorPointsSet[0], vectorPointsSet[1], vectorPointsSet[2]),
-                    new _3Vector(vectorPointsSet[3], vectorPointsSet[4], vectorPointsSet[5])));
-            }
-            bContainer = new BasicModelContainer(vectorizePoints);
-            vectorPointsList = vectorizePoints;
-
-            #region code samples
             #region Test
-            //var TdTrig = new List<Point<_3Vector, _3Vector>>();
-            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 0, 200)));
-            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 200, 0)));
-            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0)));
-            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 0, 200)));
-            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 200, 0)));
-            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 200, 0), new _3Vector(0, 0, 200)));
+            var TdTrig = new List<Point<_3Vector, _3Vector>>();
+            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 0, 200)));
+            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 200, 0)));
+            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0)));
+            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 0, 200)));
+            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 200, 0)));
+            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 200, 0), new _3Vector(0, 0, 200)));
             #endregion
 
-            //var points = LoadModelFromImage(@"C:\Users\rajiyer\Pictures\floorMarked.png");
 
-            //var vecAddList = new List<Point<_3Vector, _3Vector>>();
-            //foreach (var item in vectorPointsList)
-            //{
-            //    var vecAdd = new Point<_3Vector, _3Vector>
-            //        (new _3Vector(item.Xval.a, item.Xval.b, 0), new _3Vector(item.Yval.a, item.Yval.b, 0));
-            //    vecAddList.Add(vecAdd);
-            //}
-            //vecAddList.AddRange(vecAddList);
-            //foreach(var item in vecAddList)
-            //{
-            //    vectorPointsList.Add(item);
-            //}
-            //foreach (var item in vecAddList)
-            //{
-            //    vectorPointsList.Add(new Point<_3Vector, _3Vector>
-            //        (new _3Vector(item.Xval.a, item.Xval.b, 0), new _3Vector(item.Yval.a, item.Yval.b, 0)));
-            //}
-            //mContainer = new BasicModelContainer(vectorPointsList);
-            //vectorPointsList = TdTrig;//container.VectorPointsList;
-            #endregion 
-        }
-
-        private void PlotFunctionalSentAsInlineDelegate()
-        {
-            AnglePictureBox.BackColor = Color.Transparent;
-            container = new SimpleFunctionContainer((u, v) => (-v * (2 * u - 1)) / (Math.Pow((u - 1), 2) + Math.Pow(v, 2)) * 80, 8, 8, 20);
             vectorPointsList = container.VectorPointsList;
+            //foreach (var point in container2.VectorPointsList)
+            //{
+            //    vectorPointsList.Add(point);
+            //}
+            //vectorPointsList = TdTrig;//container.VectorPointsList;
             model = new ModelContainer(container);
         }
 
-        public void AddVerticals(double offset)
+        private void MyTimer_Tick(object sender, EventArgs e)
         {
-            var vecAddList = new List<Point<_3Vector, _3Vector>>();
-            foreach (var item in vectorPointsList)
-            {
-                var vecAdd = new Point<_3Vector, _3Vector>
-                    (new _3Vector(item.Xval.a, item.Xval.b, offset), new _3Vector(item.Yval.a, item.Yval.b, offset));
-                vecAddList.Add(vecAdd);
-            }
+            a += 0.1;
+            InitializeModelPointsWithFunctionParameters();
+            var result = DrawGraphics.RotateAndDrawBitmap(mouseEventArgs, this.DisplayBox, vectorPointsList, pivotX, pivotY);
+            DrawGrids();
+            DrawAngleAxis(result);
+            DisplayBox.Refresh();
         }
+
+
         /// <summary>
         /// Call/use this function, when you want the vector points to change.
         /// </summary>
@@ -252,7 +194,7 @@ namespace TestApplication
         /// <param name="t"></param>
         public void CallToChange(double x, double y, double z, double t)
         {
-            //Dont forget to set the following outside of this function.
+            //Dont forget to set the following outside of this function. 
             //VariableFunctionContainer.FunctionCoEfficientList = new List<Func<double, double, double, double, double>>()
 
             container = new SimpleFunctionContainer((u, v) => VariableFunctionContainer.GetCurrentValue(1, x, y, z, t) * (u) + VariableFunctionContainer.GetCurrentValue(2, x, y, z, t) * (Math.Pow(u, 2)), 8, 8, 20);
@@ -284,13 +226,6 @@ namespace TestApplication
         {
             DrawGraphics.AngleAxis(rotationResult, AnglePictureBox, AngleX, AngleY, AngleZ);
             AnglePictureBox.Refresh();
-        }
-
-        private static IList<Point<int, int>> LoadModelFromImage(string path)
-        {
-            var pixelList = ImageToModelCalculator.GetPixcleList(path);
-            //var filteredList = ImageToModelCalculator.FilterForModel(pixelList);
-            return pixelList;
         }
     }
 }

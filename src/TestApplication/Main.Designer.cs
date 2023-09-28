@@ -42,11 +42,11 @@
             this.DisplayBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DisplayBox.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.DisplayBox.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.DisplayBox.Location = new System.Drawing.Point(1, -1);
-            this.DisplayBox.Margin = new System.Windows.Forms.Padding(6);
+            this.DisplayBox.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.DisplayBox.Name = "DisplayBox";
-            this.DisplayBox.Size = new System.Drawing.Size(1846, 1075);
+            this.DisplayBox.Size = new System.Drawing.Size(2461, 1333);
             this.DisplayBox.TabIndex = 7;
             this.DisplayBox.TabStop = false;
             this.DisplayBox.Click += new System.EventHandler(this.DisplayBox_Click);
@@ -57,41 +57,42 @@
             // 
             this.AnglePictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.AnglePictureBox.Location = new System.Drawing.Point(1, -1);
-            this.AnglePictureBox.Margin = new System.Windows.Forms.Padding(6);
+            this.AnglePictureBox.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.AnglePictureBox.Name = "AnglePictureBox";
-            this.AnglePictureBox.Size = new System.Drawing.Size(396, 385);
+            this.AnglePictureBox.Size = new System.Drawing.Size(528, 477);
             this.AnglePictureBox.TabIndex = 8;
             this.AnglePictureBox.TabStop = false;
             // 
             // textBox2
             // 
             this.textBox2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.textBox2.Location = new System.Drawing.Point(1510, -1);
+            this.textBox2.Location = new System.Drawing.Point(2013, -1);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(327, 31);
+            this.textBox2.Size = new System.Drawing.Size(435, 38);
             this.textBox2.TabIndex = 10;
             this.textBox2.Visible = false;
             // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.textBox1.Location = new System.Drawing.Point(753, -1);
+            this.textBox1.Location = new System.Drawing.Point(1004, -1);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(762, 31);
+            this.textBox1.Size = new System.Drawing.Size(1015, 38);
             this.textBox1.TabIndex = 9;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1839, 1065);
+            this.ClientSize = new System.Drawing.Size(2452, 1321);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.AnglePictureBox);
             this.Controls.Add(this.DisplayBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6);
+            this.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.Name = "Main";
             this.Text = "Actuarial Intelligence";
             this.Load += new System.EventHandler(this.Main_Load);
