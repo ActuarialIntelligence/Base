@@ -32,20 +32,7 @@ namespace TestApplication
         private void Main_Load(object sender, EventArgs e)
         {
 
-            #region Timer
-            // Create a new timer
-            Timer myTimer = new Timer();
 
-            // Set the interval (in milliseconds) for the timer to tick
-            myTimer.Interval = 500; // 1000 milliseconds = 1 second
-
-            // Subscribe to the Tick event with a method
-            myTimer.Tick += MyTimer_Tick;
-
-            // Start the timer
-            myTimer.Start();
-
-            #endregion
 
             this.DisplayBox.Image = new Bitmap(DisplayBox.Width, DisplayBox.Height);
             InitializeAngleGrid();
@@ -82,6 +69,7 @@ namespace TestApplication
             {
                 mouseEventArgs = e;
                 RenderGraphics(e);
+            }
 
                 foreach (var pair in DrawGraphics.actualPoints)
                 {
@@ -91,7 +79,7 @@ namespace TestApplication
                         textBox1.Text = e.X.ToString() + "||" + e.Y.ToString() + "||" + pair.actual.Xval.a + "||" + pair.actual.Xval.b + "||" + pair.actual.Xval.c;
                     }
                 }
-            }
+            
 
         }
         /// <summary>
@@ -129,6 +117,24 @@ namespace TestApplication
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            #region Timer
+            // Create a new timer
+            Timer myTimer = new Timer();
+
+            // Set the interval (in milliseconds) for the timer to tick
+            myTimer.Interval = 80; // 1000 milliseconds = 1 second
+
+            // Subscribe to the Tick event with a method
+            myTimer.Tick += MyTimer_Tick;
+
+            // Start the timer
+            myTimer.Start();
+
+            #endregion
+        }
+
         private void DisplayBox_MouseDown(object sender, MouseEventArgs e)
         {
 
@@ -151,26 +157,25 @@ namespace TestApplication
         /// </summary>
         private void InitializeModelPointsWithFunctionParameters()
         {
-            container2 = new SimpleFunctionContainer((u, v) => Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Sin(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
+            container2 = new SimpleFunctionContainer((u, v) => a * Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Sin(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
             container = new SimpleFunctionContainer((u, v) => a * Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Cos(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
 
             #region Test
-            var TdTrig = new List<Point<_3Vector, _3Vector>>();
-            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 0, 200)));
-            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 200, 0)));
-            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0)));
-            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 0, 200)));
-            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 200, 0)));
-            TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 200, 0), new _3Vector(0, 0, 200)));
+            //var TdTrig = new List<Point<_3Vector, _3Vector>>();
+            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 0, 200)));
+            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(0, 200, 0)));
+            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 0, 0), new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0)));
+            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 0, 200)));
+            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(160 * Math.Cos(160), 160 * Math.Sin(160), 0), new _3Vector(0, 200, 0)));
+            //TdTrig.Add(new Point<_3Vector, _3Vector>(new _3Vector(0, 200, 0), new _3Vector(0, 0, 200)));
             #endregion
 
 
             vectorPointsList = container.VectorPointsList;
-            //foreach (var point in container2.VectorPointsList)
-            //{
-            //    vectorPointsList.Add(point);
-            //}
-            //vectorPointsList = TdTrig;//container.VectorPointsList;
+            foreach (var point in container2.VectorPointsList)
+            {
+                vectorPointsList.Add(point);
+            }
             model = new ModelContainer(container);
         }
 
