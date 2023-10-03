@@ -12,6 +12,8 @@ namespace TestApplication
 {
     public partial class Main : Form
     {
+        Timer myTimer = new Timer();
+        private bool stopAnimate = false;
         private MouseEventArgs mouseEventArgs = new MouseEventArgs(MouseButtons.None, 0, 1, 1, 1);
         private IModel model;
         private double a = 1, b = 1, c = 1;
@@ -119,20 +121,28 @@ namespace TestApplication
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             #region Timer
-            // Create a new timer
-            Timer myTimer = new Timer();
 
-            // Set the interval (in milliseconds) for the timer to tick
-            myTimer.Interval = 80; // 1000 milliseconds = 1 second
+                // Create a new timer
 
-            // Subscribe to the Tick event with a method
-            myTimer.Tick += MyTimer_Tick;
 
-            // Start the timer
-            myTimer.Start();
+                // Set the interval (in milliseconds) for the timer to tick
+                myTimer.Interval = 80; // 1000 milliseconds = 1 second
+
+                // Subscribe to the Tick event with a method
+                myTimer.Tick += MyTimer_Tick;
+
+                // Start the timer
+                myTimer.Start();
+            
 
             #endregion
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            myTimer.Stop();
         }
 
         private void DisplayBox_MouseDown(object sender, MouseEventArgs e)
