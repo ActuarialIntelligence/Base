@@ -62,12 +62,13 @@
             this.AnglePictureBox.Size = new System.Drawing.Size(198, 200);
             this.AnglePictureBox.TabIndex = 8;
             this.AnglePictureBox.TabStop = false;
+            this.AnglePictureBox.Click += new System.EventHandler(this.AnglePictureBox_Click);
             // 
             // textBox2
             // 
             this.textBox2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.textBox2.Location = new System.Drawing.Point(755, 0);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(166, 20);
             this.textBox2.TabIndex = 10;
@@ -77,7 +78,7 @@
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.textBox1.Location = new System.Drawing.Point(376, 0);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(383, 20);
             this.textBox1.TabIndex = 9;
@@ -85,7 +86,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(0, 200);
-            this.button1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.button1.Margin = new System.Windows.Forms.Padding(1);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(198, 31);
             this.button1.TabIndex = 11;

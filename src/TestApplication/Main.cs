@@ -33,9 +33,6 @@ namespace TestApplication
 
         private void Main_Load(object sender, EventArgs e)
         {
-
-
-
             this.DisplayBox.Image = new Bitmap(DisplayBox.Width, DisplayBox.Height);
             InitializeAngleGrid();
             pivotX = DisplayBox.Width / 2;
@@ -44,6 +41,7 @@ namespace TestApplication
 
         private void DisplayBox_Click(object sender, EventArgs e)
         {
+            
             if (freezeFrame)
             {
                 freezeFrame = false;
@@ -143,6 +141,11 @@ namespace TestApplication
         private void button2_Click(object sender, EventArgs e)
         {
             myTimer.Stop();
+        }
+
+        private void AnglePictureBox_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void DisplayBox_MouseDown(object sender, MouseEventArgs e)
