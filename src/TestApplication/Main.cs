@@ -59,8 +59,8 @@ namespace TestApplication
 
         private void DisplayBox_Resize(object sender, EventArgs e)
         {
-            //pivotX = 1419 / 2;
-            //pivotY = 1075 / 2;
+            pivotX = DisplayBox.Width / 2;
+            pivotY = DisplayBox.Height / 2;
         }
 
         private void DisplayBox_MouseMove(object sender, MouseEventArgs e)
