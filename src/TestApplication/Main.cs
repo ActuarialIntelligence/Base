@@ -191,7 +191,7 @@ namespace TestApplication
                 vectorPointsList.Add(point);
             }
             model = new ModelContainer(container);
-            var points = vectorPointsList.Where(s => (s.Xval.c <= 0.000001 && s.Yval.c <= 0.000001)&& (s.Xval.c >= 0 && s.Yval.c >= 0));
+            var intersectionPoints = vectorPointsList.Where(s => (s.Xval.c <= 0 && s.Yval.c <= 0)&& (s.Xval.c >= 0 && s.Yval.c >= 0));
         }
 
         private void MyTimer_Tick(object sender, EventArgs e)
