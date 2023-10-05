@@ -4,6 +4,7 @@ using ActuarialIntelligence.Domain.Model_Containers;
 using ActuarialIntelligence.Domain.Model_Containers.ModelInterfaces;
 using ActuarialIntelligence.Graphics;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -170,8 +171,8 @@ namespace TestApplication
         /// </summary>
         private void InitializeModelPointsWithFunctionParameters()
         {
-            container2 = new SimpleFunctionContainer((u, v) => a * Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Sin(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
-            container = new SimpleFunctionContainer((u, v) => a * Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Cos(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) / 69000, 8, 8, 20);
+            container2 = new SimpleFunctionContainer((u, v) => (a * Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Sin(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)))))) / 69000, 6, 6, 30);
+            container = new SimpleFunctionContainer((u, v) => (a * Math.Pow(Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2)), 3) * Math.Cos(3 * Math.Acos(u / (Math.Sqrt(Math.Pow(u, 2) + Math.Pow(v, 2))))) + c) / 69000, 6, 6, 30);
 
             #region Test
             //var TdTrig = new List<Point<_3Vector, _3Vector>>();
@@ -190,11 +191,13 @@ namespace TestApplication
                 vectorPointsList.Add(point);
             }
             model = new ModelContainer(container);
+            var points = vectorPointsList.Where(s => (s.Xval.c <= 0.000001 && s.Yval.c <= 0.000001)&& (s.Xval.c >= 0 && s.Yval.c >= 0));
         }
 
         private void MyTimer_Tick(object sender, EventArgs e)
         {
             a += 0.1;
+            c += 10 * 69000;
             InitializeModelPointsWithFunctionParameters();
             var result = DrawGraphics.RotateAndDrawBitmap(mouseEventArgs, this.DisplayBox, vectorPointsList, pivotX, pivotY);
             DrawGrids();
