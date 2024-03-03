@@ -19,8 +19,8 @@ import streamlink
 g = geocoder.ip('me')
 
 # parameters for loading data and images
-detection_model_path = 'C:\\Users\\rajah\\OneDrive\\Documents\\Sentiment Analysis\\Emotion-recognition-master\\haarcascade_files\\haarcascade_frontalface_default.xml'
-emotion_model_path = 'C:\\Users\\rajah\\OneDrive\\Documents\\Sentiment Analysis\\Emotion-recognition-master\\models\\_mini_XCEPTION.102-0.66.hdf5'
+detection_model_path = 'C:\\Users\\Rajah\\Documents\\Sentiment Analysis\\Emotion-recognition-master\\haarcascade_files\\haarcascade_frontalface_default.xml'
+emotion_model_path = 'C:\\Users\\Rajah\\Documents\\Sentiment Analysis\\Emotion-recognition-master\\models\\_mini_XCEPTION.102-0.66.hdf5'
 
 # hyper-parameters for bounding boxes shape
 # loading models
@@ -38,9 +38,10 @@ cv2.namedWindow('your_face')
 # camera = cv2.VideoCapture(0)
 url = 'https://youtu.be/Bchx0mS7XOY'
 streams = streamlink.streams(url)
-camera = cv2.VideoCapture(streams["360p"].url)
+camera = cv2.VideoCapture(0)
+#(streams["360p"].url)
 
-f = open("C:\\Users\\rajah\\OneDrive\\Documents\\Test Data\\Probability.txt", "a+")
+# f = open("C:\\Users\\rajah\\OneDrive\\Documents\\Test Data\\Probability.txt", "a+")
 
 while True:
     frame = camera.read()[1]
@@ -75,7 +76,7 @@ while True:
         text = "{}: {:.2f}%".format(emotion, prob * 100)
         # sql = "INSERT INTO predData (Metadata, Probability) VALUES (%s, %s)"
         # val = ("Meta", prob * 100)
-        f.write(text)
+        #f.write(text)
         # str1 = ''.join(str(e) for e in g.latlng)
         # f.write(str1)
         # mycursor.execute(sql, val)
