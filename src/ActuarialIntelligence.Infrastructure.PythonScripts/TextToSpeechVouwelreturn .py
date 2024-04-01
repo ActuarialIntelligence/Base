@@ -26,4 +26,6 @@ def speak_text_with_vowels_from_file(file_path):
 file_path = 'C:\\Users\\Rajah\\Documents\\Test Data\\TextScripts\\input.txt'  # Path to your text file
 speak_text_with_vowels_from_file(file_path)
 
+file_path = 'C:\\Users\\Rajah\\Documents\\Test Data\\TextScripts\\input.txt'  # Path to your text file
+
 
