@@ -12,17 +12,18 @@ namespace AI.TTS.Visual
 {
     public class ImageDisplay
     {
-        private VideoWriter writer;
+        public VideoWriter writer;
         private string outputFilePath;
 
         public ImageDisplay(string outputFilePath)
         {
             this.outputFilePath = outputFilePath;
+            writer = new VideoWriter(outputFilePath, VideoWriter.Fourcc('X', 'V', 'I', 'D'), 10, new Size(800, 600), true);
         }
 
         public void StartRecording()
         {
-            writer = new VideoWriter(outputFilePath, VideoWriter.Fourcc('X', 'V', 'I', 'D'), 10, new Size(800, 600), true);
+            
 
             // Start threads for displaying images at specified intervals
             Thread displayThread1 = new Thread(BlinkImage);

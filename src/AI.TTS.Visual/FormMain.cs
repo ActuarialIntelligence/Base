@@ -29,10 +29,11 @@ namespace AI.TTS.Visual
             double ScaleFactor = 0.3;
 
             // Initialize video writer
-            VideoWriter writer = new VideoWriter("output.mp4", VideoWriter.Fourcc('X', 'V', 'I', 'D'), 10, new Size(800, 600), true);
 
             // Start recording images
             ImageDisplay imageDisplay = new ImageDisplay(outputVideoFilePath);
+            VideoWriter writer = imageDisplay.writer; // Sharing the writer,
+
             Thread imageDisplayThread = new Thread(imageDisplay.StartRecording);
             imageDisplayThread.Start();
 
