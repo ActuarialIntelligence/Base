@@ -25,9 +25,9 @@ namespace AI.TTS.Visual
             writer = new VideoWriter(outputFilePath, VideoWriter.Fourcc('X', 'V', 'I', 'D'), 10, new Size(800, 600), true);
 
             // Start threads for displaying images at specified intervals
-            Thread displayThread1 = new Thread(DisplayImage1);
-            Thread displayThread2 = new Thread(DisplayImage2);
-            Thread displayThread3 = new Thread(DisplayImage3);
+            Thread displayThread1 = new Thread(BlinkImage);
+            Thread displayThread2 = new Thread(EyeballMovementImage);
+            Thread displayThread3 = new Thread(ExcitedEyes);
             Thread displayThread4 = new Thread(DisplayImage4);
 
             displayThread1.Start();
@@ -42,7 +42,7 @@ namespace AI.TTS.Visual
             writer.Dispose();
         }
 
-        private void DisplayImage1()
+        private void BlinkImage()
         {
             // Display the image every 2 seconds
             while (true)
@@ -53,7 +53,7 @@ namespace AI.TTS.Visual
             }
         }
 
-        private void DisplayImage2()
+        private void EyeballMovementImage()
         {
             // Display random images every 5 seconds
             Random random = new Random();
@@ -68,7 +68,7 @@ namespace AI.TTS.Visual
             }
         }
 
-        private void DisplayImage3()
+        private void ExcitedEyes()
         {
             // Display an image whenever '!' appears in the text for 5 seconds
             while (true)
