@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.Structure;
@@ -16,6 +11,7 @@ namespace AI.TTS.Visual
 {
     public partial class FormMain : Form
     {
+        
         public FormMain()
         {
             InitializeComponent();
@@ -23,19 +19,19 @@ namespace AI.TTS.Visual
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            string textfilePath = "path/to/your/text/file.txt";
-            string outputVideoFilePath = "";
+            string textfilePath = @"C:\Users\Rajah\Documents\Test Data\TextScripts\input.txt";
+            string outputVideoFilePath = @"C:\Users\Rajah\Documents\Test Data\TextScripts\output.mp4";
 
             double ScaleFactor = 0.3;
 
             // Initialize video writer
 
             // Start recording images
-            ImageDisplay imageDisplay = new ImageDisplay(outputVideoFilePath);
-            VideoWriter writer = imageDisplay.writer; // Sharing the writer,
+            //ImageDisplay imageDisplay = new ImageDisplay(outputVideoFilePath);
+            //VideoWriter writer = imageDisplay.writer; // Sharing the writer,
 
-            Thread imageDisplayThread = new Thread(imageDisplay.StartRecording);
-            imageDisplayThread.Start();
+            //Thread imageDisplayThread = new Thread(imageDisplay.StartRecording);
+            //imageDisplayThread.Start();
 
             // Read the text from the file
             string text = File.ReadAllText(textfilePath);
@@ -50,8 +46,9 @@ namespace AI.TTS.Visual
                 foreach (char c in word)
                 {
                     // Check if the character is a vowel
-                    WriteImagePerVowel(ScaleFactor, writer, c);
-
+                    // WriteImagePerVowel(ScaleFactor, writer, c);
+                    var bitmap = GetMouthImage(c);
+                    this.pictureBox.Image = bitmap;
                     // Adjust the delay to simulate the speed of human speech for characters
                     Thread.Sleep(100);
                 }
@@ -60,11 +57,11 @@ namespace AI.TTS.Visual
             }
 
             // Stop recording images
-            imageDisplay.StopRecording();
-            imageDisplayThread.Join();
+            //imageDisplay.StopRecording();
+            //imageDisplayThread.Join();
 
             // Release the video writer
-            writer.Dispose();
+           // writer.Dispose();
         }
 
         private static void WriteImagePerVowel(double ScaleFactor, VideoWriter writer, char c)
@@ -81,7 +78,7 @@ namespace AI.TTS.Visual
                     g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                     g.DrawImage(mouthImage, 0, 0, scaledMouthImage.Width, scaledMouthImage.Height);
                 }
-
+                
                 // Convert the Bitmap to Image<Bgr, byte>
                 Image<Bgr, byte> emguImage = ImageDisplay.EmguImageFromBitmap(scaledMouthImage);
 
@@ -97,24 +94,29 @@ namespace AI.TTS.Visual
             {
                 case 'A':
                 case 'a':
-                    return new Bitmap("mouth_a.bmp");
+                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpMouths\A.png");
                 case 'E':
                 case 'e':
-                    return new Bitmap("mouth_e.bmp");
+                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpMouths\E.png");
                 case 'I':
                 case 'i':
-                    return new Bitmap("mouth_i.bmp");
+                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpMouths\I.png");
                 case 'O':
                 case 'o':
-                    return new Bitmap("mouth_o.bmp");
+                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpMouths\O.png");
                 case 'U':
                 case 'u':
-                    return new Bitmap("mouth_u.bmp");
+                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpMouths\U.png");
                 case ' ':
-                    return new Bitmap("partialOpenMouth.bmp");
+                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpMouths\L.png");
                 default:
                     return null;
             }
+        }
+
+        private void pictureBox_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
