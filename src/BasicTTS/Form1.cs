@@ -60,6 +60,11 @@ namespace BasicTTS
 
         private void button1_Click(object sender, EventArgs e)
         {
+            MoveMouth();
+        }
+
+        private void MoveMouth()
+        {
             string textfilePath = @"C:\Users\Rajah\Documents\Test Data\TextScripts\input.txt";
             string outputVideoFilePath = @"C:\Users\Rajah\Documents\Test Data\TextScripts\output.mp4";
 
