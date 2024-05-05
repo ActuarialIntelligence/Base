@@ -10,26 +10,9 @@ namespace BasicTTS
 {
     public static class MoveHelpers
     {
-        private static char character = ' ';
-        private static PictureBox _pictureBoxApplicableMouth;
-        private static PictureBox _pictureBoxApplicableEyes;
+
         public static async Task GenerateFacialExpressionsBasedOnText( PictureBox pictureBoxApplicableMouth, PictureBox pictureBoxApplicableEyes)
         {
-            //_pictureBoxApplicableMouth = pictureBoxApplicableMouth;
-            //_pictureBoxApplicableEyes = pictureBoxApplicableEyes; 
-            ////var timer1 = new System.Timers.Timer(2000); // Timer 1 ticks every 2 seconds
-            //var timerMoveEyes = new System.Timers.Timer(3000); // Timer 2 ticks every 3 seconds
-            //var timerBlink =  new System.Timers.Timer(5000);
-
-            ////timer1.Elapsed += (sender, e) => TimerElapsed(e.SignalTime, "Timer 1");
-            //timerMoveEyes.Elapsed += (sender, e) => TimerElapsed(e.SignalTime, "timerMoveEyes");
-            //timerBlink.Elapsed += (sender, e) => TimerElapsed(e.SignalTime, "timerBlink");
-
-
-            //// Start the timers
-           
-            //timerMoveEyes.Start();
-            //timerBlink.Start();
 
             string textfilePath = @"C:\Users\Rajah\Documents\Test Data\TextScripts\input.txt";
             string outputVideoFilePath = @"C:\Users\Rajah\Documents\Test Data\TextScripts\output.mp4";
@@ -57,24 +40,11 @@ namespace BasicTTS
 
                 }
                 // Adjust the delay to simulate the speed of human speech for words
-                Thread.Sleep(2); // Adjust this delay to simulate human speaking speed for words
+                Thread.Sleep(6); // Adjust this delay to simulate human speaking speed for words
             }
-            //timerMoveEyes.Stop();
-            //timerBlink.Stop();
+
         }
 
-        //static void TimerElapsed(DateTime signalTime, string timerName)
-        //{
-        //    switch (timerName)
-        //    {
-        //        case "timerMoveEyes":
-        //            RandomlyMoveAngryEyes(_pictureBoxApplicableEyes, character);
-        //            break;
-        //        case "timerBlink":
-        //            EyesBlink(_pictureBoxApplicableEyes, character);
-        //            break;
-        //    }
-        //}
 
         private static async Task MouthMove(PictureBox pictureBoxApplicableMouth, char c)
         {
@@ -83,7 +53,7 @@ namespace BasicTTS
             pictureBoxApplicableMouth.Image = bitmap;
             pictureBoxApplicableMouth.Refresh();
             // Adjust the delay to simulate the speed of human speech for characters
-            Thread.Sleep(1);
+            Thread.Sleep(35);
         }
 
 
@@ -93,7 +63,7 @@ namespace BasicTTS
             if (c == 'o')
             {
                 var bitmap = FormMainHelpers.GetBlinkImage('!');
-                Thread.Sleep(2);
+                Thread.Sleep(5);
             }
 
         }
@@ -107,7 +77,7 @@ namespace BasicTTS
             pictureBoxApplicable.Image = bitmap;
             pictureBoxApplicable.Refresh();
 
-            Thread.Sleep(50);
+            Thread.Sleep(2);
         }
 
         public static async Task MoveWorriedEyesRandomly( PictureBox pictureBoxApplicable)

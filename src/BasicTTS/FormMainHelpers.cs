@@ -167,16 +167,8 @@ namespace BasicTTS
 
                 case 88:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesLeftAngry.png");
-                case 89:
-                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesLeftAngry.png");
-                case 90:
-                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesLeftAngry.png");
-                case 91:
-                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesRightAngry.png");
-                case 92:
-                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesRightAngry.png");
-                case 93:
-                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesRightAngry.png");
+
+
                 case 94:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesUpAngry.png");
                 case 95:
@@ -185,10 +177,7 @@ namespace BasicTTS
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesUpAngry.png");
                 case 97:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesRightAngry.png");
-                case 98:
-                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesRightAngry.png");
-                case 99:
-                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesRightAngry.png");
+
                 default:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
             }
