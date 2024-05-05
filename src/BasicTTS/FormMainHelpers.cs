@@ -55,7 +55,7 @@ namespace BasicTTS
                 case "normal":
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesBlinkWorried.png");
                 case "angry":
-                    return new Bitmap(@"C: \Users\Rajah\Pictures\SpEyes\EyesBlinkAngry.png");
+                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesBlinkAngry.png");
                 default:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpMouths\L.png"); ;
             }
@@ -64,7 +64,7 @@ namespace BasicTTS
         public static Bitmap GetRandomAngryEyeMoveImage(char vowel)
         {
             var rnd = new Random();
-            var cse = rnd.Next(0, 19);
+            var cse = rnd.Next(0, 100);
 
             switch (cse)
             {
@@ -84,29 +84,110 @@ namespace BasicTTS
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
                 case 7:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
-                case 8:
+                case 8: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 9: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 10: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 11: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 12: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 13: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 14: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 15: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 16: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 17: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 18: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 19: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 20: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 21: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 22: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 23: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 24: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 25: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 26: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 27: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 28: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 29: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 30: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 31: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 32: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 33: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 34: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 35: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 36: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 37: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 38: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 39: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 40: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 41: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 42: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 43: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 44: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 45: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 46: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 47: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 48: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 49: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 50: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 51: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 52: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 53: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 54: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 55: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 56: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 57: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 58: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 59: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 60: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 61: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 62: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 63: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 64: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 65: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 66: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 67: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 68: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 69: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 70: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 71: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 72: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 73: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 74: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 75: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 76: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 77: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 78: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 79: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 80: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 81: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 82: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 83: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 84: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 85: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 86: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+                case 87: return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");
+
+                case 88:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesLeftAngry.png");
-                case 9:
+                case 89:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesLeftAngry.png");
-                case 10:
+                case 90:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesLeftAngry.png");
-                case 11:
+                case 91:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesRightAngry.png");
-                case 12:
+                case 92:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesRightAngry.png");
-                case 13:
+                case 93:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesRightAngry.png");
-                case 14:
+                case 94:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesUpAngry.png");
-                case 15:
+                case 95:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesUpAngry.png");
-                case 16:
+                case 96:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesUpAngry.png");
-                case 17:
+                case 97:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesRightAngry.png");
-                case 18:
+                case 98:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesRightAngry.png");
-                case 19:
+                case 99:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesRightAngry.png");
                 default:
                     return new Bitmap(@"C:\Users\Rajah\Pictures\SpEyes\EyesAngryNormal.png");

@@ -34,7 +34,7 @@ namespace BasicTTS
             string textfilePath = @"C:\Users\Rajah\Documents\Test Data\TextScripts\input.txt";
             //string text = File.ReadAllText(textfilePath);
             var tasks = new List<Func<Task>>() {
-            ()=> MoveHelpers.MoveMouth(this.pictureBox, this.pictBoxEyes)
+            ()=> MoveHelpers.GenerateFacialExpressionsBasedOnText(this.pictureBox, this.pictBoxEyes)
         };
 
             var runningTasks = new List<Task>();
