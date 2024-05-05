@@ -29,87 +29,33 @@ namespace BasicTTS
 
         }
 
-
-
-        // Method to get the mouth image for a vowel
-        static Bitmap GetMouthImage(char vowel)
-        {
-            switch (vowel)
-            {
-                case 'A':
-                case 'a':
-                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpMouths\A.png");
-                case 'E':
-                case 'e':
-                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpMouths\E.png");
-                case 'I':
-                case 'i':
-                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpMouths\I.png");
-                case 'O':
-                case 'o':
-                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpMouths\O.png");
-                case 'U':
-                case 'u':
-                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpMouths\U.png");
-                case ' ':
-                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpMouths\L.png");
-                default:
-                    return new Bitmap(@"C:\Users\Rajah\Pictures\SpMouths\L.png"); ;
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MoveMouth();
-        }
-
-        private void MoveMouth()
+        private async void button1_Click(object sender, EventArgs e)
         {
             string textfilePath = @"C:\Users\Rajah\Documents\Test Data\TextScripts\input.txt";
-            string outputVideoFilePath = @"C:\Users\Rajah\Documents\Test Data\TextScripts\output.mp4";
+            //string text = File.ReadAllText(textfilePath);
+            var tasks = new List<Func<Task>>() {
+            ()=> MoveHelpers.MoveMouth(this.pictureBox, this.pictBoxEyes)
+        };
 
-            double ScaleFactor = 0.3;
-            var tmr = new System.Windows.Forms.Timer();
+            var runningTasks = new List<Task>();
 
-            // Initialize video writer
-
-            // Start recording images
-            //ImageDisplay imageDisplay = new ImageDisplay(outputVideoFilePath);
-            //VideoWriter writer = imageDisplay.writer; // Sharing the writer,
-
-            //Thread imageDisplayThread = new Thread(imageDisplay.StartRecording);
-            //imageDisplayThread.Start();
-
-            // Read the text from the file
-            string text = File.ReadAllText(textfilePath);
-
-            // Split the text into words
-            string[] words = text.Split(new char[] { ' ', ' ', ' ', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-            // Iterate through each word
-            foreach (string word in words)
+            foreach(var taskFunc in tasks)
             {
-                // Iterate through each character in the word
-                foreach (char c in word)
-                {
-                    // Check if the character is a vowel
-                    // WriteImagePerVowel(ScaleFactor, writer, c);
-                    var bitmap = GetMouthImage(c);
-                    this.pictureBox.Image = bitmap;
-                    this.pictureBox.Refresh();
-                    // Adjust the delay to simulate the speed of human speech for characters
-                    Thread.Sleep(50);
-                }
-                // Adjust the delay to simulate the speed of human speech for words
-                Thread.Sleep(300); // Adjust this delay to simulate human speaking speed for words
+                runningTasks.Add(taskFunc());
             }
 
-            // Stop recording images
-            //imageDisplay.StopRecording();
-            //imageDisplayThread.Join();
+            //await Task.WhenAll(runningTasks);
 
-            // Release the video writer
-            // writer.Dispose();
+        }
+
+        private void pictBoxEyes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
