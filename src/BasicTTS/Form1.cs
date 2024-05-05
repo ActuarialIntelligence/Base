@@ -14,6 +14,7 @@ namespace BasicTTS
 {
     public partial class FormMain : Form
     {
+        bool Play = true;
         public FormMain()
         {
             InitializeComponent();
@@ -26,6 +27,9 @@ namespace BasicTTS
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            //2711, 1647
+            this.Size = new System.Drawing.Size(811, 550);
+
 
         }
 
@@ -34,14 +38,18 @@ namespace BasicTTS
             string textfilePath = @"C:\Users\Rajah\Documents\Test Data\TextScripts\input.txt";
             //string text = File.ReadAllText(textfilePath);
             var tasks = new List<Func<Task>>() {
-            ()=> MoveHelpers.GenerateFacialExpressionsBasedOnText(this.pictureBox, this.pictBoxEyes)
-        };
-
-            var runningTasks = new List<Task>();
-
-            foreach(var taskFunc in tasks)
+                ()=> MoveHelpers.GenerateFacialExpressionsBasedOnText(this.pictureBox, this.pictBoxEyes)
+             };
+            if (Play)
             {
-                runningTasks.Add(taskFunc());
+
+
+                var runningTasks = new List<Task>();
+
+                foreach (var taskFunc in tasks)
+                {
+                    runningTasks.Add(taskFunc());
+                }
             }
 
             //await Task.WhenAll(runningTasks);

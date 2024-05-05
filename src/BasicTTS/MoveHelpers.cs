@@ -29,6 +29,7 @@ namespace BasicTTS
             // Iterate through each word
             foreach (string word in words)
             {
+                Console.WriteLine(word + " ");
                 // Iterate through each character in the word
                 foreach (char c in word)
                 {
@@ -37,7 +38,7 @@ namespace BasicTTS
                     EyesBlink(pictureBoxApplicableEyes, c);
                      RandomlyMoveAngryEyes(pictureBoxApplicableEyes, c);
                     //character = c;
-
+                    
                 }
                 // Adjust the delay to simulate the speed of human speech for words
                 Thread.Sleep(6); // Adjust this delay to simulate human speaking speed for words
