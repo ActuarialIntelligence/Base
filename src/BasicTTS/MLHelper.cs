@@ -8,39 +8,62 @@ using Microsoft.ML.Data;
 public class InputData
 {
     [LoadColumn(0)]
-    public float Ip1 { get; set; }
+    public float Word { get; set; }
 
-    [LoadColumn(1)]
-    public float Ip2 { get; set; }
 
-    [LoadColumn(2)]
-    public float Ip3 { get; set; }
-
-    [LoadColumn(3)]
-    public float Ip4 { get; set; }
-
-    [LoadColumn(4), ColumnName("Label")]
-    public bool Fraud { get; set; }
+    [LoadColumn(1), ColumnName("Label")]
+    public bool Image { get; set; }
 }
 
 // Define a class to hold your prediction
 public class OutputData
 {
     [ColumnName("PredictedLabel")]
-    public bool Prediction { get; set; }
+    public bool Image { get; set; }
 }
 
 public class Predictor
 {
     public static string PredictMovement(InputData inputData)
     {
-        // Set paths for data and model
-        var dataPath = Path.Combine(Environment.CurrentDirectory, "Data", "input_data.csv");
-        var secondDataPath = Path.Combine(Environment.CurrentDirectory, "Data", "second_input_data.csv");
-        var modelPath = Path.Combine(Environment.CurrentDirectory, "Model", "trained_model.zip");
+        string modelPath;
 
+        modelPath = Path.Combine(Environment.CurrentDirectory, "Model", "trained_model.zip");
+        
         // Create a ML.NET context
         var mlContext = new MLContext();
+        // Reload the trained model
+        var reloadedModel = mlContext.Model.Load(modelPath, out var modelInputSchema);
+
+        // Load the second input data file (features only)
+        //var secondDataView = mlContext.Data.LoadFromTextFile<InputData>(
+        //    path: secondDataPath,
+        //    hasHeader: true,
+        //    separatorChar: ',');
+        var input = new InputData();
+        // Make predictions on the second input data
+        var predictions = mlContext.Model.CreatePredictionEngine<InputData, OutputData>(reloadedModel)
+            .Predict(input);
+
+        // Display predictions
+        Console.WriteLine("Predictions for the second input data:");
+        //foreach (var prediction in predictions)
+        //{
+        Console.WriteLine($"Prediction: {predictions.Image}");
+        //}
+        return predictions.Image.ToString();
+    }
+
+    public static void TrainAndSave(string modelPath)
+    {
+        var mlContext = new MLContext();
+        // Set paths for data and model
+        var dataPath = Path.Combine(Environment.CurrentDirectory, "Data", "input_data.csv");
+        //var secondDataPath = Path.Combine(Environment.CurrentDirectory, "Data", "second_input_data.csv");
+        modelPath = Path.Combine(Environment.CurrentDirectory, "Model", "trained_model.zip");
+
+        // Create a ML.NET context
+        mlContext = new MLContext();
 
         // Load data
         var dataView = mlContext.Data.LoadFromTextFile<InputData>(
@@ -66,26 +89,5 @@ public class Predictor
 
         // Save the trained model
         mlContext.Model.Save(model, trainData.Schema, modelPath);
-
-        // Reload the trained model
-        var reloadedModel = mlContext.Model.Load(modelPath, out var modelInputSchema);
-
-        // Load the second input data file (features only)
-        var secondDataView = mlContext.Data.LoadFromTextFile<InputData>(
-            path: secondDataPath,
-            hasHeader: true,
-            separatorChar: ',');
-        var input = new InputData();
-        // Make predictions on the second input data
-        var predictions = mlContext.Model.CreatePredictionEngine<InputData, OutputData>(reloadedModel)
-            .Predict(input);
-
-        // Display predictions
-        Console.WriteLine("Predictions for the second input data:");
-        //foreach (var prediction in predictions)
-        //{
-            Console.WriteLine($"Prediction: {predictions.Prediction}");
-        //}
-        return predictions.Prediction.ToString();
     }
 }
