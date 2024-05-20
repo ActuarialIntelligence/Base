@@ -71,7 +71,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::BasicTTS.Properties.Resources.CartmanDefault1;
+            this.BackgroundImage = global::BasicTTS.Properties.Resources.CartmanDefault2;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1921, 1186);
             this.Controls.Add(this.pictBoxEyes);
