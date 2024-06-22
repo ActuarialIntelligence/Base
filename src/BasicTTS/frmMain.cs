@@ -9,12 +9,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Vlc.DotNet.Forms;
 
 namespace BasicTTS
 {
     public partial class FormMain : Form
     {
         bool Play = true;
+        private VlcControl vlcControl;
         public FormMain()
         {
             InitializeComponent();
@@ -62,6 +64,11 @@ namespace BasicTTS
         }
 
         private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

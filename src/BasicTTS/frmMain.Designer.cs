@@ -1,4 +1,6 @@
-﻿namespace BasicTTS
+﻿using System.Windows.Forms;
+using Vlc.DotNet.Forms;
+namespace BasicTTS
 {
     partial class FormMain
     {
@@ -31,6 +33,7 @@
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.btnPlay = new System.Windows.Forms.Button();
             this.pictBoxEyes = new System.Windows.Forms.PictureBox();
+            this.pnlStream = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxEyes)).BeginInit();
             this.SuspendLayout();
@@ -67,6 +70,21 @@
             this.pictBoxEyes.TabStop = false;
             this.pictBoxEyes.Click += new System.EventHandler(this.pictBoxEyes_Click);
             // 
+            //VLC
+            //
+            this.vlcControl = new VlcControl();
+            this.vlcControl.Dock = DockStyle.Fill;
+            this.pnlStream.Controls.Add(this.vlcControl);
+            this.vlcControl.EndInit();
+            //
+            // pnlStream
+            // 
+            this.pnlStream.Location = new System.Drawing.Point(97, 146);
+            this.pnlStream.Name = "pnlStream";
+            this.pnlStream.Size = new System.Drawing.Size(863, 508);
+            this.pnlStream.TabIndex = 3;
+            this.pnlStream.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
@@ -74,6 +92,7 @@
             this.BackgroundImage = global::BasicTTS.Properties.Resources.CartmanDefault2;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1921, 1186);
+            this.Controls.Add(this.pnlStream);
             this.Controls.Add(this.pictBoxEyes);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.pictureBox);
@@ -92,6 +111,7 @@
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.PictureBox pictBoxEyes;
+        private System.Windows.Forms.Panel pnlStream;
     }
 }
 
