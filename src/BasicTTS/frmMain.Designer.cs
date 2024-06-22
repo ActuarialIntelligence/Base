@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using Vlc.DotNet.Forms;
 namespace BasicTTS
 {
@@ -30,12 +31,16 @@ namespace BasicTTS
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.btnPlay = new System.Windows.Forms.Button();
             this.pictBoxEyes = new System.Windows.Forms.PictureBox();
             this.pnlStream = new System.Windows.Forms.Panel();
+            this.vlcControl = new Vlc.DotNet.Forms.VlcControl();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxEyes)).BeginInit();
+            this.pnlStream.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.vlcControl)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -70,20 +75,27 @@ namespace BasicTTS
             this.pictBoxEyes.TabStop = false;
             this.pictBoxEyes.Click += new System.EventHandler(this.pictBoxEyes_Click);
             // 
-            //VLC
-            //
-            this.vlcControl = new VlcControl();
-            this.vlcControl.Dock = DockStyle.Fill;
-            this.pnlStream.Controls.Add(this.vlcControl);
-            this.vlcControl.EndInit();
-            //
             // pnlStream
             // 
+            this.pnlStream.Controls.Add(this.vlcControl);
             this.pnlStream.Location = new System.Drawing.Point(97, 146);
             this.pnlStream.Name = "pnlStream";
             this.pnlStream.Size = new System.Drawing.Size(863, 508);
             this.pnlStream.TabIndex = 3;
             this.pnlStream.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // vlcControl
+            // 
+            this.vlcControl.BackColor = System.Drawing.Color.Black;
+            this.vlcControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vlcControl.Location = new System.Drawing.Point(0, 0);
+            this.vlcControl.Name = "vlcControl";
+            this.vlcControl.Size = new System.Drawing.Size(863, 508);
+            this.vlcControl.Spu = -1;
+            this.vlcControl.TabIndex = 0;
+            this.vlcControl.VlcLibDirectory = ((System.IO.DirectoryInfo)(resources.GetObject("vlcControl.VlcLibDirectory")));
+            this.vlcControl.VlcMediaplayerOptions = null;
+            this.vlcControl.Click += new System.EventHandler(this.vlcControl_Click);
             // 
             // FormMain
             // 
@@ -102,6 +114,8 @@ namespace BasicTTS
             this.Load += new System.EventHandler(this.FormMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxEyes)).EndInit();
+            this.pnlStream.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.vlcControl)).EndInit();
             this.ResumeLayout(false);
 
         }

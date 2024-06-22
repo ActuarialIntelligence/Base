@@ -53,6 +53,11 @@ namespace BasicTTS
                     runningTasks.Add(taskFunc());
                 }
             }
+            // https://www.youtube.com/watch?v=pVgSY-i2L_w
+
+            string mediaPath = @"C: \Users\Rajah\Videos\CartmanVids\Cartman1.mp4"; // or "C:\\path\\to\\file.mp4"
+            this.vlcControl.SetMedia(new Uri(mediaPath));
+            this.vlcControl.Play();
 
             //await Task.WhenAll(runningTasks);
 
@@ -71,6 +76,15 @@ namespace BasicTTS
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void vlcControl_Click(object sender, EventArgs e)
+        {
+            // https://www.youtube.com/watch?v=pVgSY-i2L_w
+
+            string mediaPath = "C:\\Users\\Rajah\\Videos\\CartmanVids\\Cartman1.mp4"; // or "C:\\path\\to\\file.mp4"
+            this.vlcControl.SetMedia(new Uri(mediaPath));
+            this.vlcControl.Play();
         }
     }
 }
