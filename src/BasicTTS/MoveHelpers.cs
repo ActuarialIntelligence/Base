@@ -11,11 +11,12 @@ namespace BasicTTS
     public static class MoveHelpers
     {
 
-        public static async Task GenerateFacialExpressionsBasedOnText( PictureBox pictureBoxApplicableMouth, PictureBox pictureBoxApplicableEyes)
+        public static async Task GenerateFacialExpressionsBasedOnText( PictureBox pictureBoxApplicableMouth, PictureBox pictureBoxApplicableEyes,
+            string inputTextPath)
         {
 
-            string textfilePath = @"C:\Users\Rajah\Documents\Test Data\TextScripts\input.txt";
-            string outputVideoFilePath = @"C:\Users\Rajah\Documents\Test Data\TextScripts\output.mp4";
+            string textfilePath = inputTextPath;
+            
 
             double ScaleFactor = 0.3;
             var tmr = new System.Windows.Forms.Timer();

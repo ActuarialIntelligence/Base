@@ -35,17 +35,15 @@ namespace BasicTTS
 
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private async void btnPlay_Click(object sender, EventArgs e)
         {
-            string textfilePath = @"C:\Users\Rajah\Documents\Test Data\TextScripts\input.txt";
+            string textfilePath = txtTalkPath.Text;
             //string text = File.ReadAllText(textfilePath);
             var tasks = new List<Func<Task>>() {
-                ()=> MoveHelpers.GenerateFacialExpressionsBasedOnText(this.pictureBox, this.pictBoxEyes)
+                ()=> MoveHelpers.GenerateFacialExpressionsBasedOnText(this.pictureBox, this.pictBoxEyes,textfilePath)
              };
             if (Play)
             {
-
-
                 var runningTasks = new List<Task>();
 
                 foreach (var taskFunc in tasks)
@@ -53,14 +51,6 @@ namespace BasicTTS
                     runningTasks.Add(taskFunc());
                 }
             }
-            // https://www.youtube.com/watch?v=pVgSY-i2L_w
-
-            string mediaPath = @"C: \Users\Rajah\Videos\CartmanVids\Cartman1.mp4"; // or "C:\\path\\to\\file.mp4"
-            this.vlcControl.SetMedia(new Uri(mediaPath));
-            this.vlcControl.Play();
-
-            //await Task.WhenAll(runningTasks);
-
         }
 
         private void pictBoxEyes_Click(object sender, EventArgs e)
@@ -80,11 +70,21 @@ namespace BasicTTS
 
         private void vlcControl_Click(object sender, EventArgs e)
         {
-            // https://www.youtube.com/watch?v=pVgSY-i2L_w
 
-            string mediaPath = "C:\\Users\\Rajah\\Videos\\CartmanVids\\Cartman1.mp4"; // or "C:\\path\\to\\file.mp4"
+        }
+
+        private void btnPanel_Click(object sender, EventArgs e)
+        {
+            // https://www.youtube.com/watch?v=pVgSY-i2L_w
+           
+            string mediaPath = txtPnlContentMP4Path.Text;
             this.vlcControl.SetMedia(new Uri(mediaPath));
             this.vlcControl.Play();
+        }
+
+        private void txtTalkPath_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

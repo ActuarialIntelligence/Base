@@ -37,6 +37,9 @@ namespace BasicTTS
             this.pictBoxEyes = new System.Windows.Forms.PictureBox();
             this.pnlStream = new System.Windows.Forms.Panel();
             this.vlcControl = new Vlc.DotNet.Forms.VlcControl();
+            this.button1 = new System.Windows.Forms.Button();
+            this.txtTalkPath = new System.Windows.Forms.TextBox();
+            this.txtPnlContentMP4Path = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxEyes)).BeginInit();
             this.pnlStream.SuspendLayout();
@@ -62,7 +65,7 @@ namespace BasicTTS
             this.btnPlay.TabIndex = 1;
             this.btnPlay.Text = "Play";
             this.btnPlay.UseVisualStyleBackColor = true;
-            this.btnPlay.Click += new System.EventHandler(this.button1_Click);
+            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
             // pictBoxEyes
             // 
@@ -87,6 +90,7 @@ namespace BasicTTS
             // vlcControl
             // 
             this.vlcControl.BackColor = System.Drawing.Color.Black;
+            this.vlcControl.BackgroundImage = global::BasicTTS.Properties.Resources.back;
             this.vlcControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.vlcControl.Location = new System.Drawing.Point(0, 0);
             this.vlcControl.Name = "vlcControl";
@@ -97,6 +101,34 @@ namespace BasicTTS
             this.vlcControl.VlcMediaplayerOptions = null;
             this.vlcControl.Click += new System.EventHandler(this.vlcControl_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(175, -2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(213, 62);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Panel Play";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnPanel_Click);
+            // 
+            // txtTalkPath
+            // 
+            this.txtTalkPath.Location = new System.Drawing.Point(419, -2);
+            this.txtTalkPath.Name = "txtTalkPath";
+            this.txtTalkPath.Size = new System.Drawing.Size(764, 38);
+            this.txtTalkPath.TabIndex = 5;
+            this.txtTalkPath.Text = "C:\\Users\\Rajah\\Documents\\Test Data\\TextScripts\\input.txt";
+            this.txtTalkPath.TextChanged += new System.EventHandler(this.txtTalkPath_TextChanged);
+            // 
+            // txtPnlContentMP4Path
+            // 
+            this.txtPnlContentMP4Path.Location = new System.Drawing.Point(448, 33);
+            this.txtPnlContentMP4Path.Name = "txtPnlContentMP4Path";
+            this.txtPnlContentMP4Path.Size = new System.Drawing.Size(764, 38);
+            this.txtPnlContentMP4Path.TabIndex = 6;
+            this.txtPnlContentMP4Path.Text = "C:\\Users\\Rajah\\Videos\\CartmanVids\\Cartman1.mp4";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
@@ -104,10 +136,14 @@ namespace BasicTTS
             this.BackgroundImage = global::BasicTTS.Properties.Resources.CartmanDefault2;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1921, 1186);
+            this.Controls.Add(this.txtPnlContentMP4Path);
+            this.Controls.Add(this.txtTalkPath);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.pnlStream);
             this.Controls.Add(this.pictBoxEyes);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.pictureBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
@@ -117,6 +153,7 @@ namespace BasicTTS
             this.pnlStream.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.vlcControl)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -126,6 +163,9 @@ namespace BasicTTS
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.PictureBox pictBoxEyes;
         private System.Windows.Forms.Panel pnlStream;
+        private Button button1;
+        private TextBox txtTalkPath;
+        private TextBox txtPnlContentMP4Path;
     }
 }
 
