@@ -40,10 +40,12 @@ namespace BasicTTS
             this.button1 = new System.Windows.Forms.Button();
             this.txtTalkPath = new System.Windows.Forms.TextBox();
             this.txtPnlContentMP4Path = new System.Windows.Forms.TextBox();
+            this.pctrFace = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxEyes)).BeginInit();
             this.pnlStream.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vlcControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrFace)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -123,11 +125,24 @@ namespace BasicTTS
             // 
             // txtPnlContentMP4Path
             // 
-            this.txtPnlContentMP4Path.Location = new System.Drawing.Point(448, 33);
+            this.txtPnlContentMP4Path.Location = new System.Drawing.Point(419, 42);
             this.txtPnlContentMP4Path.Name = "txtPnlContentMP4Path";
             this.txtPnlContentMP4Path.Size = new System.Drawing.Size(764, 38);
             this.txtPnlContentMP4Path.TabIndex = 6;
             this.txtPnlContentMP4Path.Text = "C:\\Users\\Rajah\\Videos\\CartmanVids\\Cartman1.mp4";
+            // 
+            // pctrFace
+            // 
+            this.pctrFace.BackColor = System.Drawing.Color.Transparent;
+            this.pctrFace.Image = global::BasicTTS.Properties.Resources.CartmanDefaultFace;
+            this.pctrFace.Location = new System.Drawing.Point(662, 398);
+            this.pctrFace.Name = "pctrFace";
+            this.pctrFace.Size = new System.Drawing.Size(597, 391);
+            this.pctrFace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pctrFace.TabIndex = 7;
+            this.pctrFace.TabStop = false;
+            this.pctrFace.Visible = false;
+            this.pctrFace.Paint += new System.Windows.Forms.PaintEventHandler(this.PctrFace_Paint);
             // 
             // FormMain
             // 
@@ -136,6 +151,7 @@ namespace BasicTTS
             this.BackgroundImage = global::BasicTTS.Properties.Resources.CartmanDefault2;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1921, 1186);
+            this.Controls.Add(this.pctrFace);
             this.Controls.Add(this.txtPnlContentMP4Path);
             this.Controls.Add(this.txtTalkPath);
             this.Controls.Add(this.button1);
@@ -143,6 +159,7 @@ namespace BasicTTS
             this.Controls.Add(this.pictBoxEyes);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.pictureBox);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -152,6 +169,7 @@ namespace BasicTTS
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxEyes)).EndInit();
             this.pnlStream.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.vlcControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrFace)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,6 +184,7 @@ namespace BasicTTS
         private Button button1;
         private TextBox txtTalkPath;
         private TextBox txtPnlContentMP4Path;
+        private PictureBox pctrFace;
     }
 }
 

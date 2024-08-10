@@ -170,6 +170,15 @@
   <ItemGroup>
     <None Include="Resources\back.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CartmanDefault.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CartmanFace.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CartmanDefaultFace.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

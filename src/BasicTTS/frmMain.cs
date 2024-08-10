@@ -17,9 +17,54 @@ namespace BasicTTS
     {
         bool Play = true;
         private VlcControl vlcControl;
+        private float rotationAngle = 0;
+
         public FormMain()
         {
             InitializeComponent();
+            // Hook up the Paint event for pctrFace (formerly pbox3)
+            pctrFace.Paint += PctrFace_Paint;
+        }
+
+        private void RotateBoxes(float angle)
+        {
+            Point center = new Point(pctrFace.Width / 2, pctrFace.Height / 2);
+
+            Point relativePictBoxEyes = new Point(pictBoxEyes.Left + pictBoxEyes.Width / 2 - center.X, pictBoxEyes.Top + pictBoxEyes.Height / 2 - center.Y);
+            Point relativePictureBox = new Point(pictureBox.Left + pictureBox.Width / 2 - center.X, pictureBox.Top + pictureBox.Height / 2 - center.Y);
+
+            Point newPictBoxEyesCenter = RotatePoint(relativePictBoxEyes, center, angle);
+            Point newPictureBoxCenter = RotatePoint(relativePictureBox, center, angle);
+
+            pictBoxEyes.Left = newPictBoxEyesCenter.X - pictBoxEyes.Width / 2;
+            pictBoxEyes.Top = newPictBoxEyesCenter.Y - pictBoxEyes.Height / 2;
+
+            pictureBox.Left = newPictureBoxCenter.X - pictureBox.Width / 2;
+            pictureBox.Top = newPictureBoxCenter.Y - pictureBox.Height / 2;
+        }
+
+        private Point RotatePoint(Point point, Point center, float angle)
+        {
+            double radians = angle * Math.PI / 180;
+            double cos = Math.Cos(radians);
+            double sin = Math.Sin(radians);
+
+            int x = center.X + (int)(cos * (point.X - center.X) - sin * (point.Y - center.Y));
+            int y = center.Y + (int)(sin * (point.X - center.X) + cos * (point.Y - center.Y));
+
+            return new Point(x, y);
+        }
+
+        private void PctrFace_Paint(object sender, PaintEventArgs e)
+        {
+            //RotateBoxes(rotationAngle);
+        }
+
+        // Method to update the rotation angle and refresh pctrFace
+        private void UpdateRotation(float angle)
+        {
+            rotationAngle = angle;
+            pctrFace.Invalidate(); // This will trigger the Paint event
         }
 
         private void pictureBox_Click(object sender, EventArgs e)
@@ -42,15 +87,15 @@ namespace BasicTTS
             var tasks = new List<Func<Task>>() {
                 ()=> MoveHelpers.GenerateFacialExpressionsBasedOnText(this.pictureBox, this.pictBoxEyes,textfilePath)
              };
-            if (Play)
-            {
-                var runningTasks = new List<Task>();
+            //RotateBoxes(45);
+            var runningTasks = new List<Task>();
 
                 foreach (var taskFunc in tasks)
                 {
                     runningTasks.Add(taskFunc());
                 }
-            }
+
+
         }
 
         private void pictBoxEyes_Click(object sender, EventArgs e)
