@@ -85,7 +85,7 @@ namespace BasicTTS
             string textfilePath = txtTalkPath.Text;
             //string text = File.ReadAllText(textfilePath);
             var tasks = new List<Func<Task>>() {
-                ()=> MoveHelpers.GenerateFacialExpressionsBasedOnText(this.pictureBox, this.pictBoxEyes,textfilePath)
+                ()=> MoveHelpers.GenerateFacialExpressionsBasedOnText(this,this.pictureBox, this.pictBoxEyes,textfilePath)
              };
             //RotateBoxes(45);
             var runningTasks = new List<Task>();

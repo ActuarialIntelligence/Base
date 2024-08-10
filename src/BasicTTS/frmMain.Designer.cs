@@ -63,7 +63,7 @@ namespace BasicTTS
             // 
             this.btnPlay.Location = new System.Drawing.Point(-2, -2);
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(152, 62);
+            this.btnPlay.Size = new System.Drawing.Size(196, 62);
             this.btnPlay.TabIndex = 1;
             this.btnPlay.Text = "Play";
             this.btnPlay.UseVisualStyleBackColor = true;
@@ -105,7 +105,7 @@ namespace BasicTTS
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(175, -2);
+            this.button1.Location = new System.Drawing.Point(200, -2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(213, 62);
             this.button1.TabIndex = 4;
@@ -148,7 +148,7 @@ namespace BasicTTS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::BasicTTS.Properties.Resources.CartmanDefault2;
+            this.BackgroundImage = global::BasicTTS.Properties.Resources.CartmanDefaultBodyMe;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1921, 1186);
             this.Controls.Add(this.pctrFace);

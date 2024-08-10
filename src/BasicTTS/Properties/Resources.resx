@@ -130,13 +130,28 @@
   <data name="CartmanFace" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CartmanFace.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CartmanDefaultFace" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CartmanDefaultFace.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="CartmanDefault3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CartmanDefault.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CartmanDefault1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CartmanDefault1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CartmanDefaultFace" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CartmanDefaultFace.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CartmanDefaultBodyEff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CartmanDefaultBodyEff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CartmanDefaultBodyMe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CartmanDefaultBodyMe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CartmanDefaultBodyThere" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CartmanDefaultBodyThere.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CartmanDefaultBodyWait" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CartmanDefaultBodyWait.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CartmanDefaultBodyYou" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CartmanDefaultBodyYou.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -113,6 +113,56 @@ namespace BasicTTS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CartmanDefaultBodyEff {
+            get {
+                object obj = ResourceManager.GetObject("CartmanDefaultBodyEff", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CartmanDefaultBodyMe {
+            get {
+                object obj = ResourceManager.GetObject("CartmanDefaultBodyMe", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CartmanDefaultBodyThere {
+            get {
+                object obj = ResourceManager.GetObject("CartmanDefaultBodyThere", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CartmanDefaultBodyWait {
+            get {
+                object obj = ResourceManager.GetObject("CartmanDefaultBodyWait", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CartmanDefaultBodyYou {
+            get {
+                object obj = ResourceManager.GetObject("CartmanDefaultBodyYou", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CartmanDefaultFace {
             get {
                 object obj = ResourceManager.GetObject("CartmanDefaultFace", resourceCulture);

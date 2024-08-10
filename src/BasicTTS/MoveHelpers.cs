@@ -11,7 +11,7 @@ namespace BasicTTS
     public static class MoveHelpers
     {
 
-        public static async Task GenerateFacialExpressionsBasedOnText( PictureBox pictureBoxApplicableMouth, PictureBox pictureBoxApplicableEyes,
+        public static async Task GenerateFacialExpressionsBasedOnText(Form form, PictureBox pictureBoxApplicableMouth, PictureBox pictureBoxApplicableEyes,
             string inputTextPath)
         {
 
@@ -37,7 +37,7 @@ namespace BasicTTS
 
                     MouthMove(pictureBoxApplicableMouth, c); 
                     EyesBlink(pictureBoxApplicableEyes, c);
-                     RandomlyMoveAngryEyes(pictureBoxApplicableEyes, c);
+                     RandomlyMoveAngryEyes(form,pictureBoxApplicableEyes, word, c);
                     //character = c;
                     
                 }
@@ -65,24 +65,60 @@ namespace BasicTTS
             if (c == 'o')
             {
                 var bitmap = FormMainHelpers.GetBlinkImage('!');
-                Thread.Sleep(5);
+                Thread.Sleep(2);
             }
 
         }
 
 
-        private static async Task RandomlyMoveAngryEyes(PictureBox pictureBoxApplicable, char c)
+        private static async Task RandomlyMoveAngryEyes(Form form, PictureBox pictureBoxApplicable, string word, char c)
         {
             // Check if the character is a vowel
 
             var bitmap = FormMainHelpers.GetRandomAngryEyeMoveImage(c);
             pictureBoxApplicable.Image = bitmap;
             pictureBoxApplicable.Refresh();
-
+            switch (word)
+            {
+                case "fuck":
+                    form.BackgroundImage = Properties.Resources.CartmanDefaultBodyEff;
+                    form.BackgroundImageLayout = ImageLayout.Stretch;
+                    form.Refresh();
+                    break;
+                case "you":
+                    form.BackgroundImage = Properties.Resources.CartmanDefaultBodyYou;
+                    form.BackgroundImageLayout = ImageLayout.Stretch;
+                    form.Refresh();
+                    break;
+                case "me":
+                    form.BackgroundImage = Properties.Resources.CartmanDefaultBodyMe;
+                    form.BackgroundImageLayout = ImageLayout.Stretch;
+                    form.Refresh();
+                    break;
+                case "them":
+                    form.BackgroundImage = Properties.Resources.CartmanDefaultBodyThere;
+                    form.BackgroundImageLayout = ImageLayout.Stretch;
+                    break;
+                case "there":
+                    form.BackgroundImage = Properties.Resources.CartmanDefaultBodyThere;
+                    form.BackgroundImageLayout = ImageLayout.Stretch;
+                    form.Refresh();
+                    break;
+                case "these":
+                    form.BackgroundImage = Properties.Resources.CartmanDefaultBodyThere;
+                    form.BackgroundImageLayout = ImageLayout.Stretch;
+                    form.Refresh();
+                    break;
+                case "wait":
+                    form.BackgroundImage = Properties.Resources.CartmanDefaultBodyWait;
+                    form.BackgroundImageLayout = ImageLayout.Stretch;
+                    form.Refresh();
+                    break;
+            }
             Thread.Sleep(2);
         }
 
-        public static async Task MoveWorriedEyesRandomly( PictureBox pictureBoxApplicable)
+        public static async Task MoveWorriedEyesRandomly( Form form, PictureBox pictureBoxApplicable)
         {
             string textfilePath = @"C:\Users\Rajah\Documents\Test Data\TextScripts\input.txt";
             var tmr = new System.Windows.Forms.Timer();
@@ -96,6 +132,39 @@ namespace BasicTTS
             foreach (string word in words)
             {
                 // Iterate through each character in the word
+
+                switch(word)
+                {
+                    case "fuck":
+                        form.BackgroundImage = Properties.Resources.CartmanDefaultBodyEff;
+                        form.BackgroundImageLayout = ImageLayout.Stretch;
+                        break;
+                    case "you":
+                        form.BackgroundImage = Properties.Resources.CartmanDefaultBodyYou;
+                        form.BackgroundImageLayout = ImageLayout.Stretch;
+                        break;
+                    case "me":
+                        form.BackgroundImage = Properties.Resources.CartmanDefaultBodyMe;
+                        form.BackgroundImageLayout = ImageLayout.Stretch;
+                        break;
+                    case "them":
+                        form.BackgroundImage = Properties.Resources.CartmanDefaultBodyThere;
+                        form.BackgroundImageLayout = ImageLayout.Stretch;
+                        break;
+                    case "there":
+                        form.BackgroundImage = Properties.Resources.CartmanDefaultBodyThere;
+                        form.BackgroundImageLayout = ImageLayout.Stretch;
+                        break;
+                    case "these":
+                        form.BackgroundImage = Properties.Resources.CartmanDefaultBodyThere;
+                        form.BackgroundImageLayout = ImageLayout.Stretch;
+                        break;
+                    case "wait":
+                        form.BackgroundImage = Properties.Resources.CartmanDefaultBodyWait;
+                        form.BackgroundImageLayout = ImageLayout.Stretch;
+                        break;
+                }
+
                 foreach (char c in word)
                 {
                     // Check if the character is a vowel
@@ -108,5 +177,6 @@ namespace BasicTTS
             }
 
         }
+
     }
 }

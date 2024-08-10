@@ -179,6 +179,21 @@
   <ItemGroup>
     <None Include="Resources\CartmanDefaultFace.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CartmanDefaultBodyEff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CartmanDefaultBodyMe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CartmanDefaultBodyThere.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CartmanDefaultBodyWait.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CartmanDefaultBodyYou.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
